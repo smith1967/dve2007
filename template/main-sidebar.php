@@ -31,7 +31,7 @@ $menu = Array(
             ),
             'list' => array(
                 'title' => 'รายชื่อ',
-                'url' => 'app/school/list',
+                'url' => 'app/school/list-data',
                 'cond' => is_auth(),
             ),
             'insert' => array(
