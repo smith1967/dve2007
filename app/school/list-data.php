@@ -8,7 +8,10 @@ $title = "ข้อมูลสถานศึกษา";
 $active = 'school';
 $subactive = 'list-data';
 $list_school_data = list_school_data();
-var_dump($list_school_data);
+//var_dump($list_school_data);
+//die();
+if(is_null($list_school_data))
+    redirect('app/school/edit');
 // is_admin('home/index');
 ?>
 <?php require_once 'template/header.php'; ?>
@@ -52,39 +55,39 @@ var_dump($list_school_data);
                             <tbody>
                                 <tr>
                                     <td>รหัส</td>
-                                    <td> <?php echo $row['school_id']; ?></td>
+                                    <td> <?php echo $list_school_data['school_id']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>ชื่อสถานศึกษา</td>
-                                    <td> <?php echo $row['school_name']; ?></td>
+                                    <td> <?php echo $list_school_data['school_name']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>ประเภทสถานศึกษา</td>
-                                    <td> <?php echo $row['school_type_id']; ?></td>
+                                    <td> <?php echo $list_school_data['school_type_id']; ?></td>
                                 </tr>
                                 <tr>
                                     <td>ที่อยู่</td>
-                                    <td> <?php echo $row['address_no']; ?> </td>
+                                    <td> <?php echo $list_school_data['address_no']; ?> </td>
                                 </tr>
                                 <tr>
                                     <td>ถนน</td>
-                                    <td> <?php echo $row['road']; ?> </td>
+                                    <td> <?php echo $list_school_data['road']; ?> </td>
                                 </tr>
                                 <tr>
                                     <td>จังหวัด</td>
                                     <td> <?php
-                                        echo $row['province_id'];
+                                        echo $list_school_data['province_id'];
                                         echo "(";
-                                        echo $row['PROVINCE_NAME'];
+                                        echo $list_school_data['PROVINCE_NAME'];
                                         echo ")";
                                         ?> </td>
                                 </tr>
                                 <tr>
                                     <td>อำเภอ</td>
                                     <td> <?php
-                                        echo $row['aumphur_id'];
+                                        echo $list_school_data['aumphur_id'];
                                         echo "(";
-                                        echo $row['AMPHUR_NAME'];
+                                        echo $list_school_data['AMPHUR_NAME'];
                                         echo ")";
                                         ?> </td>
                                 </tr>
@@ -92,47 +95,47 @@ var_dump($list_school_data);
                                 <tr>
                                     <td>ตำบล</td>
                                     <td> <?php
-                                        echo $row['district_id'];
+                                        echo $list_school_data['district_id'];
                                         echo "(";
-                                        echo $row['DISTRICT_NAME'];
+                                        echo $list_school_data['DISTRICT_NAME'];
                                         echo ")";
                                         ?> </td>
 
                                 <tr>
                                     <td>รหัสไปรษณีย์</td>
-                                    <td> <?php echo $row['postcode']; ?> </td>
+                                    <td> <?php echo $list_school_data['postcode']; ?> </td>
                                 </tr>
                                 <tr>
                                     <td>โทรศัพท์</td>
-                                    <td> <?php echo $row['phone']; ?> </td>
+                                    <td> <?php echo $list_school_data['phone']; ?> </td>
                                 </tr>
                                 <tr>
                                     <td>โทรสาร</td>
-                                    <td> <?php echo $row['fax']; ?> </td>
+                                    <td> <?php echo $list_school_data['fax']; ?> </td>
                                 </tr>
                                 <tr>
                                     <td>ภาค</td>
-                                    <td> <?php echo $row['zone']; ?> </td>
+                                    <td> <?php echo $list_school_data['zone']; ?> </td>
                                 </tr>
                                 <tr>
                                     <td>พิกัด</td>
-                                    <td> <?php echo $row['location']; ?> </td>
+                                    <td> <?php echo $list_school_data['location']; ?> </td>
                                 </tr>
                                 <tr>
                                     <td>สังกัดหน่วยงาน</td>
-                                    <td> <?php echo $row['catagory']; ?> </td>
+                                    <td> <?php echo $list_school_data['catagory']; ?> </td>
                                 </tr>
                                 <tr>
                                     <td>สังกัดหน่วยงาน</td>
                                     <td> <?php
-                                        echo $row['institute_id'];
+                                        echo $list_school_data['institute_id'];
                                         echo "(";
-                                        echo $row['institute_name'];
+                                        echo $list_school_data['institute_name'];
                                         echo ")";
                                         ?> </td>
 
                                 <tr>
-                                    <td>  <a href="index.php?school/edit-data-school&action=edit&school_id=<?php echo $school_id ?>">แก้ไขข้อมูล<span class="glyphicon glyphicon-pencil"></span></a> </td>
+                                    <td>  <a href="index.php?app/school/edit-data">แก้ไขข้อมูล<span class="glyphicon glyphicon-pencil"></span></a> </td>
                                 </tr>  
 
                             </tbody>
@@ -321,8 +324,8 @@ function list_school_data() {
             sh.institute_id = ins.institute_id AND 
             sh.school_id = '$school_id' ";
     $result = mysqli_query($db, $sql);
-    echo $sql;
-    die();
+//    echo $sql;
+//    die();
     if(mysqli_num_rows($result) > 0){
         $row = mysqli_fetch_array($result);
     }else{
@@ -330,7 +333,7 @@ function list_school_data() {
             set_err("เกิดข้อผิดพลาด".mysqli_error($db));
         }
         set_err("ไม่พบข้อมูล");
-        redirect();
+//        redirect();
     }
     return $row;
 }
