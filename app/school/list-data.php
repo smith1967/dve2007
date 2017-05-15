@@ -11,7 +11,7 @@ $list_school_data = list_school_data();
 //var_dump($list_school_data);
 //die();
 if(is_null($list_school_data))
-    redirect('app/school/edit');
+    redirect('app/school/edit-data');
 // is_admin('home/index');
 ?>
 <?php require_once 'template/header.php'; ?>
