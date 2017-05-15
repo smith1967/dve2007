@@ -138,17 +138,17 @@ if(is_null($list_school_data))
                                     <td>  <a href="index.php?app/school/edit-data">แก้ไขข้อมูล<span class="glyphicon glyphicon-pencil"></span></a> </td>
                                 </tr>  
 
-                            </tbody>
-                        </table>
-                    </div>            
-                </div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
             <!-- /.box -->
 
         </section>
-        <!-- /.content -->
+        <!--
+                            </tbody>
+                        </table>
+                    </div>            
+                </div> /.content -->
     </div>
     <!-- /.content-wrapper -->
 <?php require_once 'template/main-footer.php'; ?>    
