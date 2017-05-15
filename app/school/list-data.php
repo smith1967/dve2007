@@ -137,6 +137,8 @@ if(is_null($list_school_data))
                                 <tr>
                                     <td>  <a href="index.php?app/school/edit-data">แก้ไขข้อมูล<span class="glyphicon glyphicon-pencil"></span></a> </td>
                                 </tr>  
+                        </table>
+                    </div>
 
                 <!-- /.box-body -->
             </div>
