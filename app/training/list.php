@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
-$title = "การฝึกงาน";
+$title = "การฝึกอาชีพ";
 $active = 'training';
 $subactive = 'list';
 $school_id = $_SESSION['user']['school_id'];
@@ -41,12 +41,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                รายการฝึกงาน
-                <small>ฝึกงาน</small>
+                รายการฝึกอาชีพ
+                <small>ฝึกอาชีพ</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-                <li><a href="#">ฝึกงาน</a></li>
+                <li><a href="#">ฝึกอาชีพ</a></li>
                 <li class="active">รายการ</li>
             </ol>
         </section>
@@ -58,7 +58,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
             <div class="box">
                 <?php show_message() ?> 
                 <div class="box-header">
-                    <h3 class="box-title">รายการฝึกงาน</h3>
+                    <h3 class="box-title">รายการฝึกอาชีพ</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -67,7 +67,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                             <tr>
                                 <th>รหัสการฝึกอาชีพ</th>
                                 <th>รหัสนักศึกษา</th>
-                                <th>รหัสนักศึกษา</th>
+                                <th>ชื่อนักศึกษา</th>
                                 <th>ชื่อสถานประกอบการ</th>
                                 <th>สถานศึกษา</th>
                                 <th>ชื่อสาขางาน</th>
@@ -106,7 +106,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                             <tr>
                                 <th>รหัสการฝึกอาชีพ</th>
                                 <th>รหัสนักศึกษา</th>
-                                <th>รหัสนักศึกษา</th>
+                                <th>ชื่อนักศึกษา</th>
                                 <th>ชื่อสถานประกอบการ</th>
                                 <th>สถานศึกษา</th>
                                 <th>ชื่อสาขางาน</th>

@@ -43,7 +43,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                     <table id="data" class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>รหัสครูฝึก</th>
+                                <th>ลำดับ</th>
                                 <th>ชื่อครูฝึก</th>
                                 <th>เบอร์โทรศัพท์</th>
                                 <th>วุฒิการศึกษาสูงสุด</th>
@@ -52,13 +52,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                         </thead>
                         <tbody>
                             <?php
+                            $count = 1;
                             foreach ($trainerlist as $trainer) :
                                 ?>                            
                                 <tr>
-                                    <td><?php echo $trainer['trainer_id']; ?></td>
+                                    <td><?php echo $count++; ?></td>
                                     <td><?php echo $trainer['trainer_name']; ?></td>
                                     <td><?php echo $trainer['phone']; ?></td>
-                                    <td><?php echo $trainer['educational_id']; ?></td>
+                                    <td><?php echo $trainer['educational_name']; ?></td>
                                     <td class="text-center">
                                         <a href="<?php echo site_url('app/trainer/list') . '&action=delete&trainer_id=' . $trainer['trainer_id']; ?>" class="delete"><i class="fa fa-remove"></i></a> | 
                                         <a href="<?php echo site_url('app/trainer/edit') . '&action=edit&trainer_id=' . $trainer['trainer_id']; ?>" ><i class="fa fa-edit"></i></a>
@@ -71,7 +72,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                         </tbody>
                         <tfoot>
                             <tr>
-                                <th>รหัสครูฝึก</th>
+                                <th>ลำดับ</th>
                                 <th>ชื่อครูฝึก</th>
                                 <th>เบอร์โทรศัพท์</th>
                                 <th>วุฒิการศึกษาสูงสุด</th>
@@ -123,7 +124,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 function get_trainer() {
     global $db;
 //    $start = $page * $limit;
-    $query = "SELECT * FROM trainer ORDER BY trainer_id ASC;";
+    $query = "SELECT t.*,e.educational_name FROM trainer As t,educational As e WHERE t.educational_id = e.educational_id ORDER BY trainer_id ASC;";
     $result = mysqli_query($db, $query);
     $trainerlist = array();
     while ($row = mysqli_fetch_assoc($result)) {

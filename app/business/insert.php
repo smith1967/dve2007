@@ -488,5 +488,5 @@ function do_insert() {
     } else {
         set_err('ไม่สามารถเพิ่มข้อมูล ' . mysqli_error($db));
     }
-    redirect('business/list-business');
+    redirect('app/business/insert');
 }

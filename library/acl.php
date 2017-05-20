@@ -55,8 +55,11 @@ class acl {
         $url_list = array(
             'app/home/school_staff',
             'app/business/list',
+            'app/school/list-data',
+            'app/school/edit-data',
             'app/business/edit',
             "app/business/insert",
+            'app/student/list',
             'app/student/check-data',
             'app/student/import-std',
             'app/student/import-dvt-student',
@@ -65,6 +68,9 @@ class acl {
             'app/student/file-manager',
             'app/student/check-data',
             'app/do_business_vg/list-do_business_vg',
+            'app/trainer/list',
+            'app/trainer/insert',
+            'app/trainer/edit',
             'app/training/list',
             'app/training/insert',
             'app/training/edit'

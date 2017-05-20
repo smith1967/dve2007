@@ -1,7 +1,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="index2.html" class="logo">
+    <a href="<?php echo site_url(); ?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
@@ -212,8 +212,12 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="dist/img/user9-160x160.jpg" class="user-image" alt="User Image">
+                <?php if(is_auth()) : ?>
+              <img src="upload/user-images/noImage.png" class="user-image" alt="User Image">
               <span class="hidden-xs"><?php echo $_SESSION['user']['fname']; ?></span>
+                <?php else: ?>
+              <img src="upload/user-images/noImage1.png" class="user-image" alt="User Image">              
+              <?php endif; ?>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
