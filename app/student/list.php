@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
-$title = "student";
+$title = "ข้อมูลนักศึกษา";
 $active = 'student';
 $subactive = 'list';
 //is_admin('home/index');

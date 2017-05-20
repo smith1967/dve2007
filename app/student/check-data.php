@@ -181,12 +181,12 @@ function do_transfer_std($stdfile) {
 
     if (mysqli_affected_rows($db)) {
         set_info('โอนข้อมูลนักเรียนทั้งหมด ใส่ตารางชั่วคราวจำนวน ' . $count2. ' รายการ');
-        redirect('student/import-std');
+        redirect('app/student/import-std');
     } else {
         set_err("การโอนข้อมูลใส่ตารางชั่วคราวผิดพลาด : " . mysqli_error($db));
         //die();
     }
-    redirect('app/student/file-manager');
+    redirect('app/student/import-std');
 }
 
 //function do_transfer_users($usersfile) {

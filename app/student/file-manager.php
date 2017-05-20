@@ -24,7 +24,19 @@ if (isset($_POST['submit1'])):
     $_SESSION['user']['round'] = $_POST["round"];
     $_SESSION['user']['year'] = $_POST["year"];
 endif;
-?>
+
+if (isset($_GET['action'])) {
+    if ($_GET['action'] == 'del') {
+        // echo "<script>alert('dddd') </script>" ;
+        $filename = UPLOAD_DIR . $_GET['filename'];
+        // echo $filename ;exit();
+        if (is_file($filename))
+            unlink($filename);
+        else
+            set_err('ไม่สามารถลบไฟล์ ' . $filename);
+    }
+}
+?> 
 <?php require_once 'template/header.php'; ?>
 <div class="wrapper">
     <?php require_once 'template/main-header.php'; ?>
@@ -51,7 +63,7 @@ endif;
             <div class="box">
                 <?php show_message() ?> 
                 <div class="box-header">
-                    <h3 class="box-title">รายการฝึกงาน</h3>
+                    <h3 class="box-title">จัดการไฟล์</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
