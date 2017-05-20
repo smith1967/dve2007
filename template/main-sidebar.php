@@ -30,7 +30,7 @@ $menu = Array(
                 'url' => 'app/school/index',
             ),
             'list' => array(
-                'title' => 'รายชื่อ',
+                'title' => 'ข้อมูล',
                 'url' => 'app/school/list-data',
                 'cond' => is_auth(),
             ),
@@ -184,6 +184,11 @@ $menu = Array(
                 'title' => 'สมัครสมาชิก',
                 'url' => 'app/user/signup',
                 'cond' => !is_auth(),
+            ),
+            'change-password' => array(
+                'title' => 'เปลี่ยนรหัสผ่าน',
+                'url' => 'app/user/change-password',
+                'cond' => is_auth(),
             ),
             'login' => array(
                 'title' => 'เข้าระบบ',
