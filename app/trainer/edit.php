@@ -45,7 +45,7 @@ if ($_GET['trainer_id']) {
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                กรอกข้อมูลสถานประกอบการ
+                กรอกข้อมูลครูฝึก
                 <small>แบบฟอร์ม</small>
             </h1>
             <ol class="breadcrumb">

@@ -48,8 +48,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'import_dvt_std') {
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
-                    <?php $importlink = site_url('student/import-dvt-student') . '&action=delete_dvt_std'; ?>
-                    <?php $importlink2 = site_url('student/list-student'); ?>
+                    <?php $importlink = site_url('app/student/import-dvt-student') . '&action=delete_dvt_std'; ?>
+                    <?php $importlink2 = site_url('app/student/list'); ?>
                     <p>จำนวนข้อมูลไม่ถูกต้องต้องการยกเลิกข้อมูลในฐานข้อมูลทั้งหมด <a href="<?php echo $importlink ?>"><button type="button" class="btn btn-danger">ยกเลิกข้อมูล</button></a></p>
                     <p>จำนวนข้อมูลถูกต้อง ตรวจสอบรายชื่อนักเรียน <a href="<?php echo $importlink2 ?>"><button type="button" class="btn btn-info">ตรวจสอบรายชื่อนักเรียน</button></a></p>
                 </div>

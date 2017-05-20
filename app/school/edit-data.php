@@ -385,11 +385,12 @@ function do_update() {
     $result = mysqli_query($db, $sql);
     if ($result) {
         set_info("แก้ไขเรียบร้อยครับ");
-        redirect('school/list-data-school');
+//        redirect('school/list-data-school');
     } else {
         set_err("แก้ไขข้อมูลไม่สำเร็จกรุณาตรวจสอบข้อมูล" . mysqli_error($db) . $sql);
-        redirect('school/list-data_school');
+//        redirect('school/list-data_school');
     }
+    redirect('app/school/list-data');
 }
 
 function do_validate($data) {

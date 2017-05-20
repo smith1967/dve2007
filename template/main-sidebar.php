@@ -68,7 +68,7 @@ $menu = Array(
         'title' => 'ประเภทสถานศึกษา',
         'url' => '#',
         'class' => 'fa fa-graduation-cap',
-        'cond' => true,
+        'cond' => is_admin(),
         'subitems' => array(
             'index' => array(
                 'title' => 'จัดการข้อมูล',
@@ -124,7 +124,7 @@ $menu = Array(
         ),
     ),
     'training' => array(
-        'title' => 'การฝึกงาน',
+        'title' => 'การฝึกอาชีพ',
         'url' => '#',
         'class' => 'fa fa-building-o',
         'cond' => true,
@@ -211,7 +211,11 @@ $menu = Array(
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
-                <img src="dist/img/user9-160x160.jpg" class="img-circle" alt="User Image">
+                <?php if(is_auth()) : ?>
+              <img src="upload/user-images/noImage.png" class="user-image" alt="User Image">
+                <?php else: ?>
+              <img src="upload/user-images/noImage1.png" class="user-image" alt="User Image">              
+              <?php endif; ?>
             </div>
             <div class="pull-left info">
                 <p><?php echo $_SESSION['user']['fname']; ?></p>
