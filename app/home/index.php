@@ -17,7 +17,7 @@ $title = 'หน้าหลัก';
         <section class="content-header">
             <h1>
                 ระบบงานทวิศีกษา
-                <small>DVE2017LTE</small>
+                <small>SMART DVE</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
@@ -29,8 +29,50 @@ $title = 'หน้าหลัก';
 
         <!-- Main content -->
         <section class="content">
+            <!--carousel start-->
+            <div class="box-body">
+              <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                  <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                  <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+                  <!--<li data-target="#carousel-example-generic" data-slide-to="3" class=""></li>-->
+                </ol>
+                <div class="carousel-inner">
+                  <div class="item active">
+                    <img src="upload/slides/slide-01.jpg" alt="it-Dev Staff">
 
-            <!-- Default box -->
+                    <div class="carousel-caption">
+                      ประชุมมอบหมายงาน
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img src="upload/slides/slide-02.jpg" alt="Second slide">
+
+                    <div class="carousel-caption">
+                      ทีมงานพัฒนาโปรแกรม
+                    </div>
+                  </div>
+                  <div class="item">
+                    <img src="upload/slides/slide-03.jpg" alt="Third slide">
+                    <div class="carousel-caption">
+                      นำเสนอผลงานครั้งที่ 1
+                    </div>
+                  </div>
+                </div>
+                  <!--carousel end-->
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                  <span class="fa fa-angle-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                  <span class="fa fa-angle-right"></span>
+                </a>
+              </div>
+            </div>
+            <!-- /.box-body -->
+          <!-- Box Comment -->
+          <!-- /.box -->         
+            <!-- Default box -->            
             <div class="box">
                 <div class="box-header with-border">
                     <h3 class="box-title">Title</h3>
@@ -54,6 +96,7 @@ $title = 'หน้าหลัก';
             <!-- /.box -->
             <!-- Default box -->
             <div class="box">
+                
                 <div class="box-header with-border">
                     <h3 class="box-title">Title</h3>
 
