@@ -4,6 +4,24 @@ if (!defined('BASE_PATH'))
 $active = 'home';
 $subactive = 'index';
 $title = 'หน้าหลัก';
+//$page = isset($_GET['page']) ? $_GET['page'] : 0;
+//$action = isset($_GET['action']) ? $_GET['action'] : "list";
+//$order = isset($_GET['order']) ? $_GET['order'] : '';
+//$limit = isset($_GET['limit']) ? $_GET['limit'] : 40;
+//
+//$params = array(
+//    'action' => $action,
+//    'limit' => $limit,
+//);
+//$params = http_build_query($params);
+//$studentlist = get_student($page, $limit, $school_id);
+//echo $studentlist; exit();
+//    $total = get_total();
+//$url = site_url('student/list-student&') . $params;
+//    var_dump($businesslist);
+//    exit();
+//$total = get_total($school_id);
+$pages_list = get_pages();
 ?>
 <?php require_once 'template/header.php'; ?>
 <div class="wrapper">
@@ -72,52 +90,35 @@ $title = 'หน้าหลัก';
             <!-- /.box-body -->
           <!-- Box Comment -->
           <!-- /.box -->         
-            <!-- Default box -->            
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Title</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    Start creating your amazing application!
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    Footer
-                </div>
-                <!-- /.box-footer-->
-            </div>
-            <!-- /.box -->
-            <!-- Default box -->
-            <div class="box">
-                
-                <div class="box-header with-border">
-                    <h3 class="box-title">Title</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-minus"></i></button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    Start creating your amazing application!
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer">
-                    Footer
-                </div>
-                <!-- /.box-footer-->
-            </div>
-            <!-- /.box -->
+            <!-- Default box -->  
+            <?php foreach ($pages_list as $page): ?>
             
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><?php echo $page['page_title'] ?></h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                            <i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                   <?php if(!empty($page['image_url'])): ?>
+                   <div class="col-xs-12 col-sm-4"> 
+                        <img src="upload/page-images/<?php echo $page['image_url']; ?>" alt="<?php echo $page['image_desc']; ?>" > 
+                   </div>
+                   <?php endif; ?> 
+                   <?php echo $page['content']; ?>
+                </div>
+                 <!--/.box-body--> 
+                <div class="box-footer">
+                    ตีพิมพ์วันที่ : <?php echo $page['published_date']; ?> โดย : <?php echo $page['fname']; ?>
+                </div>
+                 <!--/.box-footer-->
+            </div>
+            <?php endforeach; ?>
+            <!-- /.box -->            
         </section>
         <!-- /.content -->
     </div>
@@ -126,3 +127,51 @@ $title = 'หน้าหลัก';
 </div>
 <!--.wrapper-->
 <?php require_once 'template/footer.php'; ?>
+<script>
+$(document).ready(function(){ 
+      $('.box-body img').addClass('img-responsive');
+});
+</script>
+<?php
+
+function get_pages($page = 0, $limit = 10) {
+    global $db;
+    $start = $page * $limit;
+//    $query = "SELECT business.*,province.province_name FROM business,province WHERE business.province_id = province.province_code LIMIT " . $start . "," . $limit . "";
+    $query = "SELECT p.*,u.fname "
+            . "FROM "
+            . "pages AS p, user AS u "
+            . "WHERE "
+            . "p.user_id = u.user_id "
+            . "LIMIT "
+            . "$start,$limit";
+    $result = mysqli_query($db, $query);
+    $pages_list = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $pages_list[] = $row;
+    }
+    return $pages_list;
+}
+
+function get_total() {
+    global $db;
+//    $val = $group."%";
+    $query = "SELECT * FROM business ";
+    $result = mysqli_query($db, $query);
+    return mysqli_num_rows($result);
+}
+
+function do_delete($business_id) {
+    global $db;
+    if (empty($business_id)) {
+        set_err('ค่าพารามิเตอร์ไม่ถูกต้อง');
+        redirect('business/list-business');
+    }
+    $query = "DELETE FROM business WHERE business_id =" . pq($business_id);
+    mysqli_query($db, $query);
+    if (mysqli_affected_rows($db)) {
+        set_info('ลบข้อมูลสำเร็จ');
+    }
+    redirect('app/business/list');
+}
+?>
