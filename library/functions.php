@@ -1,6 +1,8 @@
 <?php
+
 include_once 'password_hash.php';
 include_once 'student_function.php';
+
 function hs($s) {
     return htmlspecialchars($s);
 }
@@ -88,6 +90,24 @@ function gen_option($sql, $def) {
     return implode('', $a);
 }
 
+function gen_bootrap_radio($name, $data, $def = '', $sep = '') {
+    global $db;
+    $a = array();
+    if (!is_array($data)) {
+        $data = array();
+        $res = mysqli_query($db, $data);
+        while ($row = mysqli_fetch_row($res)) {
+            $data[$row[0]] = $row[1];
+        }
+    }
+    foreach ($data as $k => $v) {
+//        $id = $name . '_' . $k;
+        $chk = $k == $def ? ' checked="checked"' : '';
+        $a[] = "<div class=\"radio\"><label><input type=\"radio\" name=\"{$name}\" value=\"{$k}\"{$chk}>{$v}</label></div>";
+    }
+    return implode($sep, $a);
+}
+
 function gen_radio($name, $data, $def = '', $sep = '') {
     global $db;
     $a = array();
@@ -105,9 +125,32 @@ function gen_radio($name, $data, $def = '', $sep = '') {
     }
     return implode($sep, $a);
 }
-
-function resize_image_data($img_data, $to_file, $width, $height) {
-    $image = imagecreatefromstring($img_data);
+function resize_image($src, $dest, $width, $height) {
+    $type = exif_imagetype($src); // [] if you don't have exif you could use getImageSize() 
+    $allowedTypes = array( 
+        1,  // [] gif 
+        2,  // [] jpg 
+        3,  // [] png 
+        6   // [] bmp 
+    ); 
+    if (!in_array($type, $allowedTypes)) { 
+        return false; 
+    } 
+    switch ($type) { 
+        case 1 : 
+            $image = imageCreateFromGif($src); 
+        break; 
+        case 2 : 
+            $image = imageCreateFromJpeg($src); 
+        break; 
+        case 3 : 
+            $image = imageCreateFromPng($src); 
+        break; 
+        case 6 : 
+            $image = imageCreateFromBmp($src); 
+        break; 
+    }  
+//    $image = imagecreatefromstring($src);
     $width_orig = imagesx($image);
     $height_orig = imagesy($image);
     $ratio_orig = $width_orig / $height_orig;
@@ -118,11 +161,35 @@ function resize_image_data($img_data, $to_file, $width, $height) {
     }
     $image_p = imagecreatetruecolor($width, $height);
     imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-    imagejpeg($image_p, $to_file, 100);
+    imagejpeg($image_p, $dest, 100);
     imagedestroy($image_p);
     imagedestroy($image);
     return true;
 }
+
+
+function resize_image_data($src, $dest, $width, $height) {
+//        var_dump($height_orig);
+//    var_dump($src);
+//    die();
+    $image = imagecreatefromstring($src);
+    $width_orig = imagesx($image);
+    $height_orig = imagesy($image);
+    $ratio_orig = $width_orig / $height_orig;
+    if ($width / $height > $ratio_orig) {
+        $width = $height * $ratio_orig;
+    } else {
+        $height = $width / $ratio_orig;
+    }
+    ;
+    $image_p = imagecreatetruecolor($width, $height);
+    imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
+    imagejpeg($image_p, $dest, 100);
+    imagedestroy($image_p);
+    imagedestroy($image);
+    return true;
+}
+
 function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
     $ret = "";
     $level = 0;
@@ -130,46 +197,46 @@ function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
     $ret .= sprintf("%s<ul class='sidebar-menu'>\n", $indent);
 //    $indent = str_repeat(" ", ++$level * 2);
     foreach ($items as $items => $subitems) {
-        if($subitems['cond']==FALSE)
+        if ($subitems['cond'] == FALSE)
             continue;
-        $level=1;
+        $level = 1;
         $indent = str_repeat(" ", $level * 2);
-        if($items == $active){
-            $ret .= sprintf("%s<li class='active treeview'>\n", $indent );
-        }else
-            $ret .= sprintf("%s<li class='treeview'>\n", $indent);            
+        if ($items == $active) {
+            $ret .= sprintf("%s<li class='active treeview'>\n", $indent);
+        } else
+            $ret .= sprintf("%s<li class='treeview'>\n", $indent);
 //        $ret .= sprintf("</li>\n");
-        $level=3;
+        $level = 3;
         $indent = str_repeat(" ", $level * 2);
-        $ret .= sprintf("%s<a href='%s'>\n", $indent,$subitems['url']);                    
-        $level=4;
+        $ret .= sprintf("%s<a href='%s'>\n", $indent, $subitems['url']);
+        $level = 4;
         $indent = str_repeat(" ", $level * 2);
-        $ret .= sprintf("%s<i class='%s'></i>\n",$indent,$subitems['class']);
-        $ret .= sprintf("%s<span>%s</span>\n",$indent, $subitems['title']);
-        $ret .= sprintf("%s<span class='pull-right-container'>\n",$indent);
-        $ret .= sprintf("%s<i class='fa fa-angle-left pull-right'></i>\n",$indent);
-        $ret .= sprintf("%s</span>\n",$indent);
-        $level=3;
+        $ret .= sprintf("%s<i class='%s'></i>\n", $indent, $subitems['class']);
+        $ret .= sprintf("%s<span>%s</span>\n", $indent, $subitems['title']);
+        $ret .= sprintf("%s<span class='pull-right-container'>\n", $indent);
+        $ret .= sprintf("%s<i class='fa fa-angle-left pull-right'></i>\n", $indent);
+        $ret .= sprintf("%s</span>\n", $indent);
+        $level = 3;
         $indent = str_repeat(" ", $level * 2);
-        $ret .= sprintf("%s</a>\n",$indent);
+        $ret .= sprintf("%s</a>\n", $indent);
         $ret .= sprintf("%s<ul class='treeview-menu'>\n", $indent);
-        foreach ($subitems['subitems'] as $item => $subitem){
-            if($subitem['cond']==FALSE)
+        foreach ($subitems['subitems'] as $item => $subitem) {
+            if ($subitem['cond'] == FALSE)
                 continue;
-            $level=4;
+            $level = 4;
             $indent = str_repeat(" ", $level * 2);
-            if($item == $subactive && $items == $active)
-                $ret .= sprintf("%s<li class='active'><a href='%s'><i class='fa fa-circle-o'></i> %s</a>", $indent,  site_url($subitem['url']) ,$subitem['title']);
+            if ($item == $subactive && $items == $active)
+                $ret .= sprintf("%s<li class='active'><a href='%s'><i class='fa fa-circle-o'></i> %s</a>", $indent, site_url($subitem['url']), $subitem['title']);
             else
-                $ret .= sprintf("%s<li><a href='%s'><i class='fa fa-circle-o'></i> %s</a>", $indent,  site_url($subitem['url']) ,$subitem['title']);
+                $ret .= sprintf("%s<li><a href='%s'><i class='fa fa-circle-o'></i> %s</a>", $indent, site_url($subitem['url']), $subitem['title']);
             $ret .= sprintf("</li>\n");
         }
-        $level=3;
-        $indent = str_repeat(" ", $level * 2);        
-        $ret .= sprintf("%s</ul>\n", $indent);  
-        $level=1;
-        $indent = str_repeat(" ", $level * 2);         
-        $ret .= sprintf("%s</li>\n", $indent);    
+        $level = 3;
+        $indent = str_repeat(" ", $level * 2);
+        $ret .= sprintf("%s</ul>\n", $indent);
+        $level = 1;
+        $indent = str_repeat(" ", $level * 2);
+        $ret .= sprintf("%s</li>\n", $indent);
     }
     $level = 0;
     $indent = str_repeat(" ", $level * 2);
@@ -177,15 +244,15 @@ function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
     return($ret);
 }
 
-function gen_menu($menu = array(), $active = '',$sub_active='') {
+function gen_menu($menu = array(), $active = '', $sub_active = '') {
     $ret = "";
     foreach ($menu as $k => $m) {
         if ($m['cond'] === false)
             continue;
         $sel = $k == $active ? ' class="active treeview"' : ' class="treeview"';
-        $ret = '<li'.$sel.'><a href="#">'
+        $ret = '<li' . $sel . '><a href="#">'
                 . '<i class="fa fa-dashboard"></i> '
-                . '<span>'.$item.'</span>'
+                . '<span>' . $item . '</span>'
                 . '<span class="pull-right-container">'
                 . '<i class="fa fa-angle-left pull-right"></i>'
                 . '</span></a>';
@@ -196,8 +263,6 @@ function gen_menu($menu = array(), $active = '',$sub_active='') {
     }
     return '<ul class="' . $menu_class . '">' . implode('', $a) . '</ul>';
 }
-
-
 
 function set_err($error = '') {
     $_SESSION['err'][] = $error;
@@ -347,7 +412,7 @@ function pagination($total, $url = '#', $page = 0, $order = '', $limit = 10) {
         }
     endfor;
     $html .= '</ul>';
-    if($pages>10)
+    if ($pages > 10)
         $html .= '</div>';
     return $html;
 }
@@ -367,9 +432,9 @@ function humanTime($seconds) {
 }
 
 function set_var(&$param) {
-    if(isset($param)){
+    if (isset($param)) {
         echo $param;
-    }  else {
+    } else {
         echo '';
     }
 }
@@ -381,9 +446,9 @@ function get_param($param) {
 //        'filename' => 'filetest',
 //    );
     $params = '';
-    if(is_array($param)){
+    if (is_array($param)) {
         foreach ($param as $key => $value) {
-            $params .= '&'.$key.'?'.$value; 
+            $params .= '&' . $key . '?' . $value;
         }
         return $params;
     }

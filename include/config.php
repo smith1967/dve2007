@@ -49,7 +49,8 @@ define('INC_PATH', str_replace('\\','/',dirname(__FILE__)).'/');
 define('BASE_PATH', dirname(INC_PATH).'/');
 define('LIB_PATH', BASE_PATH.'library/');
 define('UPLOAD_DIR', BASE_PATH . 'upload/');
-
+//var_dump(LIB_PATH);
+//die();
 define('APP_RRL', SITE_URL.'app/');
 define('OU_NAME', 'สำนักงานการอาชีวศึกษา');
 

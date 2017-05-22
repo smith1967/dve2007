@@ -1,6 +1,9 @@
 <?php
 if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
+include_once LIB_PATH . 'ImageResize.php';
+//var_dump(LIB_PATH);
+//die();
 $title = "เพิ่มข่าวสาร";
 $active = 'pages';
 //$property = array();
@@ -8,14 +11,29 @@ $active = 'pages';
 $subactive = 'insert';
 if (isset($_POST['submit'])) {
     $data = $_POST;
-//    var_dump($data);
-//    die();
+
     $valid = do_validate($data);  // check ความถูกต้องของข้อมูล
     foreach ($_POST as $k => $v) {
         $$k = $v;
     }  //    var_dump($property);
     if ($valid) {
-        do_insert();
+        if ($_FILES['image_url']['name'] !== '') {
+            if (upload_image()) {
+//    var_dump($_FILES);
+                $src_dir = "upload/images/src/";
+                $src_file = $src_dir . basename($_FILES["image_url"]["name"]);
+                $dest_dir = "upload/images/pages/";
+                $dest_file = $dest_dir . basename($_FILES["image_url"]["name"]);
+                $width = 1280;
+                $height = 720;
+                resize_image($src_file, $dest_file, $width, $height);
+////            use \Eventviva\ImageResize;
+//                $image = new \Eventviva\ImageResize($src_file);
+//                $image->resizeToHeight(500);
+//                $image->save($dest_file);
+            }
+        }
+        do_insert(basename($_FILES["image_url"]["name"]));
     }
 }
 ?>
@@ -80,7 +98,14 @@ if (isset($_POST['submit'])) {
                                                     <input type="checkbox"> Check me out
                                                   </label>
                                                 </div>-->
-
+                                <?php
+                                $frontpage_opt = array('N' => 'ไม่แสดง', 'Y' => 'แสดง');
+                                $frontpage = empty($frontpage) ? 'Y' : $frontpage;
+                                ?>
+                                <div class="form-group">
+                                    <label for="frontpage" >แสดงในหน้าแรก</label>
+                                    <?php echo gen_bootrap_radio('frontpage', $frontpage_opt, $frontpage) ?>
+                                </div>  
 
                                 <div class="box-footer">
                                     <button type="submit" class="btn btn-primary" name="submit">Submit</button>
@@ -131,7 +156,7 @@ function do_validate($data) {
     return $valid;
 }
 
-function do_insert() {
+function do_insert($file_name) {
     global $db;
     $data = &$_POST;
     //print_r($data['property']);
@@ -146,14 +171,16 @@ function do_insert() {
             . " `published_date`,"
             . " `image_url`,"
             . " `image_desc`,"
+            . " `frontpage`,"
             . " `user_id`)"
             . " VALUES ("
             . "NULL,"
             . pq($data['page_title']) . ","
             . pq($data['content']) . ","
             . "NOW(),"
-            . pq($data['image_url']) . ","
+            . pq($file_name) . ","
             . pq($data['image_desc']) . ","
+            . pq($data['frontpage']) . ","
             . pq($_SESSION['user']['user_id'])
             . ");";
 //    var_dump($query);
@@ -167,4 +194,45 @@ function do_insert() {
         set_err('ไม่สามารถเพิ่มข้อมูล ' . mysqli_error($db) . $query);
     }
     redirect('app/pages/insert');
+}
+
+function upload_image() {
+    $target_dir = "upload/images/src/";
+    $target_file = $target_dir . basename($_FILES["image_url"]["name"]);
+    $uploadOk = 1;
+    $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+    $check = getimagesize($_FILES["image_url"]["tmp_name"]);
+    if ($check !== false) {
+        set_info("ไฟล์รูปภาพ - " . $check["mime"] . ".");
+        $uploadOk = 1;
+    } else {
+        set_err("ไม่ใช่ไฟล์รูปภาพครับ.");
+        $uploadOk = 0;
+    }
+    if (file_exists($target_file)) {
+        set_err("ไฟล์มีอยู่แล้วครับ.");
+        $uploadOk = 0;
+    }
+// Check file size
+    if ($_FILES["image_url"]["size"] > 5000000) {
+        set_err("ไฟล์มีขนาดใหญ่เกินครับ.");
+        $uploadOk = 0;
+    }
+// Allow certain file formats
+    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
+        set_err("อนุญาตให้ใช้ไฟล์สกุล JPG, JPEG, PNG & GIF เท่านั้นครับ");
+        $uploadOk = 0;
+    }
+// Check if $uploadOk is set to 0 by an error
+    if ($uploadOk == 0) {
+        return;
+// if everything is ok, try to upload file
+    } else {
+        if (move_uploaded_file($_FILES["image_url"]["tmp_name"], $target_file)) {
+            set_info("ไฟล์ " . basename($_FILES["image_url"]["name"]) . " อัพโหลดเรียบร้อย.");
+        } else {
+            set_err("อัพโหลดไฟล์ไม่สำเร็จ.");
+        }
+    }
+    return $uploadOk;
 }
