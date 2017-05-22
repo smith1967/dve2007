@@ -58,21 +58,21 @@ $pages_list = get_pages();
                 </ol>
                 <div class="carousel-inner">
                   <div class="item active">
-                    <img src="upload/slides/slide-01.jpg" alt="it-Dev Staff">
+                    <img src="upload/images/slides/slide-01.jpg" alt="it-Dev Staff">
 
                     <div class="carousel-caption">
                       ประชุมมอบหมายงาน
                     </div>
                   </div>
                   <div class="item">
-                    <img src="upload/slides/slide-02.jpg" alt="Second slide">
+                    <img src="upload/images/slides/slide-02.jpg" alt="Second slide">
 
                     <div class="carousel-caption">
                       ทีมงานพัฒนาโปรแกรม
                     </div>
                   </div>
                   <div class="item">
-                    <img src="upload/slides/slide-03.jpg" alt="Third slide">
+                    <img src="upload/images/slides/slide-03.jpg" alt="Third slide">
                     <div class="carousel-caption">
                       นำเสนอผลงานครั้งที่ 1
                     </div>
@@ -106,7 +106,7 @@ $pages_list = get_pages();
                 <div class="box-body">
                    <?php if(!empty($page['image_url'])): ?>
                    <div class="col-xs-12 col-sm-4"> 
-                        <img src="upload/page-images/<?php echo $page['image_url']; ?>" alt="<?php echo $page['image_desc']; ?>" > 
+                        <img src="upload/images/pages/<?php echo $page['image_url']; ?>" alt="<?php echo $page['image_desc']; ?>" > 
                    </div>
                    <?php endif; ?> 
                    <?php echo $page['content']; ?>
