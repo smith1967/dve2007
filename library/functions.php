@@ -161,7 +161,22 @@ function resize_image($src, $dest, $width, $height) {
     }
     $image_p = imagecreatetruecolor($width, $height);
     imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-    imagejpeg($image_p, $dest, 100);
+    switch ($type) { 
+        case 1 : imagecreatefromgif($image_p);
+//            $image = imagecreatefromgif($image_p); 
+        break; 
+        case 2 : imagejpeg($image_p, $dest, 75);
+//            $image = imageCreateFromJpeg($src); 
+        break; 
+        case 3 : imagecreatefrompng($image_p);
+//            $image = imageCreateFromPng($src); 
+        break; 
+        case 6 : imagecreatefromwbmp($image_p);
+//            $image = imageCreateFromBmp($src); 
+        break; 
+    }  
+
+//    imagejpeg($image_p, $dest, 100);
     imagedestroy($image_p);
     imagedestroy($image);
     return true;

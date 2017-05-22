@@ -91,11 +91,11 @@ $pages_list = get_pages();
           <!-- Box Comment -->
           <!-- /.box -->         
             <!-- Default box -->  
-            <?php foreach ($pages_list as $page): ?>
+            <?php foreach ($pages_list as $pages): ?>
             
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><?php echo $page['page_title'] ?></h3>
+                    <h3 class="box-title"><?php echo $pages['pages_title'] ?></h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                             <i class="fa fa-minus"></i></button>
@@ -104,16 +104,16 @@ $pages_list = get_pages();
                     </div>
                 </div>
                 <div class="box-body">
-                   <?php if(!empty($page['image_url'])): ?>
+                   <?php if(!empty($pages['image_url'])): ?>
                    <div class="col-xs-12 col-sm-4"> 
-                        <img src="upload/images/pages/<?php echo $page['image_url']; ?>" alt="<?php echo $page['image_desc']; ?>" > 
+                        <img src="upload/images/pages/<?php echo $pages['image_url']; ?>" alt="<?php echo $pages['image_desc']; ?>" > 
                    </div>
                    <?php endif; ?> 
-                   <?php echo $page['content']; ?>
+                   <?php echo $pages['content']; ?>
                 </div>
                  <!--/.box-body--> 
                 <div class="box-footer">
-                    ตีพิมพ์วันที่ : <?php echo $page['published_date']; ?> โดย : <?php echo $page['fname']; ?>
+                    ตีพิมพ์วันที่ : <?php echo $pages['published_date']; ?> โดย : <?php echo $pages['fname']; ?>
                 </div>
                  <!--/.box-footer-->
             </div>
@@ -134,7 +134,7 @@ $(document).ready(function(){
 </script>
 <?php
 
-function get_pages($page = 0, $limit = 10) {
+function get_pages($page = 0, $limit = 20) {
     global $db;
     $start = $page * $limit;
 //    $query = "SELECT business.*,province.province_name FROM business,province WHERE business.province_id = province.province_code LIMIT " . $start . "," . $limit . "";
@@ -142,7 +142,7 @@ function get_pages($page = 0, $limit = 10) {
             . "FROM "
             . "pages AS p, user AS u "
             . "WHERE "
-            . "p.user_id = u.user_id "
+            . "p.user_id = u.user_id AND p.status = 'Y' "
             . "LIMIT "
             . "$start,$limit";
     $result = mysqli_query($db, $query);

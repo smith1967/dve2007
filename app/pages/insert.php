@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
     }  //    var_dump($property);
     if ($valid) {
         if ($_FILES['image_url']['name'] !== '') {
-            if (upload_image()) {
+            if (upload_image()==1) {
 //    var_dump($_FILES);
                 $src_dir = "upload/images/src/";
                 $src_file = $src_dir . basename($_FILES["image_url"]["name"]);
@@ -214,7 +214,7 @@ function upload_image() {
         $uploadOk = 0;
     }
 // Check file size
-    if ($_FILES["image_url"]["size"] > 5000000) {
+    if ($_FILES["image_url"]["size"] > 10000000) {
         set_err("ไฟล์มีขนาดใหญ่เกินครับ.");
         $uploadOk = 0;
     }
@@ -224,14 +224,15 @@ function upload_image() {
         $uploadOk = 0;
     }
 // Check if $uploadOk is set to 0 by an error
-    if ($uploadOk == 0) {
-        return;
-// if everything is ok, try to upload file
-    } else {
+    if ($uploadOk == 1) {
+//        return;
+//// if everything is ok, try to upload file
+//    } else {
         if (move_uploaded_file($_FILES["image_url"]["tmp_name"], $target_file)) {
             set_info("ไฟล์ " . basename($_FILES["image_url"]["name"]) . " อัพโหลดเรียบร้อย.");
         } else {
             set_err("อัพโหลดไฟล์ไม่สำเร็จ.");
+            $uploadOk = 0;
         }
     }
     return $uploadOk;
