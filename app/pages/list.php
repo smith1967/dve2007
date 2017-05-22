@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
-$title = "หน้าเว็ป";
+$title = "รายการหน้าเว็ป";
 $active = 'pages';
 $subactive = 'list';
 $pages_list = get_pages();

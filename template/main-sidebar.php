@@ -77,6 +77,24 @@ $menu = Array(
             ),
         ),
     ),
+    'pages' => array(
+        'title' => 'หน้าเว็บ',
+        'url' => '#',
+        'class' => 'fa fa-book',
+        'cond' => is_admin(),
+        'subitems' => array(
+            'list' => array(
+                'title' => 'จัดการหน้าเว็บ',
+                'cond' => true,
+                'url' => 'app/pages/list',
+            ),
+            'insert' => array(
+                'title' => 'เพิ่มหน้าเว็บ',
+                'cond' => true,
+                'url' => 'app/pages/insert',
+            ),
+        ),
+    ),
     'business' => array(
         'title' => 'สถานประกอบการ',
         'url' => '#',
