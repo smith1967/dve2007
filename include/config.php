@@ -47,11 +47,12 @@ $author_email = "smith@cstc.ac.th";
 define('SITE_URL', $site_url);
 define('INC_PATH', str_replace('\\','/',dirname(__FILE__)).'/');
 define('BASE_PATH', dirname(INC_PATH).'/');
+define('APP_PATH', BASE_PATH.'app/');
 define('LIB_PATH', BASE_PATH.'library/');
 define('UPLOAD_DIR', BASE_PATH . 'upload/');
 //var_dump(LIB_PATH);
 //die();
-define('APP_RRL', SITE_URL.'app/');
+define('APP_URL', SITE_URL.'app/');
 define('OU_NAME', 'สำนักงานการอาชีวศึกษา');
 
 // database parameter
