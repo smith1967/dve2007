@@ -23,8 +23,8 @@ endif;
 if (isset($_POST['submit1'])):
     $_SESSION['user']['round'] = $_POST["round"];
     $_SESSION['user']['year'] = $_POST["year"];
+    $_SESSION['user']['round-year']=$_SESSION['user']['round'].'-'.$_SESSION['user']['year'];
 endif;
-
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'del') {
         // echo "<script>alert('dddd') </script>" ;
@@ -46,13 +46,13 @@ if (isset($_GET['action'])) {
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                รายการฝึกงาน
-                <small>ฝึกงาน</small>
+                รายการจัดการไฟล์
+                <small>upload ไฟล์</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-                <li><a href="#">ฝึกงาน</a></li>
-                <li class="active">รายการ</li>
+                <li><a href="#">รายการจัดการไฟล์</a></li>
+                <li class="active">upload ไฟล์</li>
             </ol>
         </section>
 
@@ -63,7 +63,7 @@ if (isset($_GET['action'])) {
             <div class="box">
                 <?php show_message() ?> 
                 <div class="box-header">
-                    <h3 class="box-title">จัดการไฟล์</h3>
+                    <h3 class="box-title">upload ไฟล์ข้อมูลนักเรียน</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -86,9 +86,14 @@ if (isset($_GET['action'])) {
                                     <div class="form-group">
                                         <label class="control-label col-md-6"for="year">ปีงบประมาณ:</label>
                                         <div class="col-md-2 ">
+                                        <?php
+                                            $year_now=date('Y')+543;
+                                            //echo $year_now;
+                                         ?>
                                             <select class="form-control" id="year" name="year">
                                                 <?php
-                                                $arr2 = array(2560 => 2560, 2561 => 2561, 2562 => 2562);
+                                                
+                                                $arr2 = array($year_now => $year_now, $year_now+1 => $year_now+1, $year_now+2 => $year_now+2);
                                                 $def = $_SESSION['user']['year'];
                                                 echo gen_option($arr2, $def);
                                                 ?>
