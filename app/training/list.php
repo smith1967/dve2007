@@ -76,7 +76,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                 <!--<th>วันที่ทำสัญญา</th>-->
                                 <th>วันที่เริ่มต้นการฝึก</th>
                                 <th>วันที่สิ้นสุดการฝึก</th>
-                                <th class="col-md-1">ดำเนินการ</th>
+                                <th class="col-md-2 text-center">ดำเนินการ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -95,7 +95,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                     <!--<td><center><?php echo $training['contract_date']; ?></center></td>-->
                     <td><center><?php echo $training['start_date']; ?></center></td>
                     <td><center><?php echo $training['end_date']; ?></center></td>
-                        <td>                            
+                    <td class="text-center">                            
                             <a href="<?php echo site_url('app/training/list') . '&action=delete&training_id=' . $training['training_id']; ?>"  class="btn btn-danger btn-sm delete" ><i class="fa fa-remove"></i></a>
                             <a href="<?php echo site_url('app/training/edit') . '&action=edit&training_id=' . $training['training_id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                         </td>                    
