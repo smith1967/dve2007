@@ -45,6 +45,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div class="table-responsive">
                     <table id="business_list" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -64,8 +65,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                     <td><?php echo $business['province_name']; ?></td>
             
                                     <td class="text-center">
-                                        <a href="<?php echo site_url('app/business/list') . '&action=delete&business_id=' . $business['business_id']; ?>" class="delete"onclick="return confirm('คุณแน่ใจหรือจะลบ?')"><i class="fa fa-remove"></i></a> | 
-                                        <a href="<?php echo site_url('app/business/edit') . '&action=edit&business_id=' . $business['business_id']; ?>" ><i class="fa fa-edit"></i></a>
+                                        <a href="<?php echo site_url('app/business/list') . '&action=delete&business_id=' . $business['business_id']; ?>" class="btn btn-danger btn-sm delete"><i class="fa fa-remove"></i></a> | 
+                                        <a href="<?php echo site_url('app/business/edit') . '&action=edit&business_id=' . $business['business_id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
             
                                     </td>                    
                                 </tr>
@@ -81,6 +82,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                             </tr>
                         </tfoot>
                     </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -133,6 +135,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 }
             }
         });
+    });
+</script>
+<script>
+    $('.delete').click(function () {
+        return confirm('ยืนยันลบข้อมูล')
     });
 </script>
 <?php

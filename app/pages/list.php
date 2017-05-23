@@ -46,6 +46,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div class="table-responsive">
                     <table id="data" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -80,7 +81,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                         <a href="<?php echo site_url('app/pages/list') . '&action=delete&pages_id=' . $pages['pages_id']; ?>" class="btn btn-warning btn-sm  delete">
                                             <span class="glyphicon glyphicon-remove-circle"></span>
                                         </a> 
-                                        <a href="<?php echo site_url('app/admin/edit-user') . '&action=edit&pages_id=' . $pages['pages_id']; ?>" class="btn btn-info btn-sm">
+                                        <a href="<?php echo site_url('app/pages/edit') . '&action=edit&pages_id=' . $pages['pages_id']; ?>" class="btn btn-info btn-sm">
                                             <span class="glyphicon glyphicon-edit "></span>
                                         </a>                      
 <!--                                        <a href="<?php echo site_url('app/pages/list') . '&action=delete&pages_id=' . $pages['pages_id']; ?>" class="delete"><i class="fa fa-remove"></i></a> | 
@@ -103,6 +104,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                             </tr>
                         </tfoot>
                     </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
