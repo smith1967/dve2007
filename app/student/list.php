@@ -153,7 +153,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 function get_student($page = 0, $limit = 10,$school_id) {
     global $db;
     $start = $page * $limit;
-    $query = "SELECT * FROM student WHERE `school_id`=".pq($school_id).";";
+    $query = "SELECT * FROM student WHERE `school_id`=".pq($school_id)." AND end_edu_id = 1;";
 //            . " LIMIT " . $start . "," . $limit . "";
 //    var_dump($query);
     //$query = "SELECT * FROM student  LIMIT " . $start . "," . $limit . "";

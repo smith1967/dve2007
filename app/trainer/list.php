@@ -40,6 +40,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div class="table-responsive">
                     <table id="data" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -47,7 +48,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                 <th>ชื่อครูฝึก</th>
                                 <th>เบอร์โทรศัพท์</th>
                                 <th>วุฒิการศึกษาสูงสุด</th>
-                                <th>จัดการ</th>
+                                <th class="text-center">จัดการ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -61,8 +62,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                     <td><?php echo $trainer['phone']; ?></td>
                                     <td><?php echo $trainer['educational_name']; ?></td>
                                     <td class="text-center">
-                                        <a href="<?php echo site_url('app/trainer/list') . '&action=delete&trainer_id=' . $trainer['trainer_id']; ?>" class="delete"><i class="fa fa-remove"></i></a> | 
-                                        <a href="<?php echo site_url('app/trainer/edit') . '&action=edit&trainer_id=' . $trainer['trainer_id']; ?>" ><i class="fa fa-edit"></i></a>
+                                        <a href="<?php echo site_url('app/trainer/list') . '&action=delete&trainer_id=' . $trainer['trainer_id']; ?>" class="btn btn-danger btn-sm delete" ><i class="fa fa-remove"></i></a> | 
+                                        <a href="<?php echo site_url('app/trainer/edit') . '&action=edit&trainer_id=' . $trainer['trainer_id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
 <!--                                        <a href="#" class="delete"> <i class="fa fa-remove"></i></a> | 
                                         <a href="#" ><i class="fa fa-edit"></i></a>-->
                                     </td>                    
@@ -80,6 +81,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                             </tr>
                         </tfoot>
                     </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
