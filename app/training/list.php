@@ -96,7 +96,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                     <td><center><?php echo $training['start_date']; ?></center></td>
                     <td><center><?php echo $training['end_date']; ?></center></td>
                         <td>                            
-                            <a href="<?php echo site_url('app/training/list') . '&action=delete&training_id=' . $training['training_id']; ?>"  class="btn btn-danger btn-sm delete" ><i class="fa fa-remove"></i></a> | 
+                            <a href="<?php echo site_url('app/training/list') . '&action=delete&training_id=' . $training['training_id']; ?>"  class="btn btn-danger btn-sm delete" ><i class="fa fa-remove"></i></a>
                             <a href="<?php echo site_url('app/training/edit') . '&action=edit&training_id=' . $training['training_id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                         </td>                    
                     </tr>
