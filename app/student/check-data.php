@@ -160,14 +160,15 @@ function do_transfer_std($stdfile) {
 			$sex=convSexId($data[8]);
             $minor_id=getminorId($data[58]);
             $major_id=getmajorId($data[57]);
+            $round_year=$_SESSION['user']['round-year'];
 			$strsql = "insert into student_tmp values(";
 			$strsql .= "'$data[44]','$data[2]','$data[4]',";
 			$strsql .= "'$name','$dofb','$sex',";
 			$strsql .= "'$minor_id','$major_id',";
                         $strsql .= "'$data[55]','$data[61]','$data[53]',";
-                        $strsql .= "'$data[0]','$data[1]','$date_update'";
+                        $strsql .= "'$data[0]','$data[1]','$round_year','$date_update'";
 			$strsql .=");";
-		//	echo $strsql.'<br>';exit();
+			//set_err($strsql);exit();
        // echo 'zzz='.$count;
 			$res = mysqli_query($db,$strsql);
          //   if ($count==3)exit();
