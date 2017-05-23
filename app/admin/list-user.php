@@ -93,19 +93,19 @@ if (isset($_GET['action']) && $_GET['action'] == 'list') {
                                     <td><?php echo $user['user_type_id'] ?></td>
                                     <td>
                                         <?php if ($user['status'] == 'Y') : ?>
-                                            <a href="<?php echo site_url('app/admin/list-user') . '&action=disabled&user_id=' . $user['user_id']; ?>" >
-                                                <span class="glyphicon glyphicon-ban-circle"></span>
-                                            </a> 
-                                        <?php else: ?>
-                                            <a href="<?php echo site_url('app/admin/list-user') . '&action=enabled&user_id=' . $user['user_id']; ?>" >
+                                            <a href="<?php echo site_url('app/admin/list-user') . '&action=disabled&user_id=' . $user['user_id']; ?>" class="btn btn-success btn-sm">
                                                 <span class="glyphicon glyphicon-ok-circle"></span>
                                             </a> 
+                                        <?php else: ?>
+                                            <a href="<?php echo site_url('app/admin/list-user') . '&action=enabled&user_id=' . $user['user_id']; ?>" class="btn btn-danger btn-sm" >
+                                                <span class="glyphicon glyphicon-ban-circle"></span>
+                                            </a> 
                                         <?php endif; ?>
-                                        <a href="<?php echo site_url('app/admin/list-user') . '&action=delete&user_id=' . $user['user_id']; ?>" class="delete">
+                                        <a href="<?php echo site_url('app/admin/list-user') . '&action=delete&user_id=' . $user['user_id']; ?>" class="btn btn-warning btn-sm  delete">
                                             <span class="glyphicon glyphicon-remove-circle"></span>
                                         </a> 
-                                        <a href="<?php echo site_url('app/admin/edit-user') . '&action=edit&user_id=' . $user['user_id']; ?>">
-                                            <span class="glyphicon glyphicon-edit"></span>
+                                        <a href="<?php echo site_url('app/admin/edit-user') . '&action=edit&user_id=' . $user['user_id']; ?>" class="btn btn-info btn-sm">
+                                            <span class="glyphicon glyphicon-edit "></span>
                                         </a>                      
                                     </td>                    
                                 </tr>

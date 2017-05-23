@@ -38,13 +38,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                รายการฝึกงาน
-                <small>ฝึกงาน</small>
+                รายชื่อนักศึกษา
+                <small>รายชื่อ</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-                <li><a href="#">ฝึกงาน</a></li>
-                <li class="active">รายการ</li>
+                <li><a href="#">นักศึกษา</a></li>
+                <li class="active">รายชื่อ</li>
             </ol>
         </section>
 
@@ -55,7 +55,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
             <div class="box">
                 <?php show_message() ?> 
                 <div class="box-header">
-                    <h3 class="box-title">รายการฝึกงาน</h3>
+                    <h3 class="box-title">รายชื่อนักศึกษา</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -153,7 +153,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 function get_student($page = 0, $limit = 10,$school_id) {
     global $db;
     $start = $page * $limit;
-    $query = "SELECT * FROM student WHERE `school_id`=".pq($school_id).";";
+    $query = "SELECT * FROM student WHERE `school_id`=".pq($school_id)." AND end_edu_id = 1;";
 //            . " LIMIT " . $start . "," . $limit . "";
 //    var_dump($query);
     //$query = "SELECT * FROM student  LIMIT " . $start . "," . $limit . "";
