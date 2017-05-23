@@ -11,11 +11,11 @@ $menu = Array(
                 'url' => 'app/home/index',
                 'cond' => true,
             ),
-            'test' => array(
-                'title' => 'ทดสอบ',
-                'url' => 'app/home/test',
-                'cond' => true,
-            ),
+//            'test' => array(
+//                'title' => 'ทดสอบ',
+//                'url' => 'app/home/test',
+//                'cond' => true,
+//            ),
         ),
     ),
     'school' => array(
@@ -24,11 +24,11 @@ $menu = Array(
         'class' => 'fa fa-graduation-cap',
         'cond' => true,
         'subitems' => array(
-            'index' => array(
-                'title' => 'หน้าหลัก',
-                'cond' => true,
-                'url' => 'app/school/index',
-            ),
+//            'index' => array(
+//                'title' => 'หน้าหลัก',
+//                'cond' => true,
+//                'url' => 'app/school/index',
+//            ),
             'list' => array(
                 'title' => 'ข้อมูล',
                 'url' => 'app/school/list-data',
