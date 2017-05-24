@@ -106,7 +106,7 @@ function do_login($data) {
         if (verify_password_hash($row['password'], $strHash)) {
             unset($row['password']);
             $_SESSION['user'] = $row;
-            do_insert_log($data['username'],'Y');
+            do_insert_log($data['username'],'Y',$strHash);
             set_info('ยินดีต้อนรับคุณ'.$row['fname']);
         } else {
             do_insert_log($data['username'],'N');
@@ -120,17 +120,19 @@ function do_login($data) {
     redirect('app/home/index');
 }
 
-function do_insert_log($username,$event){
+function do_insert_log($username,$event,$token){
     global $db;
     $query = "INSERT INTO `access_log` ("
             . "`id`, "
             . "`username`, "
+            . "`token`, "
             . "`event`, "
             . "`ip_address`, "
             . "`user_agent` "            
             . ") VALUES ("
             . "NULL, "
             . pq($username) . ", "
+            . pq($token). ", "
             . pq($event).","
             . pq($_SERVER['REMOTE_ADDR']) . ", "
             . pq($_SERVER['HTTP_USER_AGENT']).")";

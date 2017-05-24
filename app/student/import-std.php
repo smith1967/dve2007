@@ -17,8 +17,8 @@ $subactive = 'import-std';
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                รายการฝึกงาน
-                <small>ฝึกงาน</small>
+                รายการตรวจสอบข้อมูลนักเรียน
+                <small>ข้อมูลจำนวนนักเรียน</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
@@ -34,7 +34,7 @@ $subactive = 'import-std';
             <div class="box">
                 <?php show_message() ?> 
                 <div class="box-header">
-                    <h3 class="box-title">รายการฝึกงาน</h3>
+                    <h3 class="box-title">รายการตรวจสอบข้อมูลนักเรียน</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

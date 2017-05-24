@@ -62,7 +62,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <table id="data" class="table table-bordered table-striped">
+                    <div class="table-responsive">
+                    <table id="data" class="table  table-bordered table-striped ">
                         <thead>
                             <tr>
                                 <th>รหัสการฝึกอาชีพ</th>
@@ -72,10 +73,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                 <th>สถานศึกษา</th>
                                 <th>ชื่อสาขางาน</th>
                                 <th>ครูฝึก</th>
-                                <th>วันที่ทำสัญญา</th>
+                                <!--<th>วันที่ทำสัญญา</th>-->
                                 <th>วันที่เริ่มต้นการฝึก</th>
                                 <th>วันที่สิ้นสุดการฝึก</th>
-                                <th>ดำเนินการ</th>
+                                <th class="col-md-2 text-center">ดำเนินการ</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -91,12 +92,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                     <td><center><?php echo $training['school_name']; ?></center></td>
                     <td><center><?php echo $training['minor_name']; ?></center></td>
                     <td><center><?php echo $training['trainer_name']; ?></center></td>
-                    <td><center><?php echo $training['contract_date']; ?></center></td>
+                    <!--<td><center><?php echo $training['contract_date']; ?></center></td>-->
                     <td><center><?php echo $training['start_date']; ?></center></td>
                     <td><center><?php echo $training['end_date']; ?></center></td>
-                        <td>                            
-                            <a href="<?php echo site_url('app/training/list') . '&action=delete&training_id=' . $training['training_id']; ?>" class="delete"><i class="fa fa-remove"></i></a> | 
-                            <a href="<?php echo site_url('app/training/edit') . '&action=edit&training_id=' . $training['training_id']; ?>" ><i class="fa fa-edit"></i></a>
+                    <td class="text-center">                            
+                            <a href="<?php echo site_url('app/training/list') . '&action=delete&training_id=' . $training['training_id']; ?>"  class="btn btn-danger btn-sm delete" ><i class="fa fa-remove"></i></a>
+                            <a href="<?php echo site_url('app/training/edit') . '&action=edit&training_id=' . $training['training_id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
                         </td>                    
                     </tr>
                 <?php endforeach; ?>
@@ -111,13 +112,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                 <th>สถานศึกษา</th>
                                 <th>ชื่อสาขางาน</th>
                                 <th>ครูฝึก</th>
-                                <th>วันที่ทำสัญญา</th>
+                                <!--<th>วันที่ทำสัญญา</th>-->
                                 <th>วันที่เริ่มต้นการฝึก</th>
                                 <th>วันที่สิ้นสุดการฝึก</th>
                                 <th>ดำเนินการ</th>
                             </tr>
                         </tfoot>
                     </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>

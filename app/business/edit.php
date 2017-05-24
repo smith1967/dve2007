@@ -9,7 +9,7 @@ $benefit = array();
 
 if (isset($_POST['submit'])) {
     $data = $_POST;
-  //  var_dump($data);
+    //  var_dump($data);
     foreach ($_POST as $k => $v) {
         $$k = $v;  // set variable to form
     }
@@ -68,8 +68,9 @@ if (isset($_POST['submit'])) {
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form method="post" class="form-horizontal" action="">
-                            <div class="box-body">
+                        <div class="box-body">
+                            <form method="post" class="form-horizontal" action="">
+
                                 <!--                    <div class="form-group">
                                                         <label for="business_id" class="col-md-2 control-label">รหัส</label>
                                                         <div class="col-md-2">
@@ -245,7 +246,6 @@ if (isset($_POST['submit'])) {
                                 </div> 
                                 <div class="form-group">
                                     <label for="benefit" class="control-label col-md-offset-1"><u>คำชี้แจง</u>กรุณาคลิกในช่องที่ตรงกับสวัสดิการของสถานประกอบการ</label>
-
                                     <?php
                                     $sql = "select * from business_benefit order by benefit_id ASC";
                                     $result = mysqli_query($db, $sql);
@@ -268,9 +268,8 @@ if (isset($_POST['submit'])) {
                                         <button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-
+                            </form>
+                        </div>
                     </div>
                 </div>
                 <!--/.col (right) -->
@@ -588,6 +587,7 @@ function do_editbusiness() {
     }
     redirect('app/business/list');
 }
+
 function get_business($business_id = NULL) {
     global $db;
     $sql = "SELECT * FROM business where business_id = '$business_id';";

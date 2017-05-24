@@ -268,7 +268,19 @@ if (isset($_POST['submit'])) {
 </div>
 <!--.wrapper-->
 <?php require_once 'template/footer.php'; ?>
-
+<script>
+    $(function () {
+        $("#business_name").autocomplete({
+            source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
+            minLength: 2,
+            select: function (event, ui) {
+                $("#business_name").val(ui.item.label); // display the selected text
+//                $("#business_id").val(ui.item.value); // save selected id to hidden input
+                return false;
+            }
+        });
+    });
+</script> 
 <script>
     $(function () {
         //เรียกใช้งาน Select2

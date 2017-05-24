@@ -11,33 +11,33 @@ $menu = Array(
                 'url' => 'app/home/index',
                 'cond' => true,
             ),
-            'test' => array(
-                'title' => 'ทดสอบ',
-                'url' => 'app/home/test',
-                'cond' => true,
-            ),
+//            'test' => array(
+//                'title' => 'ทดสอบ',
+//                'url' => 'app/home/test',
+//                'cond' => true,
+//            ),
         ),
     ),
     'school' => array(
         'title' => 'สถานศึกษา',
         'url' => '#',
         'class' => 'fa fa-graduation-cap',
-        'cond' => true,
+        'cond' => is_school_staff(),
         'subitems' => array(
-            'index' => array(
-                'title' => 'หน้าหลัก',
-                'cond' => true,
-                'url' => 'app/school/index',
-            ),
+//            'index' => array(
+//                'title' => 'หน้าหลัก',
+//                'cond' => true,
+//                'url' => 'app/school/index',
+//            ),
             'list' => array(
                 'title' => 'ข้อมูล',
                 'url' => 'app/school/list-data',
-                'cond' => is_auth(),
+                'cond' => is_school_staff(),
             ),
-            'insert' => array(
-                'title' => 'เพิ่มข้อมูล',
-                'url' => 'app/school/insert',
-                'cond' => is_auth(),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/school/edit',
+                'cond' => is_school_staff() ,
             ),
         ),
     ),
@@ -62,6 +62,11 @@ $menu = Array(
                 'url' => 'app/student/list',
                 'cond' => is_school_staff() || is_admin(),
             ),
+            'list-nosent' => array(
+                'title' => 'สถานศึกษาที่ไม่ส่งข้อมูล',
+                'url' => 'app/student/list-nosent',
+                'cond' => is_dvt_staff() || is_admin() || is_dvt_admin(),
+            ),
         ),
     ),
     'school_type' => array(
@@ -78,18 +83,18 @@ $menu = Array(
         ),
     ),
     'pages' => array(
-        'title' => 'หน้าเว็บ',
+        'title' => 'ข่าวสาร',
         'url' => '#',
         'class' => 'fa fa-book',
         'cond' => is_admin(),
         'subitems' => array(
             'list' => array(
-                'title' => 'จัดการหน้าเว็บ',
+                'title' => 'จัดการข่าวสาร',
                 'cond' => true,
                 'url' => 'app/pages/list',
             ),
             'insert' => array(
-                'title' => 'เพิ่มหน้าเว็บ',
+                'title' => 'เพิ่มข่าวสาร',
                 'cond' => true,
                 'url' => 'app/pages/insert',
             ),

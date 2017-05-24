@@ -2,7 +2,7 @@
 if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
 $title = "ผู้ดูแลระบบ";
-$active = 'app/admin';
+$active = 'admin';
 $subactive = 'list-user';
 
 if (isset($_GET['action']) && $_GET['action'] == 'list') {
@@ -70,6 +70,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'list') {
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <div class="table-responsive">
                     <table id="data" class="table table-bordered table-striped">
                         <thead>
                             <tr>
@@ -123,6 +124,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'list') {
                             </tr>
                         </tfoot>
                     </table>
+                    </div>
                 </div>
                 <!-- /.box-body -->
             </div>
