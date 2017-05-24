@@ -35,12 +35,12 @@ if ($_GET['training_id']) {
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                กรอกข้อมูลครูฝึก
+                กรอกข้อมูลฝึกอาชีพ
                 <small>แบบฟอร์ม</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-                <li><a href="#">ครูฝึก</a></li>
+                <li><a href="#">ฝึกอาชีพ</a></li>
                 <li class="active">แก้ไขข้อมูล</li>
             </ol>
         </section>
@@ -56,7 +56,7 @@ if ($_GET['training_id']) {
                     <!-- Horizontal Form -->
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">แก้ไขข้อมูลครูฝึก</h3>
+                            <h3 class="box-title">แก้ไขข้อมูลฝึกอาชีพ</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
@@ -95,9 +95,9 @@ if ($_GET['training_id']) {
                             </div>
                             <input type="hidden" class="form-control" id="trainer_id" name="trainer_id" value="<?php set_var($trainer_id) ?>">
                             <div class="form-group"> 
-                                <label class="control-label col-md-3" for="trainer_name">ชื่อครูฝึก</label>
+                                <label class="control-label col-md-3" for="trainer_name">ชื่อฝึกอาชีพ</label>
                                 <div class="col-md-3 ">
-                                    <input type="text" class="form-control" id="trainer_name" placeholder="ชื่อครูฝึก" name="trainer_name" value="<?php set_var($trainer_name) ?>">
+                                    <input type="text" class="form-control" id="trainer_name" placeholder="ชื่อฝึกอาชีพ" name="trainer_name" value="<?php set_var($trainer_name) ?>">
                                 </div>
                             </div>
 
@@ -179,7 +179,7 @@ function do_validate($data) {
     $valid = true;
     $data = &$_POST;
 //    if (!preg_match('/[a-zA-Z0-9_]{1,}/', $data['training_id'])) {
-//        set_err('กรุณากรอกรหัสครูฝึก');
+//        set_err('กรุณากรอกรหัสฝึกอาชีพ');
 //        $valid = false;
 //    }
     if (check_pid($data['citizen_id'])) {
