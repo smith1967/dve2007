@@ -22,7 +22,7 @@ $menu = Array(
         'title' => 'สถานศึกษา',
         'url' => '#',
         'class' => 'fa fa-graduation-cap',
-        'cond' => true,
+        'cond' => is_school_staff(),
         'subitems' => array(
 //            'index' => array(
 //                'title' => 'หน้าหลัก',
@@ -32,12 +32,12 @@ $menu = Array(
             'list' => array(
                 'title' => 'ข้อมูล',
                 'url' => 'app/school/list-data',
-                'cond' => is_auth(),
+                'cond' => is_school_staff(),
             ),
-            'insert' => array(
-                'title' => 'เพิ่มข้อมูล',
-                'url' => 'app/school/insert',
-                'cond' => is_auth(),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/school/edit',
+                'cond' => is_school_staff() ,
             ),
         ),
     ),
@@ -61,6 +61,11 @@ $menu = Array(
                 'title' => 'รายชื่อ',
                 'url' => 'app/student/list',
                 'cond' => is_school_staff() || is_admin(),
+            ),
+            'list-nosent' => array(
+                'title' => 'สถานศึกษาที่ไม่ส่งข้อมูล',
+                'url' => 'app/student/list-nosent',
+                'cond' => is_dvt_staff() || is_admin() || is_dvt_admin(),
             ),
         ),
     ),
