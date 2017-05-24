@@ -34,7 +34,7 @@ if(version_compare($php_version, PHP_VERSION)>=0){
 }
 session_start();
 ///////////////////////////////////////////////////////////
-$site_url = 'http://localhost/dve2017lte/';  // เปลี่ยนตาม site ที่ติดตั้ง
+$site_url = 'http://localhost/dve2017/';  // เปลี่ยนตาม site ที่ติดตั้ง
 //$fis_year = '2556';         
 $site_title = 'DVE2017';
 $site_subtitle = 'DVE 2017';
@@ -58,7 +58,7 @@ define('OU_NAME', 'สำนักงานการอาชีวศึกษ�
 $host = 'localhost';
 $user = 'root';
 $password = '';
-$database = 'dvt2017';
+$database = 'dve2017';
 $charset = 'utf8';
 //GRANT ALL PRIVILEGES ON dvt2017.* TO dvt@localhost IDENTIFIED BY '123456';
 /*--- Database connect ---*/
