@@ -83,18 +83,18 @@ $menu = Array(
         ),
     ),
     'pages' => array(
-        'title' => 'หน้าเว็บ',
+        'title' => 'ข่าวสาร',
         'url' => '#',
         'class' => 'fa fa-book',
         'cond' => is_admin(),
         'subitems' => array(
             'list' => array(
-                'title' => 'จัดการหน้าเว็บ',
+                'title' => 'จัดการข่าวสาร',
                 'cond' => true,
                 'url' => 'app/pages/list',
             ),
             'insert' => array(
-                'title' => 'เพิ่มหน้าเว็บ',
+                'title' => 'เพิ่มข่าวสาร',
                 'cond' => true,
                 'url' => 'app/pages/insert',
             ),
