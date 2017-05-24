@@ -1,7 +1,7 @@
 <?php
 if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
-$title = "รายการหน้าเว็ป";
+$title = "รายการหน้าข่าวสาร";
 $active = 'pages';
 $subactive = 'list';
 $pages_list = get_pages();
@@ -25,12 +25,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                รายการหน้าเว็บ
-                <small>หน้าเว็บ</small>
+                รายการหน้าข่าวสาร
+                <small>ข่าวสาร</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-                <li><a href="#">หน้าเว็บ</a></li>
+                <li><a href="#">หน้าข่าวสาร</a></li>
                 <li class="active">รายการ</li>
             </ol>
         </section>
@@ -42,7 +42,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
             <div class="box">
                 <?php show_message() ?> 
                 <div class="box-header">
-                    <h3 class="box-title">รายการหน้าเว็บ</h3>
+                    <h3 class="box-title">รายการหน้าข่าวสาร</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">

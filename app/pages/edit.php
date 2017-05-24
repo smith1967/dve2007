@@ -193,7 +193,7 @@ function do_update($pages_id) {
     $data = &$_POST;
     $files = &$_FILES;
     //print_r($data['property']);
-    if (empty($file['image_url']['name'])) {
+    if (basename($files['image_url']['name'])=='') {
         $query = "UPDATE `pages` "
                 . "SET "
                 . "`pages_title`=" . pq($data['pages_title'])
@@ -215,7 +215,8 @@ function do_update($pages_id) {
                 . "`pages_id`=" . pq($pages_id) . ";";
     }
     $result = mysqli_query($db, $query);
-//    echo($query);
+//    echo $query;
+//    var_dump(basename($files['image_url']['name']));
 //    die();
     if (mysqli_affected_rows($db) == 0) {
         set_err('ไม่สามารถแก้ไขข้อมูล' . mysqli_error($db));
