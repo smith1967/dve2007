@@ -10,7 +10,7 @@ $subactive = 'import-dvt-std';
 $date_update = date("Y-m-d");
 if (isset($_GET['action']) && $_GET['action'] == 'import_dvt_std') {
     do_import_all_std();
-    do_import_std();
+    $message=do_import_std();
 } else if (isset($_GET['action']) && $_GET['action'] == 'delete_dvt_std') {
     do_delete();
 }
@@ -35,17 +35,19 @@ if (isset($_GET['action']) && $_GET['action'] == 'import_dvt_std') {
         </section>
 
         <!-- Main content -->
-        <section class="content">
-
+        <section class="content"
             <!-- Default box -->
             <div class="box">
-                <?php show_message() ?> 
+                <?php show_message()  ;
+                echo $message['true'];
+                echo $message['wrong'][0];
+                echo $message['wrong'][1];
+                ?>
                 <div class="box-header">
-                    <h3 class="box-title">นำเข้าข้อมูลทวิภาคี</h3>
+                    <h3 class="box-title">นำเข้าข้อมูลนักเรียนระบบทวิภาคี</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
-                    <p>&nbsp;</p>
                     <p>&nbsp;</p>
                     <p>&nbsp;</p>
                     <?php $importlink = site_url('app/student/import-dvt-student') . '&action=delete_dvt_std'; ?>
@@ -72,7 +74,7 @@ function do_import_all_std(){
     global $db;
     
     $sql="insert into sum_of_student 
-        select `school_id`,`semester`,`edu_year`,
+        select `school_id`,`round_year`,`semester`,`edu_year`,
         (SELECT count(`std_id`) FROM `student_tmp`) as sum_of_student,
         (SELECT count(`std_id`) FROM `student_tmp` where `edu_id`=2) as sum_of_dvt_student,
         (SELECT  count(`std_id`) FROM `student_tmp` WHERE substr(std_id,3,1)=2) as sum_of_vc_student,
@@ -126,23 +128,15 @@ function do_import_std() {
     $result= mysqli_query($db, $sql);
     if (!$result) {
         $err="การเพิ่มข้อมูลเข้าตาราง student ผิดพลาด  : " . mysqli_error($db);
+        $message['wrong'][0]='<div class="alert alert-danger">'.$err.'</div>';
         $errorlist=mysqli_error_list($db);
         //echo $errorlist[0]['errno'];
         $link = site_url('student/file-manager');
         if ($errorlist[0]['errno']==1062){
-            echo '<div class="alert alert-danger">';
-            echo "ข้อมูลนักเรียนมีอยู่แล้วในระบบ ไม่สามารถส่งข้อมูลขึ้นระบบได้";
-            echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-            //echo '<p class="text-info"> ต้องการส่งข้อมูลใหม่ กรุณาติดต่อผู้ดูแลระบบ</p>';
-            echo '<a href="'.$link.'">กลับไปหน้าส่งไฟล์ข้อมูล</a>';
-            echo '</div>';
+            $message['wrong'][1]='<div class="alert alert-danger"> ข้อมูลนักเรียนมีอยู่แล้วในระบบ ไม่สามารถส่งข้อมูลขึ้นระบบได้ ';
+            $message['wrong'][1].='&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="'.$link.'">กลับไปหน้าส่งไฟล์ข้อมูล</a> </div>'    ;    
         }else{
-            echo '<div class="alert alert-danger">';
-            echo $err;
-            echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
-            //echo '<p class="text-info"> ต้องการส่งข้อมูลใหม่ กรุณาติดต่อผู้ดูแลระบบ</p>';
-            echo '<a href="'.$link.'">กลับไปหน้าส่งไฟล์ข้อมูล</a>';
-            echo '</div>';
+            $message['wrong'][1]='<div class="alert alert-danger"> '.$err.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a href="'.$link.'">กลับไปหน้าส่งไฟล์ข้อมูล</a></div>';
         }
         //redirect('form.php');
     } else {
@@ -154,26 +148,28 @@ function do_import_std() {
         $info='โอนข้อมูลนักเรียนทวิภาคี เข้าตาราง student เรียบร้อยแล้ว';
       //  echo 'โอนข้อมูลเข้าตาราง student จำนวน ' . mysqli_affected_rows($db) . ' รายการ' ;
         //show_info($_SESSION['info']);
-        echo '<div class="alert alert-info">';
-        echo $info;
-        echo '</div>';   
+        $message['true']= '<div class="alert alert-info">';
+        $message['true'].=  $info;
+        $message['true'].= '</div>';   
     }
    // redirect('student/import-std');
+   return $message;
 }
 
 function do_delete(){
     global $db;
     $school_id = $_SESSION['user']['school_id'];
-    $year = $_SESSION['year'];
+    $year=$_SESSION['year'];
+    $round_year = $_SESSION['user']['round-year'];
     $sql = "DELETE FROM `student` WHERE `school_id` = '$school_id' AND `edu_year` = '$year' ";
     $result = mysqli_query($db, $sql);
-    $sql2 = "DELETE FROM `sum_of_student` WHERE `school_id` = '$school_id' AND `edu_year` = '$year' ";
+    $sql2 = "DELETE FROM `sum_of_student` WHERE `school_id` = '$school_id' AND `round_year` = '$round_year' ";
     $result2 = mysqli_query($db, $sql2);
-//        echo $sql."<br>";
-//         echo $sql2."<br>";
-//          echo exit()."<br>";
+    //    echo $sql."<br>";
+    //     echo $sql2."<br>";
+    //      echo exit()."<br>";
     if ($result >0 && $result2>0){
-        redirect('student/file-manager');
+        redirect('app/student/file-manager');
     }
 }
 

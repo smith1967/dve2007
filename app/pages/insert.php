@@ -74,8 +74,8 @@ if (isset($_POST['submit'])) {
                         <form role="form" method="post" enctype="multipart/form-data">
                             <div class="box-body">
                                 <div class="form-group">
-                                    <label for="page_title">ชื่อเรื่อง</label>
-                                    <input type="text" class="form-control" id="page_title" placeholder="ชื่อเรื่อง" name="page_title" value="<?php set_var($page_title); ?>">
+                                    <label for="pages_title">ชื่อเรื่อง</label>
+                                    <input type="text" class="form-control" id="page_title" placeholder="ชื่อเรื่อง" name="pages_title" value="<?php set_var($pages_title); ?>">
                                 </div>
 
                                 <!-- textarea -->
@@ -145,7 +145,7 @@ function do_validate($data) {
 //        set_err('กรุณากรอกรหัสสถานประกอบการ');
 //        $valid = false;
 //    }
-    if (empty($data['page_title'])) {
+    if (empty($data['pages_title'])) {
         set_err('กรุณากรอกชื่อเรื่อง');
         $valid = false;
     }
@@ -165,8 +165,8 @@ function do_insert($file_name) {
     //echo $pro;
     //exit();
     $query = "INSERT INTO pages ("
-            . "`id`,"
-            . " `page_title`,"
+            . "`pages_id`,"
+            . " `pages_title`,"
             . " `content`,"
             . " `published_date`,"
             . " `image_url`,"
@@ -175,7 +175,7 @@ function do_insert($file_name) {
             . " `user_id`)"
             . " VALUES ("
             . "NULL,"
-            . pq($data['page_title']) . ","
+            . pq($data['pages_title']) . ","
             . pq($data['content']) . ","
             . "NOW(),"
             . pq($file_name) . ","
