@@ -62,12 +62,6 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>-->
 
-                    <div class="form-group">
-                        <label for="trainer_citizen" class="col-md-3 control-label">เลขประจำตัวประชาชน</label>
-                        <div class="col-md-3">
-                            <input type="text" class="form-control" id="trainer_citizen" name="trainer_citizen"value="<?php set_var($trainer_citizen); ?>">
-                        </div>
-                    </div>    
 
                     <div class="form-group">
                         <label for="trainer_name" class="col-md-3 control-label">ชื่อครูฝึก</label>
@@ -75,6 +69,12 @@ if (isset($_POST['submit'])) {
                             <input type="text" class="form-control" id="trainer_name" name="trainer_name"value="<?php set_var($trainer_name); ?>">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="trainer_citizen" class="col-md-3 control-label">เลขประจำตัวประชาชน</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="trainer_citizen" name="trainer_citizen"value="<?php set_var($trainer_citizen); ?>">
+                        </div>
+                    </div>    
 
                     <div class="form-group">
                         <label for="phone" class="col-md-3 control-label">เบอร์โทรศัพท์</label>
