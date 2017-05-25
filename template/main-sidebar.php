@@ -2,14 +2,14 @@
 $menu = Array(
     'home' => array(
         'title' => 'หน้าหลัก',
-        'url' => '#',
+        'url' => site_url(),
         'class' => 'fa fa-home',
         'cond' => true,
         'subitems' => array(
             'index' => array(
-                'title' => 'หน้าหลัก',
-                'url' => 'app/home/index',
-                'cond' => true,
+//                'title' => 'หน้าหลัก',
+//                'url' => 'app/home/index',
+//                'cond' => FALSE,
             ),
 //            'test' => array(
 //                'title' => 'ทดสอบ',
