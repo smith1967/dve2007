@@ -62,12 +62,6 @@ if (isset($_POST['submit'])) {
                         </div>
                     </div>-->
 
-                    <div class="form-group">
-                        <label for="trainer_citizen" class="col-md-3 control-label">เลขประจำตัวประชาชน</label>
-                        <div class="col-md-3">
-                            <input type="text" class="form-control" id="trainer_citizen" name="trainer_citizen"value="<?php set_var($trainer_citizen); ?>">
-                        </div>
-                    </div>    
 
                     <div class="form-group">
                         <label for="trainer_name" class="col-md-3 control-label">ชื่อครูฝึก</label>
@@ -75,6 +69,12 @@ if (isset($_POST['submit'])) {
                             <input type="text" class="form-control" id="trainer_name" name="trainer_name"value="<?php set_var($trainer_name); ?>">
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="trainer_citizen" class="col-md-3 control-label">เลขประจำตัวประชาชน</label>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control" id="trainer_citizen" name="trainer_citizen"value="<?php set_var($trainer_citizen); ?>">
+                        </div>
+                    </div>    
 
                     <div class="form-group">
                         <label for="phone" class="col-md-3 control-label">เบอร์โทรศัพท์</label>
@@ -194,20 +194,29 @@ if (isset($_POST['submit'])) {
 </div>
 <!--.wrapper-->
 <?php require_once 'template/footer.php'; ?>
-
 <script>
-   $(function() {
-      $( "#business_name" ).autocomplete({
-         minLength: 2, 
-         source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
-         select: function (event, ui) {
-            $("#business_name").val(ui.item.label); // display the selected text
-            $("#business_id").val(ui.item.value); // save selected id to hidden input
-            return false;
-        }         
-      });
-   });
-</script>
+    $(function () {
+        $("#business_name").autocomplete({
+            source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
+            minLength: 2,
+            select: function (event, ui) {
+                $("#business_name").val(ui.item.label); // display the selected text
+                $("#business_id").val(ui.item.value); // save selected id to hidden input
+                return false;
+            }
+        });
+        $("#trainer_name").autocomplete({
+            source: "<?php echo SITE_URL ?>ajax/search_trainer.php",
+            minLength: 2,
+            select: function (event, ui) {
+                $("#trainer_name").val(ui.item.label); // display the selected text
+                $("#trainer_id").val(ui.item.value); // save selected id to hidden input
+                return false;
+            }
+        });
+    });
+</script> 
+
 <?php
 
 function do_validate($data) {
@@ -217,10 +226,10 @@ function do_validate($data) {
 //        set_err('กรุณากรอกรหัสสครูฝึก');
 //        $valid = false;
 //    }
-    if (!preg_match('/[a-zA-Z0-9_]{1,13}/', $data['trainer_citizen'])) {
-        set_err('กรุณากรอกเลขบัตรประชาชน กรอกได้ 13 ตัว');
-        $valid = false;
-    }
+//    if (!preg_match('/[a-zA-Z0-9_]{1,13}/', $data['trainer_citizen'])) {
+//        set_err('กรุณากรอกเลขบัตรประชาชน กรอกได้ 13 ตัว');
+//        $valid = false;
+//    }
     if (empty($data['trainer_name'])) {
         set_err('กรุณากรอกชื่อครูฝึก');
         $valid = false;

@@ -181,8 +181,9 @@ function get_user_signup($page = 0, $limit = 20) {
 
 function get_user($page = 0, $limit = 10) {
     global $db;
-    $start = $page * $limit;
-    $query = "SELECT * FROM user LIMIT " . $start . "," . $limit;
+    // $start = $page * $limit;
+    $query = "SELECT * FROM user";
+    // --  LIMIT " . $start . "," . $limit;
     $result = mysqli_query($db, $query);
     $userlist = array();
     while ($row = mysqli_fetch_array($result)) {
