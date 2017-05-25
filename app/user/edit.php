@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     }
 } else {
     if (isset($_GET['action']) && $_GET['action'] == 'edit') {
-        $user_id = $_GET['user_id'];
+        $user_id = $_SESSION['user']['user_id'];
         $user_info = get_info($user_id);
 //        var_dump($user_info);
 //        die();
@@ -109,7 +109,7 @@ if (isset($_POST['submit'])) {
                             <input type="text" class="form-control" id="lname" name="lname" placeholder="lastname" value='<?php echo isset($lname) ? $lname : ''; ?>'>
                         </div>
                     </div>
-                    <div class="form-group"> 
+<!--                    <div class="form-group"> 
                         <label class="control-label col-md-3" for="user_type_id">ประเภทผู้ใช้</label>
                         <div class="col-md-4">
                             <select class='form-control input-xlarge'id="user_type_id" name="user_type_id">
@@ -120,7 +120,7 @@ if (isset($_POST['submit'])) {
                                 ?>
                             </select>              
                         </div>
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label class="control-label col-md-3" for="phone">โทรศัพท์</label>
                         <div class="col-md-5">
