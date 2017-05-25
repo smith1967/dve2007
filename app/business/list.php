@@ -3,13 +3,13 @@ if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
 $title = "สถานประกอบการ";
 $active = 'business';
-$subactive = 'index';
-$businesslist = get_business(0, 0);
-//    $total = get_total();
-$url = site_url('business/list-business&') . $params;
-// var_dump($businesslist);
-//    exit();
-$total = get_total();
+$subactive = 'list-data';
+//$businesslist = get_business(0, 0);
+////    $total = get_total();
+//$url = site_url('business/list-business&') . $params;
+//// var_dump($businesslist);
+////    exit();
+//$total = get_total();
 //if(!isset($total))redirect("/admin/index");
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     do_delete($_GET['business_id']);
@@ -46,42 +46,43 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="table-responsive">
-                    <table id="business_list" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>รหัส</th>
-                                <th>ชื่อสถานประกอบการ</th>
-                                <th>จังหวัด</th>
-                                <th>ดำเนินการ</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                        foreach ($businesslist as $business) :
-                            ?>                            
+                        <table id="business_list" class="table table-bordered table-striped">
+                            <thead>
                                 <tr>
-                                    <td><?php echo $business['business_id']; ?></td>
-                                    <td><?php echo $business['business_name']; ?></td>
-                                    <td><?php echo $business['province_name']; ?></td>
-            
-                                    <td class="text-center">
-                                        <a href="<?php echo site_url('app/business/list') . '&action=delete&business_id=' . $business['business_id']; ?>" class="btn btn-danger btn-sm delete"><i class="fa fa-remove"></i></a> | 
-                                        <a href="<?php echo site_url('app/business/edit') . '&action=edit&business_id=' . $business['business_id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-            
-                                    </td>                    
+                                    <th>รหัส</th>
+                                    <th>ชื่อสถานประกอบการ</th>
+                                    <th>จังหวัด</th>
+                                    <th>ดำเนินการ</th>
                                 </tr>
-                        <?php endforeach; ?>
-        
-                        </tbody>
-                        <tfoot>
-                            <tr>
-                                <th>รหัส</th>
-                                <th>ชื่อสถานประกอบการ</th>
-                                <th>จังหวัด</th>
-                                <th>ดำเนินการ</th>
-                            </tr>
-                        </tfoot>
-                    </table>
+                            </thead>
+                            <tbody>
+
+                                <?php
+//                        foreach ($businesslist as $business) :
+                                ?>                            
+<!--                                <tr>
+        <td><?php echo $business['business_id']; ?></td>
+        <td><?php echo $business['business_name']; ?></td>
+        <td><?php echo $business['province_name']; ?></td>
+
+        <td class="text-center">
+            <a href="<?php echo site_url('app/business/list') . '&action=delete&business_id=' . $business['business_id']; ?>" class="btn btn-danger btn-sm delete"><i class="fa fa-remove"></i></a> | 
+            <a href="<?php echo site_url('app/business/edit') . '&action=edit&business_id=' . $business['business_id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+
+        </td>                    
+    </tr>-->
+                                <?php // endforeach; ?>
+
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>รหัส</th>
+                                    <th>ชื่อสถานประกอบการ</th>
+                                    <th>จังหวัด</th>
+                                    <th>ดำเนินการ</th>
+                                </tr>
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
                 <!-- /.box-body -->
@@ -99,27 +100,31 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 <?php require_once 'template/footer.php'; ?>
 <script>
     $(document).ready(function () {
-        $('#business_list').DataTable( {
-//            "processing": true,
-//            "serverSide": true,
-//            "ajax": {
-//                "url": "ajax/get_business.php",
-//            },
-//            "deferLoading": 50
-//            
-//        });
-//        var table = $('#business_list').DataTable({
-//            "processing": true,
-//            "serverSide": true,
-//            "ajax": 'ajax/get_business.php',           
-//            "columnDefs": [
-//                {
-//                    "targets": 3,
-//                    render: function (data, type, row, meta) {
-//                        return '<a href="app/business/edit&action=edit&business_id=' + row[0] + '">Edit</a>';
-//                    }
-//                }
-//            ],
+        $('.delete').click(function () {
+            return confirm('ยืนยันการลบข้อมูล')
+        });
+        $('#business_list').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "responsive": true,
+            "autoWidth": false,
+            "pageLength": 10,
+            "ajax": {
+                "url": "ajax/get_business.php",
+                "type": "POST"
+            },
+            "columns": [
+                {"data": "business_id"},
+                {"data": "business_name"},
+                {"data": "province_name"},
+//        { "data": "gender" },
+//        { "data": "country" },
+//        { "data": "phone" },
+                {"data": "button"},
+            ],
             "language": {
                 "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
                 "zeroRecords": "ไม่มีข้อมูล",
@@ -137,11 +142,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         });
     });
 </script>
-<script>
-    $('.delete').click(function () {
-        return confirm('ยืนยันลบข้อมูล')
-    });
-</script>
+
 <?php
 
 function get_business($page = 0, $limit = 10) {

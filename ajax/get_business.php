@@ -12,27 +12,27 @@ header('Content-Type: application/json; charset=utf-8');
 //    $search_str = '%' . trim($_REQUEST['term']) . '%';
 //echo $search_str.'<br>';
 //die();
-    $query = "SELECT b.business_id,b.business_name,p.province_name FROM business as b,province as p WHERE b.province_id = p.province_code";
+    $query = "SELECT b.business_id,b.business_name,p.province_name FROM business as b LEFT JOIN province as p ON b.province_id = p.province_code";
 //echo $query;
     $result = mysqli_query($db, $query);
     if ($result) {
         $data = array();
-        while ($row = mysqli_fetch_array($result)) {
-            $data[] = array($row[0], $row[1],$row[2]);
+        while ($row = mysqli_fetch_assoc($result)) {
+            $data[] = $row;
         }
 //        $json_data = array();
 //        $json_data['data'] = $data;
 //        var_dump($json_data);
 //        exit();
-        $totaldata = mysqli_num_rows($result);
-        $totalfiltered = $totaldata;
-        $json_data = array(
-            "draw"            => intval( $_REQUEST['draw'] ),            
-            "recordsTotal"    => intval( $totaldata ),
-            "recordsFiltered" => intval( $totalfiltered ),
-            "data"            => $data
-        );        
-        echo json_encode($json_data, JSON_UNESCAPED_UNICODE);
+        $i=0;
+        foreach ($data as $key) {
+            $data[$i]['button'] = '<a href="'.site_url('app/business/list') . '&action=delete&business_id=' . $data[$i]['business_id'].'" class="btn btn-danger btn-sm delete"><i class="fa fa-remove"></i></a> |
+                                        <a href="'.site_url('app/business/edit') . '&action=edit&business_id=' . $data[$i]['business_id'].'" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>';
+            $i++;
+        }
+        $datax = array('data' => $data);
+        echo json_encode($datax, JSON_UNESCAPED_UNICODE);       
+//        echo json_encode($json_data, JSON_UNESCAPED_UNICODE);
 
 //        var_dump($json_data);
 //        exit();

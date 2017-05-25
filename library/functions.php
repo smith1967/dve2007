@@ -125,31 +125,32 @@ function gen_radio($name, $data, $def = '', $sep = '') {
     }
     return implode($sep, $a);
 }
+
 function resize_image($src, $dest, $width, $height) {
     $type = exif_imagetype($src); // [] if you don't have exif you could use getImageSize() 
-    $allowedTypes = array( 
-        1,  // [] gif 
-        2,  // [] jpg 
-        3,  // [] png 
+    $allowedTypes = array(
+        1, // [] gif 
+        2, // [] jpg 
+        3, // [] png 
         6   // [] bmp 
-    ); 
-    if (!in_array($type, $allowedTypes)) { 
-        return false; 
-    } 
-    switch ($type) { 
-        case 1 : 
-            $image = imageCreateFromGif($src); 
-        break; 
-        case 2 : 
-            $image = imageCreateFromJpeg($src); 
-        break; 
-        case 3 : 
-            $image = imageCreateFromPng($src); 
-        break; 
-        case 6 : 
-            $image = imageCreateFromBmp($src); 
-        break; 
-    }  
+    );
+    if (!in_array($type, $allowedTypes)) {
+        return false;
+    }
+    switch ($type) {
+        case 1 :
+            $image = imageCreateFromGif($src);
+            break;
+        case 2 :
+            $image = imageCreateFromJpeg($src);
+            break;
+        case 3 :
+            $image = imageCreateFromPng($src);
+            break;
+        case 6 :
+            $image = imageCreateFromBmp($src);
+            break;
+    }
 //    $image = imagecreatefromstring($src);
     $width_orig = imagesx($image);
     $height_orig = imagesy($image);
@@ -161,27 +162,26 @@ function resize_image($src, $dest, $width, $height) {
     }
     $image_p = imagecreatetruecolor($width, $height);
     imagecopyresampled($image_p, $image, 0, 0, 0, 0, $width, $height, $width_orig, $height_orig);
-    switch ($type) { 
+    switch ($type) {
         case 1 : imagecreatefromgif($image_p);
 //            $image = imagecreatefromgif($image_p); 
-        break; 
+            break;
         case 2 : imagejpeg($image_p, $dest, 75);
 //            $image = imageCreateFromJpeg($src); 
-        break; 
+            break;
         case 3 : imagecreatefrompng($image_p);
 //            $image = imageCreateFromPng($src); 
-        break; 
+            break;
         case 6 : imagecreatefromwbmp($image_p);
 //            $image = imageCreateFromBmp($src); 
-        break; 
-    }  
+            break;
+    }
 
 //    imagejpeg($image_p, $dest, 100);
     imagedestroy($image_p);
     imagedestroy($image);
     return true;
 }
-
 
 function resize_image_data($src, $dest, $width, $height) {
 //        var_dump($height_orig);
@@ -216,22 +216,11 @@ function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
             continue;
         $level = 1;
         $indent = str_repeat(" ", $level * 2);
-//        var_dump(count($subitems['subitems']));
-//        die();
-//        if(count($subitems['subitems'])>1){
-            if ($items == $active) {
-                $ret .= sprintf("%s<li class='active treeview'>\n", $indent);
-            } else{
-                $ret .= sprintf("%s<li class='treeview'>\n", $indent);
-            }
-//        }else{
-//            if ($items == $active) {
-//                $ret .= sprintf("%s<li class='active'>\n", $indent);
-//            } else{
-//                $ret .= sprintf("%s<li class=''>\n", $indent);
-//            }            
-//        }
-//        $ret .= sprintf("</li>\n");
+        if ($items == $active) {
+            $ret .= sprintf("%s<li class='active treeview'>\n", $indent);
+        } else {
+            $ret .= sprintf("%s<li class='treeview'>\n", $indent);
+        }
         $level = 3;
         $indent = str_repeat(" ", $level * 2);
         $ret .= sprintf("%s<a href='%s'>\n", $indent, $subitems['url']);
@@ -239,7 +228,7 @@ function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
         $indent = str_repeat(" ", $level * 2);
         $ret .= sprintf("%s<i class='%s'></i>\n", $indent, $subitems['class']);
         $ret .= sprintf("%s<span>%s</span>\n", $indent, $subitems['title']);
-        if(count($subitems['subitems'])>1){
+        if (isset($subitems['subitems'])) {
             $ret .= sprintf("%s<span class='pull-right-container'>\n", $indent);
             $ret .= sprintf("%s<i class='fa fa-angle-left pull-right'></i>\n", $indent);
             $ret .= sprintf("%s</span>\n", $indent);
@@ -247,23 +236,21 @@ function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
         $level = 3;
         $indent = str_repeat(" ", $level * 2);
         $ret .= sprintf("%s</a>\n", $indent);
-        if(count($subitems['subitems'])>1){        
+        if (isset($subitems['subitems'])) {
             $ret .= sprintf("%s<ul class='treeview-menu'>\n", $indent);
-        } 
-        foreach ($subitems['subitems'] as $item => $subitem) {
-            if ($subitem['cond'] == FALSE)
-                continue;
-            $level = 4;
+            foreach ($subitems['subitems'] as $item => $subitem) {
+                if ($subitem['cond'] == FALSE)
+                    continue;
+                $level = 4;
+                $indent = str_repeat(" ", $level * 2);
+                if ($item == $subactive && $items == $active)
+                    $ret .= sprintf("%s<li class='active'><a href='%s'><i class='fa fa-circle-o'></i> %s</a>", $indent, site_url($subitem['url']), $subitem['title']);
+                else
+                    $ret .= sprintf("%s<li><a href='%s'><i class='fa fa-circle-o'></i> %s</a>", $indent, site_url($subitem['url']), $subitem['title']);
+                $ret .= sprintf("</li>\n");
+            }
+            $level = 3;
             $indent = str_repeat(" ", $level * 2);
-            if ($item == $subactive && $items == $active)
-                $ret .= sprintf("%s<li class='active'><a href='%s'><i class='fa fa-circle-o'></i> %s</a>", $indent, site_url($subitem['url']), $subitem['title']);
-            else
-                $ret .= sprintf("%s<li><a href='%s'><i class='fa fa-circle-o'></i> %s</a>", $indent, site_url($subitem['url']), $subitem['title']);
-            $ret .= sprintf("</li>\n");
-        }
-        $level = 3;
-        $indent = str_repeat(" ", $level * 2);
-        if(count($subitems['subitems'])>1){        
             $ret .= sprintf("%s</ul>\n", $indent);
         }
         $level = 1;
