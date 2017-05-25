@@ -34,7 +34,7 @@ if(version_compare($php_version, PHP_VERSION)>=0){
 }
 session_start();
 ///////////////////////////////////////////////////////////
-$site_url = 'http://localhost/dve2017lte/';  // เปลี่ยนตาม site ที่ติดตั้ง
+$site_url = 'http://localhost/dve2017/';  // เปลี่ยนตาม site ที่ติดตั้ง
 //$fis_year = '2556';         
 $site_title = 'DVE2017';
 $site_subtitle = 'DVE 2017';
@@ -47,11 +47,12 @@ $author_email = "smith@cstc.ac.th";
 define('SITE_URL', $site_url);
 define('INC_PATH', str_replace('\\','/',dirname(__FILE__)).'/');
 define('BASE_PATH', dirname(INC_PATH).'/');
+define('APP_PATH', BASE_PATH.'app/');
 define('LIB_PATH', BASE_PATH.'library/');
 define('UPLOAD_DIR', BASE_PATH . 'upload/');
 //var_dump(LIB_PATH);
 //die();
-define('APP_RRL', SITE_URL.'app/');
+define('APP_URL', SITE_URL.'app/');
 define('OU_NAME', 'สำนักงานการอาชีวศึกษา');
 
 // database parameter
