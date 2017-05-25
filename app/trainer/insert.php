@@ -226,10 +226,10 @@ function do_validate($data) {
 //        set_err('กรุณากรอกรหัสสครูฝึก');
 //        $valid = false;
 //    }
-    if (!preg_match('/[a-zA-Z0-9_]{1,13}/', $data['trainer_citizen'])) {
-        set_err('กรุณากรอกเลขบัตรประชาชน กรอกได้ 13 ตัว');
-        $valid = false;
-    }
+//    if (!preg_match('/[a-zA-Z0-9_]{1,13}/', $data['trainer_citizen'])) {
+//        set_err('กรุณากรอกเลขบัตรประชาชน กรอกได้ 13 ตัว');
+//        $valid = false;
+//    }
     if (empty($data['trainer_name'])) {
         set_err('กรุณากรอกชื่อครูฝึก');
         $valid = false;
