@@ -34,7 +34,7 @@ $pages_list = get_pages();
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                ระบบงานทวิศีกษา
+                ระบบงานทวิศึกษา
                 <small>SMART DVE</small>
             </h1>
             <ol class="breadcrumb">
