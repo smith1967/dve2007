@@ -239,7 +239,7 @@ function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
         $indent = str_repeat(" ", $level * 2);
         $ret .= sprintf("%s<i class='%s'></i>\n", $indent, $subitems['class']);
         $ret .= sprintf("%s<span>%s</span>\n", $indent, $subitems['title']);
-        if(count($subitems['subitems'])>1){
+        if(isset($subitems['subitems'])){
             $ret .= sprintf("%s<span class='pull-right-container'>\n", $indent);
             $ret .= sprintf("%s<i class='fa fa-angle-left pull-right'></i>\n", $indent);
             $ret .= sprintf("%s</span>\n", $indent);
@@ -247,9 +247,8 @@ function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
         $level = 3;
         $indent = str_repeat(" ", $level * 2);
         $ret .= sprintf("%s</a>\n", $indent);
-        if(count($subitems['subitems'])>1){        
+        if(isset($subitems['subitems'])){
             $ret .= sprintf("%s<ul class='treeview-menu'>\n", $indent);
-        } 
         foreach ($subitems['subitems'] as $item => $subitem) {
             if ($subitem['cond'] == FALSE)
                 continue;
@@ -260,10 +259,9 @@ function gen_sidebar_menu($items, $active = 'home', $subactive = 'index') {
             else
                 $ret .= sprintf("%s<li><a href='%s'><i class='fa fa-circle-o'></i> %s</a>", $indent, site_url($subitem['url']), $subitem['title']);
             $ret .= sprintf("</li>\n");
-        }
-        $level = 3;
-        $indent = str_repeat(" ", $level * 2);
-        if(count($subitems['subitems'])>1){        
+            }
+            $level = 3;
+            $indent = str_repeat(" ", $level * 2);
             $ret .= sprintf("%s</ul>\n", $indent);
         }
         $level = 1;

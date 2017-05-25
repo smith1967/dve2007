@@ -5,18 +5,18 @@ $menu = Array(
         'url' => site_url(),
         'class' => 'fa fa-home',
         'cond' => true,
-        'subitems' => array(
-            'index' => array(
-//                'title' => 'หน้าหลัก',
-//                'url' => 'app/home/index',
-//                'cond' => FALSE,
-            ),
-//            'test' => array(
-//                'title' => 'ทดสอบ',
-//                'url' => 'app/home/test',
-//                'cond' => true,
+//        'subitems' => array(
+//            'index' => array(
+////                'title' => 'หน้าหลัก',
+////                'url' => 'app/home/index',
+////                'cond' => FALSE,
 //            ),
-        ),
+////            'test' => array(
+////                'title' => 'ทดสอบ',
+////                'url' => 'app/home/test',
+////                'cond' => true,
+////            ),
+//        ),
     ),
     'school' => array(
         'title' => 'สถานศึกษา',
