@@ -74,14 +74,14 @@ if (isset($_POST['submit'])) {
                     $html = "รายงานข้อมูลนักเรียนระบบทวิภาคี ปีการศึกษา " . $sem . "<br>";
                     $html .= "จำแนกตามสถานศึกษา  จังหวัด " . getProvinceName($province_id);
                     $html .= '
-                <table border=1>
-    <tr>
-        <th rowspan="3">ลำดับที่</th>
-        <th rowspan="3">ชื่อสถานศึกษา</th>
+                <table width="99%" border="1" align=center cellpadding="0" cellspacing="0">
+    <tr align=center >
+        <th rowspan="3" width="5px">ลำดับที่</th>
+        <th rowspan="3" width="30px">ชื่อสถานศึกษา</th>
         <th colspan="21">จำนวนนักเรียน(คน)</th>
         <th rowspan="3">รวม</th>
     </tr> 
-    <tr>
+    <tr align=center>
         <th colspan="3">ปวช.1</th>
         <th colspan="3">ปวช.2</th>
         <th colspan="3">ปวช.3</th>
@@ -90,7 +90,7 @@ if (isset($_POST['submit'])) {
         <th colspan="3">ป.ตรี 1</th>
         <th colspan="3">ป.ตรี 2</th>
     </tr> 
-    <tr>
+    <tr align=center>
         <th>ชาย</th>
         <th>หญิง</th>
         <th>รวม</th>
@@ -176,31 +176,31 @@ GROUP BY s.school_id";
                     $result = mysqli_query($db, $sql);
                     $count = 1;
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $html .= "<tr>
+                        $html .= "<tr align='center'>
                         <td>" . $count++ . "</td>
                         <td>" . $row['school_name'] . "</td>
-                        <td>" . $row['pvc1_m'] . "</td>
-                        <td>" . $row['pvc1_f'] . "</td>
-                        <td>" . $row['sum_pvc1'] . "</td>
-                        <td>" . $row['pvc2_m'] . "</td>
-                        <td>" . $row['pvc2_f'] . "</td>
-                        <td>" . $row['sum_pvc2'] . "</td>
-                        <td>" . $row['pvc3_m'] . "</td>
-                        <td>" . $row['pvc3_f'] . "</td>
-                        <td>" . $row['sum_pvc3'] . "</td>
-                        <td>" . $row['pvs1_m'] . "</td>
-                        <td>" . $row['pvs1_f'] . "</td>
-                        <td>" . $row['sum_pvs1'] . "</td>
-                        <td>" . $row['pvs2_m'] . "</td>
-                        <td>" . $row['pvs2_f'] . "</td>
-                        <td>" . $row['sum_pvs2'] . "</td>
-                        <td>" . $row['pt1_m'] . "</td>
-                        <td>" . $row['pt1_f'] . "</td>
-                        <td>" . $row['sum_pt1'] . "</td>
-                        <td>" . $row['pt2_m'] . "</td>
-                        <td>" . $row['pt2_f'] . "</td>
-                        <td>" . $row['sum_pt2'] . "</td>
-                        <td>" . $row['sum_all'] . "</td>
+                        <td align='center'>" . $row['pvc1_m'] . "</td>
+                        <td align='center'>" . $row['pvc1_f'] . "</td>
+                        <td align='center'>" . $row['sum_pvc1'] . "</td>
+                        <td align='center'>" . $row['pvc2_m'] . "</td>
+                        <td align='center'>" . $row['pvc2_f'] . "</td>
+                        <td align='center'>" . $row['sum_pvc2'] . "</td>
+                        <td align='center'>" . $row['pvc3_m'] . "</td>
+                        <td align='center'>" . $row['pvc3_f'] . "</td>
+                        <td align='center'>" . $row['sum_pvc3'] . "</td>
+                        <td align='center'>" . $row['pvs1_m'] . "</td>
+                        <td align='center'>" . $row['pvs1_f'] . "</td>
+                        <td align='center'>" . $row['sum_pvs1'] . "</td>
+                        <td align='center'>" . $row['pvs2_m'] . "</td>
+                        <td align='center'>" . $row['pvs2_f'] . "</td>
+                        <td align='center'>" . $row['sum_pvs2'] . "</td>
+                        <td align='center'>" . $row['pt1_m'] . "</td>
+                        <td align='center'>" . $row['pt1_f'] . "</td>
+                        <td align='center'>" . $row['sum_pt1'] . "</td>
+                        <td align='center'>" . $row['pt2_m'] . "</td>
+                        <td align='center'>" . $row['pt2_f'] . "</td>
+                        <td align='center'>" . $row['sum_pt2'] . "</td>
+                        <td align='center'>" . $row['sum_all'] . "</td>
                         </tr>";
                     }
 
@@ -208,12 +208,35 @@ GROUP BY s.school_id";
 
 
 
-
-
-                    echo '<div class="panel-body col-md-10">';
-                    echo $html;
-                    echo '</div>';
                     ?>
+
+                    <div class="panel-body col-md-10">
+                         <?php    echo $html; ?>
+                        <a href='<?php site_url("app/report/stu_03?action=print") ?>'>print</a>
+                    </div>';
+                    <?php
+                    if ($_GET['action']=='print'){
+                        require_once LIB_PATH . '/mpdf/vendor/autoload.php';
+
+                        $mpdf = new mPDF('th','A4','','',32,25,27,25,16,13);
+
+                        $mpdf->SetDisplayMode('fullpage');
+
+                        $mpdf->list_indent_first_level = 0;	// 1 or 0 - whether to indent the first level of a list
+
+                        // LOAD a stylesheet
+                        $stylesheet = file_get_contents('mpdfstyletables.css');
+                        $mpdf->WriteHTML($stylesheet,1);	// The parameter 1 tells that this is css/style only and no body/html/text
+
+                        $mpdf->WriteHTML($html,2);
+
+                        $mpdf->Output('stu_03.pdf','I');
+                        exit;
+                     }
+
+                    ?>
+                   
+                    
                     <!--        //============================end report=========================   -->
                 </div><!--box-body-->
             </div>
@@ -270,3 +293,10 @@ function getProvinceName($id) {
     return $row['PROVINCE_NAME'];
 }
 
+//==============================================================
+//==============================================================
+//==============================================================
+
+//==============================================================
+//==============================================================
+//==============================================================
