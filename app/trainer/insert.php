@@ -194,20 +194,29 @@ if (isset($_POST['submit'])) {
 </div>
 <!--.wrapper-->
 <?php require_once 'template/footer.php'; ?>
-
 <script>
-   $(function() {
-      $( "#business_name" ).autocomplete({
-         minLength: 2, 
-         source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
-         select: function (event, ui) {
-            $("#business_name").val(ui.item.label); // display the selected text
-            $("#business_id").val(ui.item.value); // save selected id to hidden input
-            return false;
-        }         
-      });
-   });
-</script>
+    $(function () {
+        $("#business_name").autocomplete({
+            source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
+            minLength: 2,
+            select: function (event, ui) {
+                $("#business_name").val(ui.item.label); // display the selected text
+                $("#business_id").val(ui.item.value); // save selected id to hidden input
+                return false;
+            }
+        });
+        $("#trainer_name").autocomplete({
+            source: "<?php echo SITE_URL ?>ajax/search_trainer.php",
+            minLength: 2,
+            select: function (event, ui) {
+                $("#trainer_name").val(ui.item.label); // display the selected text
+                $("#trainer_id").val(ui.item.value); // save selected id to hidden input
+                return false;
+            }
+        });
+    });
+</script> 
+
 <?php
 
 function do_validate($data) {
