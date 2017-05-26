@@ -73,11 +73,11 @@ $menu = Array(
         'title' => 'การฝึกอาชีพ',
         'url' => '#',
         'class' => 'fa fa-building-o',
-        'cond' => true,
+        'cond' => is_auth(),
         'subitems' => array(
             'list' => array(
                 'title' => 'รายการ',
-                'cond' => true,
+                'cond' => is_auth(),
                 'url' => 'app/training/list',
             ),
             'insert' => array(
@@ -100,7 +100,7 @@ $menu = Array(
         'subitems' => array(
             'list' => array(
                 'title' => 'รายชื่อ',
-                'cond' => true,
+                'cond' => is_auth(),
                 'url' => 'app/business/list',
             ),
             'insert' => array(
@@ -119,11 +119,11 @@ $menu = Array(
         'title' => 'ครูฝึก',
         'url' => '#',
         'class' => 'fa fa-building-o',
-        'cond' => true,
+        'cond' => is_auth(),
         'subitems' => array(
             'list' => array(
                 'title' => 'รายชื่อ',
-                'cond' => true,
+                'cond' => is_auth(),
                 'url' => 'app/trainer/list',
             ),
             'insert' => array(
