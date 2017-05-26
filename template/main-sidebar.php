@@ -69,34 +69,26 @@ $menu = Array(
             ),
         ),
     ),
-    'school_type' => array(
-        'title' => 'ประเภทสถานศึกษา',
+    'training' => array(
+        'title' => 'การฝึกอาชีพ',
         'url' => '#',
-        'class' => 'fa fa-graduation-cap',
-        'cond' => is_admin(),
-        'subitems' => array(
-            'index' => array(
-                'title' => 'จัดการข้อมูล',
-                'cond' => true,
-                'url' => 'app/school_type/index',
-            ),
-        ),
-    ),
-    'pages' => array(
-        'title' => 'ข่าวสาร',
-        'url' => '#',
-        'class' => 'fa fa-book',
-        'cond' => is_admin(),
+        'class' => 'fa fa-building-o',
+        'cond' => true,
         'subitems' => array(
             'list' => array(
-                'title' => 'จัดการข่าวสาร',
+                'title' => 'รายการ',
                 'cond' => true,
-                'url' => 'app/pages/list',
+                'url' => 'app/training/list',
             ),
             'insert' => array(
-                'title' => 'เพิ่มข่าวสาร',
-                'cond' => true,
-                'url' => 'app/pages/insert',
+                'title' => 'เพิ่มข้อมูล',
+                'url' => 'app/training/insert',
+                'cond' => is_auth(),
+            ),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/training/edit',
+                'cond' => is_auth(),
             ),
         ),
     ),
@@ -146,26 +138,34 @@ $menu = Array(
             ),
         ),
     ),
-    'training' => array(
-        'title' => 'การฝึกอาชีพ',
+//    'school_type' => array(
+//        'title' => 'ประเภทสถานศึกษา',
+//        'url' => '#',
+//        'class' => 'fa fa-graduation-cap',
+//        'cond' => is_admin(),
+//        'subitems' => array(
+//            'index' => array(
+//                'title' => 'จัดการข้อมูล',
+//                'cond' => true,
+//                'url' => 'app/school_type/index',
+//            ),
+//        ),
+//    ),
+    'pages' => array(
+        'title' => 'ข่าวสาร',
         'url' => '#',
-        'class' => 'fa fa-building-o',
-        'cond' => true,
+        'class' => 'fa fa-book',
+        'cond' => is_admin(),
         'subitems' => array(
             'list' => array(
-                'title' => 'รายการ',
+                'title' => 'จัดการข่าวสาร',
                 'cond' => true,
-                'url' => 'app/training/list',
+                'url' => 'app/pages/list',
             ),
             'insert' => array(
-                'title' => 'เพิ่มข้อมูล',
-                'url' => 'app/training/insert',
-                'cond' => is_auth(),
-            ),
-            'edit' => array(
-                'title' => 'แก้ไขข้อมูล',
-                'url' => 'app/training/edit',
-                'cond' => is_auth(),
+                'title' => 'เพิ่มข่าวสาร',
+                'cond' => true,
+                'url' => 'app/pages/insert',
             ),
         ),
     ),
@@ -186,9 +186,14 @@ $menu = Array(
 //                'cond' => is_auth(),
 //            ),
             'edit-user' => array(
-                'title' => 'แก้ไขข้อมูล',
+                'title' => 'แก้ไขข้อมูลผู้ใช้',
                 'url' => 'app/admin/edit-user',
                 'cond' => is_admin(),
+            ),
+            'edit-school-type' => array(
+                'title' => 'แก้ไขข้อมูลประเภทสถานศึกษา',
+                'cond' => true,
+                'url' => 'app/school_type/edit-school-type',
             ),
         ),
     ),
