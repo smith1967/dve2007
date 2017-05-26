@@ -193,7 +193,7 @@ $menu = Array(
             'edit-school-type' => array(
                 'title' => 'แก้ไขข้อมูลประเภทสถานศึกษา',
                 'cond' => true,
-                'url' => 'app/school_type/edit-school-type',
+                'url' => 'app/school_type/edit',
             ),
         ),
     ),
