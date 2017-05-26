@@ -1,18 +1,18 @@
 <?php
 if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
-$title = "สถานประกอบการ";
-$active = 'business';
+$title = "ข้อมูลการทำความร่วมมือ";
+$active = ' mou';
 $subactive = 'list-data';
-//$businesslist = get_business(0, 0);
+//$moulist = get_mou(0, 0);
 ////    $total = get_total();
-//$url = site_url('business/list-business&') . $params;
-//// var_dump($businesslist);
+//$url = site_url('mou/list-mou&') . $params;
+//// var_dump($moulist);
 ////    exit();
 //$total = get_total();
 //if(!isset($total))redirect("/admin/index");
 if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-    do_delete($_GET['business_id']);
+    do_delete($_GET['mou_id']);
 }
 ?>
 <?php require_once 'template/header.php'; ?>
@@ -24,13 +24,13 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                รายชื่อสถานประกอบการ
-                <small>สถานประกอบการ</small>
+                ข้อมูลการทำความร่วมมือ
+                <small>แสดงรายการ</small>
             </h1>
             <ol class="breadcrumb">
                 <li><a href="#"><i class="fa fa-dashboard"></i> หน้าหลัก</a></li>
-                <li><a href="#">สถานประกอบการ</a></li>
-                <li class="active">รายชื่อ</li>
+                <li><a href="#">ข้อมูลการทำความร่วมมือ</a></li>
+                <li class="active">รายการ</li>
             </ol>
         </section>
 
@@ -41,44 +41,48 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
             <div class="box">
                 <?php show_message() ?> 
                 <div class="box-header">
-                    <h3 class="box-title">รายชื่อสถานประกอบการ</h3>
+                    <h3 class="box-title">ข้อมูลการทำความร่วมมือ</h3>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table id="business_list" class="table table-bordered table-striped">
+                        <table id="mou_list" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>รหัส</th>
+                                    <th>ลำดับ</th>
+                                    <th>ชื่อสถานศึกษา</th>
                                     <th>ชื่อสถานประกอบการ</th>
-                                    <th>จังหวัด</th>
+                                    <th>วันที่ทำความร่วมมือ</th>
                                     <th>ดำเนินการ</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                                 <?php
-//                        foreach ($businesslist as $business) :
-                                ?>                            
-<!--                                <tr>
-        <td><?php echo $business['business_id']; ?></td>
-        <td><?php echo $business['business_name']; ?></td>
-        <td><?php echo $business['province_name']; ?></td>
+//                                $count=1;
+//                        foreach ($moulist as $mou) :
+//                                ?>                            
+                                <!--<tr>-->
+<!--        <td>//<?php //echo $count++; ?></td>
+        <td>//<?php //echo $mou['school_name']; ?></td>
+        <td>//<?php //echo $mou['business_name']; ?></td>
+        <td>//<?php //echo chDay3($mou['mou_date']); ?></td>
 
         <td class="text-center">
-            <a href="<?php echo site_url('app/business/list') . '&action=delete&business_id=' . $business['business_id']; ?>" class="btn btn-danger btn-sm delete"><i class="fa fa-remove"></i></a> | 
-            <a href="<?php echo site_url('app/business/edit') . '&action=edit&business_id=' . $business['business_id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+            <a href="//<?php //echo site_url('app/mou/list') . '&action=delete&mou_id=' . $mou['mou_id']; ?>" class="btn btn-danger btn-sm delete"><i class="fa fa-remove"></i></a> | 
+            <a href="//<?php //echo site_url('app/mou/edit') . '&action=edit&mou_id=' . $mou['mou_id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
 
         </td>                    
     </tr>-->
-                                <?php // endforeach; ?>
+                                <?php  //endforeach; ?>
 
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th>รหัส</th>
+                                    <th>ลำดับ</th>
+                                    <th>ชื่อสถานศึกษา</th>
                                     <th>ชื่อสถานประกอบการ</th>
-                                    <th>จังหวัด</th>
+                                    <th>วันที่ทำความร่วมมือ</th>
                                     <th>ดำเนินการ</th>
                                 </tr>
                             </tfoot>
@@ -101,9 +105,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 <script>
     $(document).ready(function () {
         $('.delete').click(function () {
-            return confirm('ยืนยันการลบข้อมูล')
+            return confirm('ยืนยันการลบข้อมูล');
         });
-        $('#business_list').DataTable({
+        $('#mou_list').DataTable({
             "paging": true,
             "lengthChange": true,
             "searching": true,
@@ -113,13 +117,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
             "autoWidth": false,
             "pageLength": 10,
             "ajax": {
-                "url": "ajax/get_business.php",
+                "url": "ajax/get_mou.php",
                 "type": "POST"
             },
             "columns": [
-                {"data": "business_id"},
+                {"data": "num"},
+                {"data": "school_name"},
                 {"data": "business_name"},
-                {"data": "province_name"},
+                {"data": "mou_date"},
 //        { "data": "gender" },
 //        { "data": "country" },
 //        { "data": "phone" },
@@ -145,42 +150,43 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 
 <?php
 
-function get_business($page = 0, $limit = 10) {
+function get_mou($page = 0, $limit = 10) {
     global $db;
-    $start = $page * $limit;
-//    $query = "SELECT business.*,province.province_name FROM business,province WHERE business.province_id = province.province_code LIMIT " . $start . "," . $limit . "";
-    $query = "SELECT b.business_id,b.business_name,p.province_name "
-            . "FROM "
-            . "business as b,province as p "
-            . "WHERE "
-            . "b.province_id = p.province_code";
+    //$start = $page * $limit;
+//    $query = "SELECT mou.*,province.province_name FROM mou,province WHERE mou.province_id = province.province_code LIMIT " . $start . "," . $limit . "";
+    $query = "SELECT  m.mou_id,s.`school_name`,b.`business_name`,m.`mou_date` "
+            ."FROM `mou` m "
+            ."join business b ON b. `business_id`=m.`mou_id` "
+            ."join school s ON s.`school_id`=m.`school_id` "
+            ."ORDER by m.`school_id` "
+            ;
+    //echo $query;
     $result = mysqli_query($db, $query);
-    $businesslist = array();
+    $moulist = array();
     while ($row = mysqli_fetch_assoc($result)) {
-        $businesslist[] = $row;
+        $moulist[] = $row;
     }
-    return $businesslist;
+    return $moulist;
 }
 
 function get_total() {
     global $db;
 //    $val = $group."%";
-    $query = "SELECT * FROM business ";
+    $query = "SELECT * FROM mou ";
     $result = mysqli_query($db, $query);
     return mysqli_num_rows($result);
 }
 
-function do_delete($business_id) {
+function do_delete($mou_id) {
     global $db;
-    if (empty($business_id)) {
+    if (empty($mou_id)) {
         set_err('ค่าพารามิเตอร์ไม่ถูกต้อง');
-        redirect('business/list-business');
+        redirect('mou/list-mou');
     }
-    $query = "DELETE FROM business WHERE business_id =" . pq($business_id);
+    $query = "DELETE FROM mou WHERE mou_id =" . pq($mou_id);
     mysqli_query($db, $query);
     if (mysqli_affected_rows($db)) {
         set_info('ลบข้อมูลสำเร็จ');
     }
-    redirect('app/business/list');
+    redirect('app/mou/list');
 }
-?>
