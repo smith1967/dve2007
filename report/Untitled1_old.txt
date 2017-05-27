@@ -1,0 +1,33 @@
+ <td colspan="2">Sum: $180</td>
+  <td rowspan="2">Sum: $180</td>
+  sum_level2
+  รายงานข้อมูลนักเรียนระบบทวิภาคี ปีการศึกษา <?php echo $semester ?><br>
+จำแนกตามจังหวัด
+SELECT  p.PROVINCE_NAME,
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='592'
+	and sex='M' and end_edu_id=1 and edu_year='2559', 1 , 0)),0) pvc1_m,
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='592'
+	and sex='F' and end_edu_id=1 and edu_year='2559', 1, 0)),0) pvc1_f,
+IFNULL(SUM(IF(SUBSTRING(s.std_id , 1, 3)='592' and end_edu_id=1 and edu_year='2559', 1, 0)),0) sum_pvc1,
+ 
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='582'
+	and sex='M' and end_edu_id=1 and edu_year='2559', 1, 0)),0) pvc2_m,
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='582'
+	and sex='F' and end_edu_id=1 and edu_year='2559', 1, 0)),0) pvc2_f,
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='582' and end_edu_id=1 and edu_year='2559', 1, 0)),0) sum_pvc2,
+ 
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='572'
+	and sex='M' and end_edu_id=1 and edu_year='2559', 1, 0)) ,0) pvc3_m,
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='572'
+	and sex='F' and end_edu_id=1 and edu_year='2559', 1, 0)),0) pvc3_f,
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='572' and end_edu_id=1 and edu_year='2559', 1, 0)),0) sum_pvc3,
+ 
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='593'
+	and sex='M'and end_edu_id=1 and edu_year='2559', 1 , 0)),0) pvs1_m,
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='593'
+	and sex='F' and end_edu_id=1 and edu_year='2559', 1, 0)),0) pvs1_f,
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='593' and end_edu_id=1 and edu_year='2559', 1, 0)),0) sum_pvs1,
+ 
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='583'
+	and sex='M' and end_edu_id=1 and edu_year='2559', 1, 0)),0) pvs2_m,
+IFNULL(SUM(IF(SUBSTRING(s.std_id, 1, 3)='583'

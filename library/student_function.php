@@ -53,3 +53,12 @@ function convSex($s){
     }
     return $r;
 }
+
+function getzoneName($zone_id){
+    global $db;
+    $query = "SELECT * FROM zone where zone_id='".$zone_id."'";
+    //echo $query;
+    $rs = mysqli_query($db, $query);
+    $row = mysqli_fetch_array($rs,MYSQLI_ASSOC);
+    return $row['zoneName'];
+}
