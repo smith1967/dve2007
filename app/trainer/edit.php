@@ -194,7 +194,7 @@ if ($_GET['trainer_id']) {
 
                     <div class="form-group">
                         <div class="col-md-offset-3 col-md-8">
-                            <button type="submit" class="btn btn-sm-primary" name="submit">บันทึกข้อมูล</button>
+                            <button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button>
                         </div>
                     </div>
                 </form>
