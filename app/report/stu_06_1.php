@@ -10,8 +10,7 @@ require_once 'template/header.php';
 
 if (isset($_POST['submit'])) {
     $sem = $_POST['semester'];
-    $zone_id = $_POST['zone_id'];
-     $zone_ = $_POST['zone_id'];
+    $province_id = $_POST['province_id'];
     //echo $sem.$province_id;
     //echo "ppp".getProvinceName($province_id);
     $y = substr($sem, 2, 2);
@@ -28,7 +27,7 @@ if (isset($_POST['submit'])) {
         <section class="content-header">
             <h1>
                 รายงานข้อมูลนักเรียน
-                <small>จำแนกตามภูมิภาคที่จัดการเรียนอาชีวศึกษาแบบทวิภาคี</small>
+                <small>จำแนกตามสถานศึกษา ในจังหวัด</small>
             </h1>
         </section>
 
@@ -37,24 +36,31 @@ if (isset($_POST['submit'])) {
             <!-- Default box -->
             <div class="box">
                 <div class="box-header">
-                    <h3 class="box-title">รายงานข้อมูลนักเรียน จำแนกตามภูมิภาคที่จัดการเรียนอาชีวศึกษาแบบทวิภาคี </h3>              
+                    <h3 class="box-title">รายงานข้อมูลนักเรียน จำแนกตามสถานศึกษาในจังหวัด </h3>              
                 </div>
                 <!--box-header-->
                 <div class="box-body">
-                    <div class="panel-heading">เลือกภูมิภาค</div>
+                    <div class="panel-heading">เลือกปีการศึกษา และจังหวัด</div>
                     <div class="panel-body col-md-10">
                         <form method="post" class="form-inline " action="">
-                            
+                            <div class="form-group ">
+                                <label class="control-label col-md-6"for="semester">ปีการศึกษา</label>
+                                <div class="col-md-2 ">
+                                    <select class="form-control" id="semester" name="semester">
+                                        <?php
+                                        $year_now = date('Y') + 543;
+                                        $arr = array($year_now - 2 => $year_now - 2, $year_now - 1 => $year_now - 1, $year_now => $year_now, $year_now + 1 => $year_now + 1, $year_now + 2 => $year_now + 2);
+                                        $def = $sem;
+                                        echo gen_option($arr, $def);
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="form-group">
-                                <label for="province_id" class="col-md-3 control-label"></label>
+                                <label for="province_id" class="col-md-3 control-label">จังหวัด</label>
                                 <div class="col-md-3">
-                                    <select class="form-control select2-single" id="zone_id" name="zone_id">
-                                        <option  > -- กรุณาเลือก -- </option>
-                                        <option value="1" > -- กลาง -- </option>
-                                        <option value="2" > -- เหนือ -- </option>
-                                        <option value="3" > -- ตวัะันออกเฉียงเหนือ -- </option>
-                                        <option value="4" > -- ตะวันออกเฉียงเหนือ -- </option>
-                                        <option value="5" > -- ใต้ -- </option>
+                                    <select class="form-control select2-single" id="province_id" name="province_id">
+                                        <option id="province_list" > -- กรุณาเลือกจังหวัด -- </option>
                                     </select>
                                 </div>
                             </div>
@@ -65,17 +71,16 @@ if (isset($_POST['submit'])) {
                     </form>
                     <!--        //============================report=========================       -->
                     <?php
-                    
                     $html = "รายงานข้อมูลนักเรียนระบบทวิภาคี ปีการศึกษา " . $sem . "<br>";
-                    $html .= "จำแนกตามภูมิภาคที่จัดการเรียนอาชีวศึกษาแบบทวิภาคี " . getzoneName($zone_id);
+                    $html .= "จำแนกตามสถานศึกษา  จังหวัด " . getProvinceName($province_id);
                     $html .= '
-<table style="width:100%" border="1">
-  <tr align="center" >
+                <table style="width:100%" border="1">
+  <tr>
     <th rowspan="2">ที่</th>
-   
+    <th rowspan="2">ภาค</th> 
     <th  rowspan="2">จังหวัด</th>
     <th  rowspan="2"> ชื่อสถานศึกษา</th> 
-    <th  colspan="7"> ปีการศึกษา 2559</th> 
+    <th  align="center" colspan="7" > ปีการศึกษา 2559</th> 
   </tr>
   <tr>
     <th>ป.ตรี</th> 
@@ -122,17 +127,16 @@ JOIN school sch ON s.school_id=sch.school_Id
 JOIN province p ON sch.province_id=p.province_code
 JOIN zone z ON p.zone_id=z.zone_id
 JOIN sum_of_student sum ON sum.school_id=sch.school_id
-WHERE z.zone_id='$zone_id'
 GROUP BY z.zone_id, p.province_id, sch.school_id";
                     //echo $sql;
                     $result = mysqli_query($db, $sql);
                     $count = 1;
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $zoneName=$row['zoneName'] ;
                         $html .= "<tr align='center'>
                         <td align='center'>" . $count++ . "</td>
-                        <td align='left'>" . $row['province_name'] . "</td>
-                        <td align='left'>" . $row['school_name'] . "</td>
+                        <td align='center'>" . $row['school_name'] . "</td>
+                        <td align='center'>" . $row['zoneName'] . "</td>
+                        <td align='center'>" . $row['province_name'] . "</td>
                         <td align='center'>" . $row['sum_level4'] . "</td>
                         <td align='center'>" . $row['sum_level3'] . "</td>
                         <td align='center'>" . $row['sum_level2'] . "</td>
@@ -142,7 +146,6 @@ GROUP BY z.zone_id, p.province_id, sch.school_id";
                         <td align='center'>" . $row['percent'] . "</td>
                         </tr>";
                     }
-                   
                     $html .= "</table>";
                     ?>
                     <div class="panel-body col-md-10">
