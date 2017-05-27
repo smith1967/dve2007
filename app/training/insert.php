@@ -59,10 +59,12 @@ if (isset($_POST['submit'])) {
                     <!-- Horizontal Form -->
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">เพิ่มข้อมูลการฝึกอาชีพ</h3>                                    
-                            <a href="<?php echo site_url('app/trainer/insert') ?>" class="btn  btn-primary pull-right">+ เพิ่มข้อมูลครูฝึก</a>
+                            <h3 class="box-title">เพิ่มข้อมูลการฝึกอาชีพ</h3> 
+                            <span class="pull-right">
+                            <a href="<?php echo site_url('app/trainer/insert') ?>" class="btn  btn-primary ">+ เพิ่มข้อมูลครูฝึก</a>
+                            <a href="<?php echo site_url('app/business/insert') ?>" class="btn  btn-primary ">+ เพิ่มข้อมูลสถานประกอบการ</a>
+                            </span>
                         </div>
-
                         <!-- /.box-header -->
                         <!-- form start -->
                         <div class="box-body">
