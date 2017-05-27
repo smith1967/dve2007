@@ -218,7 +218,7 @@ function do_validate($data) {
 //    var_dump($data);
     global $db;
     $valid = TRUE;
-    if (!preg_match('/[a-zA-Z0-9_@]{5,}/', $data['username'])) {
+    if (!preg_match('/^[a-zA-Z0-9_@]{5,15}$/', $data['username'])) {
         set_err('ชื่อผู้ใช้ต้องเป็นตัวเลขหรือตัวอักษรภาษาอังกฤษ ความยาวไม่ต่ำกว่า 5 ตัวอักษร');
         $valid = FALSE;
     }
@@ -230,7 +230,7 @@ function do_validate($data) {
         $valid = FALSE;
     }
   
-    if (!preg_match('/[a-zA-Z0-9_@$!]{6,}/', $data['password'])) {
+    if (!preg_match('/^[a-zA-Z0-9_@$!]{6,}$/', $data['password'])) {
         set_err('รหัสผ่านต้องเป็นตัวเลขหรือตัวอักษรภาษาอังกฤษ ความยาวไม่ต่ำกว่า 6 ตัวอักษร');
         $valid = FALSE;
     }

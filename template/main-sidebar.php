@@ -42,7 +42,7 @@ $menu = Array(
         ),
     ),
     'student' => array(
-        'title' => 'นักศึกษา',
+        'title' => 'ผู้เรียน',
         'url' => '#',
         'class' => 'fa fa-graduation-cap',
         'cond' => is_school_staff() || is_admin(),
@@ -134,6 +134,29 @@ $menu = Array(
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
                 'url' => 'app/trainer/edit',
+                'cond' => is_auth(),
+            ),
+        ),
+    ),
+    'mou' => array(
+        'title' => 'MOU',
+        'url' => '#',
+        'class' => 'fa fa-building-o',
+        'cond' => is_auth(),
+        'subitems' => array(
+            'list' => array(
+                'title' => 'รายชื่อ',
+                'cond' => is_auth(),
+                'url' => 'app/mou/list',
+            ),
+            'insert' => array(
+                'title' => 'เพิ่มข้อมูล',
+                'url' => 'app/mou/insert',
+                'cond' => is_auth(),
+            ),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/mou/edit',
                 'cond' => is_auth(),
             ),
         ),

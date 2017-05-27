@@ -18,7 +18,7 @@ if (isset($_POST['submit'])) {
     }  //    var_dump($property);
     if ($valid) {
         if ($_FILES['image_url']['name'] !== '') {
-            if (upload_image()==1) {
+            if (upload_image() == 1) {
 //    var_dump($_FILES);
                 $src_dir = "upload/images/src/";
                 $src_file = $src_dir . basename($_FILES["image_url"]["name"]);
@@ -70,9 +70,10 @@ if (isset($_POST['submit'])) {
                             <h3 class="box-title">ฟอร์มข่าวสาร</h3>
                         </div>
                         <!-- /.box-header -->
-                        <!-- form start -->
-                        <form role="form" method="post" enctype="multipart/form-data">
-                            <div class="box-body">
+                        <div class="box-body">
+                            <!-- form start -->
+                            <form role="form" method="post" enctype="multipart/form-data">
+
                                 <div class="form-group">
                                     <label for="pages_title">ชื่อเรื่อง</label>
                                     <input type="text" class="form-control" id="page_title" placeholder="ชื่อเรื่อง" name="pages_title" value="<?php set_var($pages_title); ?>">
@@ -110,9 +111,9 @@ if (isset($_POST['submit'])) {
                                 <div class="box-footer">
                                     <button type="submit" class="btn btn-primary" name="submit">Submit</button>
                                 </div>
-                            </div>
-                            <!-- /.box-body -->
-                        </form>
+                            </form>                            
+                        </div>
+                        <!-- /.box-body -->
                     </div>
                 </div>
                 <!--/.col (right) -->

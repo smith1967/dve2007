@@ -16,13 +16,15 @@ if (isset($_POST['submit'])) {
         do_update();
     }
 }
-if(!isset($_GET['training_id']))
+if (!isset($_GET['training_id']))
     redirect('app/training/list');
 if ($_GET['training_id']) {
-    $training = get_training($_GET['training_id']);
-    foreach ($training as $key => $value) {
+    $training_data = get_training($_GET['training_id']);
+    foreach ($training_data as $key => $value) {
         $$key = $value;
     }
+//    var_dump($training_data);
+//    die();
 //    var_dump($training);
 }
 ?>
@@ -65,8 +67,8 @@ if ($_GET['training_id']) {
                                                 <label class="control-label col-md-3" for="training_id">รหัสการฝึกอาชีพ</label>
                                                 <div class="col-md-4 "><input type="text" class="form-control" id="training_id" name="training_id"></div>
                                             </div>-->
-                            <input type="hidden" class="form-control" id="training_id" name="training_id" value="<?php set_var($training_id)?>">
-                            <input type="hidden" class="form-control" id="citizen_id" name="citizen_id" value="<?php set_var($citizen_id)?>">
+                            <input type="hidden" class="form-control" id="training_id" name="training_id" value="<?php set_var($training_id) ?>">
+                            <input type="hidden" class="form-control" id="citizen_id" name="citizen_id" value="<?php set_var($citizen_id) ?>">
                             <div class="form-group"> 
                                 <label class="control-label col-md-3" for="std_name">ชื่อนักศึกษา</label>
                                 <div class="col-md-3 ">
@@ -93,14 +95,21 @@ if ($_GET['training_id']) {
                                     <input type="text" class="form-control" id="minor_name" placeholder="ชื่อสาขางาน" name="minor_name" value="<?php set_var($minor_name) ?>">
                                 </div>
                             </div>
-                            <input type="hidden" class="form-control" id="trainer_id" name="trainer_id" value="<?php set_var($trainer_id) ?>">
-                            <div class="form-group"> 
+                            <!--<input type="hidden" class="form-control" id="trainer_id" name="trainer_id" value="<?php set_var($trainer_id) ?>">-->
+<!--                            <div class="form-group"> 
                                 <label class="control-label col-md-3" for="trainer_name">ชื่อฝึกอาชีพ</label>
                                 <div class="col-md-3 ">
                                     <input type="text" class="form-control" id="trainer_name" placeholder="ชื่อฝึกอาชีพ" name="trainer_name" value="<?php set_var($trainer_name) ?>">
                                 </div>
+                            </div>-->
+                            <div class="form-group">
+                                <label for="trainer_id" class="col-md-3 control-label">ครูฝึก</label>
+                                <div class="col-md-6">
+                                    <select class="form-control select2-mulitple" id="trainer_id" name="trainer_id" >
+                                        <!--<option id="trainer_id_list"> -- กรุณาเลือกครูฝึก -- </option>-->
+                                    </select>
+                                </div>
                             </div>
-
                             <div class="form-group"> 
                                 <label class="control-label col-md-3" for="contract_date">วันที่ทำสัญญา</label>
                                 <div class="col-md-4 "><input type="date" id="contract_date" name="contract_date" value="<?php set_var($contract_date) ?>"/></div>
@@ -116,9 +125,9 @@ if ($_GET['training_id']) {
                             </div>
 
 
-                            <div class="form-group"> 
-                                <div class="col-md-offset-3"><button type="submit" class="btn btn-primary"name="submit">บันทึกข้อมูล</button></div>
-                            </div>
+                                <div class="box-footer">
+                                    <div class="col-md-offset-3"><button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button></div>
+                                </div>
                         </form>
 
                     </div>
@@ -135,46 +144,96 @@ if ($_GET['training_id']) {
 <!--.wrapper-->
 <?php require_once 'template/footer.php'; ?>
 <script>
-    $(function () {
-        $("#std_name").autocomplete({
-            source: "<?php echo SITE_URL ?>ajax/search_student.php",
+$(function () {
+ 
+    $("#std_name").autocomplete({
+        source: "<?php echo SITE_URL ?>ajax/search_student.php",
             minLength: 2,
             select: function (event, ui) {
-                $("#std_name").val(ui.item.label); // display the selected text
-                $("#citizen_id").val(ui.item.value); // save selected id to hidden input
-                return false;
+            $("#std_name").val(ui.item.label); // display the selected text
+                    $("#citizen_id").val(ui.item.value); // save selected id to hidden input
+                    return false;
             }
-        });
-        $("#business_name").autocomplete({
-            source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
-            minLength: 2,
+    });
+    $("#business_name").autocomplete({
+        source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
+        minLength: 2,
             select: function (event, ui) {
                 $("#business_name").val(ui.item.label); // display the selected text
-                $("#business_id").val(ui.item.value); // save selected id to hidden input
+                $("#business_id").val(ui.item.value).trigger("change"); // save selected id to hidden input
                 return false;
             }
-        });
-        $("#minor_name").autocomplete({
-            source: "<?php echo SITE_URL ?>ajax/search_minor.php",
-            minLength: 2,
-            select: function (event, ui) {
-                $("#minor_name").val(ui.item.label); // display the selected text
-                $("#minor_id").val(ui.item.value); // save selected id to hidden input
-                return false;
-            }
-        });
-        $("#trainer_name").autocomplete({
-            source: "<?php echo SITE_URL ?>ajax/search_trainer.php",
-            minLength: 2,
-            select: function (event, ui) {
-                $("#trainer_name").val(ui.item.label); // display the selected text
-                $("#trainer_id").val(ui.item.value); // save selected id to hidden input
-                return false;
-            }
-        });
     });
+    $("#minor_name").autocomplete({
+        source: "<?php echo SITE_URL ?>ajax/search_minor.php",
+        minLength: 2,
+        select: function (event, ui) {
+                    $("#minor_name").val(ui.item.label); // display the selected text
+                    $("#minor_id").val(ui.item.value); // save selected id to hidden input
+                    return false;
+            }
+    });
+    $(".select2-mulitple").select2();
+    //ดึงข้อมูล province จากไฟล์ get_data.php
+//    $("#business_id").load(function () {
+//        alert('test');
+        $.ajax({
+            url: "<?php echo SITE_URL ?>ajax/get_trainer.php",
+            dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
+            data: {q: $("#business_id").val()}, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด
+            success: function (data) {
+                //วนลูปแสดงข้อมูล ที่ได้จาก ตัวแปร data
+                $.each(data, function (index, value) {
+                    //แทรก Elements ใน id province  ด้วยคำสั่ง append
+                    $("#trainer_id").append("<option value='" + value.id + "'> " + value.name + "</option>");
+                });
+                var t_id = "<?php echo $trainer_id ?>"
+                $("#trainer_id").val(t_id);                
+            },
+                    
+        });
+
+//    });    
+    
+    $("#business_id").change(function () {
+//        alert('test');
+        $.ajax({
+            url: "<?php echo SITE_URL ?>ajax/get_trainer.php",
+            dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
+            data: {q: $("#business_id").val()}, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด
+            success: function (data) {
+                //วนลูปแสดงข้อมูล ที่ได้จาก ตัวแปร data
+                $.each(data, function (index, value) {
+                    //แทรก Elements ใน id province  ด้วยคำสั่ง append
+                    $("#trainer_id").append("<option value='" + value.id + "'> " + value.name + "</option>");
+                });
+            }
+        });
+//        var t_id = "<?php echo $trainer_id ?>"
+//        $("#trainer_id").val(t_id);
+//        alert(2);
+    });
+//    $("#trainer_name").autocomplete({
+//    source: function (request, response) {
+//    $.ajax({
+//            url: "<?php echo SITE_URL ?>ajax/search_trainer.php",
+//            dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
+//            data: {q: $("#business_id").val()}, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด
+////            data: { query: request.term },
+//            minLength: 2,
+//            select: function (event, ui) {
+//                    $("#trainer_name").val(ui.item.label); // display the selected text
+//                    $("#trainer_id").val(ui.item.value); // save selected id to hidden input
+//                    return false;
+//                }
+//            });
+//        });
+
+//        alert(t_id);
+});
 </script> 
 <?php
+
 function do_validate($data) {
     $valid = true;
     $data = &$_POST;
@@ -213,25 +272,24 @@ function do_validate($data) {
     return $valid;
 }
 
-
 function do_update() {
     global $db;
     $data = &$_POST;
     //print_r($data['property']);
     $query = "UPDATE `training` SET `citizen_id`="
-            .pq($data['citizen_id']).",`business_id`=".pq($data['business_id'])
-            .",`business_id`=".pq($data['business_id'])
-            .",`minor_id`=".pq($data['minor_id'])
-            .",`trainer_id`=".pq($data['trainer_id'])
-            .",`contract_date`=".pq($data['contract_date'])
-            .",`start_date`=".pq($data['start_date'])
-            .",`end_date`=".pq($data['end_date'])
-            ." WHERE `training_id`=".pq($data['training_id']).";";
+            . pq($data['citizen_id']) . ",`business_id`=" . pq($data['business_id'])
+            . ",`business_id`=" . pq($data['business_id'])
+            . ",`minor_id`=" . pq($data['minor_id'])
+            . ",`trainer_id`=" . pq($data['trainer_id'])
+            . ",`contract_date`=" . pq($data['contract_date'])
+            . ",`start_date`=" . pq($data['start_date'])
+            . ",`end_date`=" . pq($data['end_date'])
+            . " WHERE `training_id`=" . pq($data['training_id']) . ";";
     $result = mysqli_query($db, $query);
 //    var_dump($query);
 //    die();
     if (mysqli_affected_rows($db) == 0) {
-        set_err('ไม่สามารถแก้ไขข้อมูล'.  mysqli_error($db));
+        set_err('ไม่สามารถแก้ไขข้อมูล' . mysqli_error($db));
     } else {
         set_info('แก้ไขข้อมูลสำเร็จ');
     }
@@ -256,8 +314,8 @@ function get_training($training_id = NULL) {
             . "training_id = '$training_id';";
 //    var_dump($sql);
 //    die();
-    
+
     $rs = mysqli_query($db, $sql);
-    $row = mysqli_fetch_array($rs,MYSQLI_ASSOC);
+    $row = mysqli_fetch_array($rs, MYSQLI_ASSOC);
     return $row;
 }
