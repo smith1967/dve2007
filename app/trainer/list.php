@@ -47,7 +47,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                 <th>ลำดับ</th>
                                 <th>ชื่อครูฝึก</th>
                                 <th>เบอร์โทรศัพท์</th>
-                                <th>วุฒิการศึกษาสูงสุด</th>
+                                <th>วุฒิการศึกษา</th>
+                                <th>ชื่อสถานประกอบการ</th>
                                 <th class="text-center">จัดการ</th>
                             </tr>
                         </thead>
@@ -61,6 +62,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                     <td><?php echo $trainer['trainer_name']; ?></td>
                                     <td><?php echo $trainer['phone']; ?></td>
                                     <td><?php echo $trainer['educational_name']; ?></td>
+                                    <td><?php echo $trainer['business_name']; ?></td>
                                     <td class="text-center">
                                         <a href="<?php echo site_url('app/trainer/list') . '&action=delete&trainer_id=' . $trainer['trainer_id']; ?>" class="btn btn-danger btn-sm delete" ><i class="fa fa-remove"></i></a> | 
                                         <a href="<?php echo site_url('app/trainer/edit') . '&action=edit&trainer_id=' . $trainer['trainer_id']; ?>" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
@@ -77,7 +79,8 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                 <th>ชื่อครูฝึก</th>
                                 <th>เบอร์โทรศัพท์</th>
                                 <th>วุฒิการศึกษาสูงสุด</th>
-                                <th>จัดการ</th>
+                                <th>ชื่อสถานประกอบการ</th>
+                                <th class="text-center">จัดการ</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -126,7 +129,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 function get_trainer() {
     global $db;
 //    $start = $page * $limit;
-    $query = "SELECT t.*,e.educational_name FROM trainer As t,educational As e WHERE t.educational_id = e.educational_id ORDER BY trainer_id ASC;";
+    $query = "SELECT "
+            . "t.*,e.educational_name,b.business_name "
+            . "FROM trainer t "
+            . "JOIN educational e ON t.educational_id = e.educational_id "
+            . "JOIN business b ON t.business_id = b.business_id ORDER BY t.trainer_id ASC;";
     $result = mysqli_query($db, $query);
     $trainerlist = array();
     while ($row = mysqli_fetch_assoc($result)) {
