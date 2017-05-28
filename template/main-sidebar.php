@@ -1,4 +1,6 @@
 <?php
+//var_dump($_SESSION);
+//die();
 $menu = Array(
     'home' => array(
         'title' => 'หน้าหลัก',
@@ -18,6 +20,24 @@ $menu = Array(
 ////            ),
 //        ),
     ),
+    'report' => array(
+        'title' => 'สรุปรายงาน',
+        'url' => "http://192.168.101.111/dve/?p=ajax/login/token/id/".$_SESSION['user']['token'],
+        'class' => 'fa fa-book',
+        'cond' => true,
+//        'subitems' => array(
+//            'index' => array(
+////                'title' => 'หน้าหลัก',
+////                'url' => 'app/home/index',
+////                'cond' => FALSE,
+//            ),
+////            'test' => array(
+////                'title' => 'ทดสอบ',
+////                'url' => 'app/home/test',
+////                'cond' => true,
+////            ),
+//        ),
+    ),    
     'school' => array(
         'title' => 'สถานศึกษา',
         'url' => '#',
