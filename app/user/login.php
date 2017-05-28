@@ -106,15 +106,19 @@ function do_login($data) {
         if (verify_password_hash($row['password'], $strHash)) {
             unset($row['password']);
             $_SESSION['user'] = $row;
+//            $_SESSION['user']['token'] = urlencode($strHash);
+//            var_dump($strHash);
+            $_SESSION['user']['token'] = $strHash;
             do_insert_log($data['username'],'Y',$strHash);
             set_info('ยินดีต้อนรับคุณ'.$row['fname']);
+//            die();
         } else {
             do_insert_log($data['username'],'N');
             set_err("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!!");
             redirect('app/user/login');
         }
     }  else {
-            do_insert_log($data['username'],'N');
+        do_insert_log($data['username'],'N');
         set_err("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!!");
     }
     redirect('app/home/index');
