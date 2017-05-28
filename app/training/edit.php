@@ -182,6 +182,7 @@ $(function () {
             dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
             data: {q: $("#business_id").val()}, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด
             success: function (data) {
+                $("#trainer_id_list").empty();
                 //วนลูปแสดงข้อมูล ที่ได้จาก ตัวแปร data
                 $.each(data, function (index, value) {
                     //แทรก Elements ใน id province  ด้วยคำสั่ง append

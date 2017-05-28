@@ -61,8 +61,8 @@ if (isset($_POST['submit'])) {
                         <div class="box-header with-border">
                             <h3 class="box-title">เพิ่มข้อมูลการฝึกอาชีพ</h3> 
                             <span class="pull-right">
-                            <a href="<?php echo site_url('app/trainer/insert') ?>" class="btn  btn-primary ">+ เพิ่มข้อมูลครูฝึก</a>
-                            <a href="<?php echo site_url('app/business/insert') ?>" class="btn  btn-primary ">+ เพิ่มข้อมูลสถานประกอบการ</a>
+                                <a href="<?php echo site_url('app/trainer/insert') ?>" class="btn  btn-primary ">+ เพิ่มข้อมูลครูฝึก</a>
+                                <a href="<?php echo site_url('app/business/insert') ?>" class="btn  btn-primary ">+ เพิ่มข้อมูลสถานประกอบการ</a>
                             </span>
                         </div>
                         <!-- /.box-header -->
@@ -73,6 +73,7 @@ if (isset($_POST['submit'])) {
                                                     <label class="control-label col-md-3" for="training_id">รหัสการฝึกอาชีพ</label>
                                                     <div class="col-md-4 "><input type="text" class="form-control" id="training_id" name="training_id"></div>
                                                 </div>-->
+                                <input type="hidden" class="form-control" readonly="" id="school_id" placeholder="ชื่อสถานศึกษา" name="school_id" value="<?php set_var($school_id) ?>">
                                 <input type="hidden" class="form-control" id="citizen_id" name="citizen_id" value="<?php set_var($citizen_id) ?>">
                                 <div class="form-group"> 
                                     <label class="control-label col-md-3" for="std_name">ชื่อนักศึกษา</label>
@@ -82,21 +83,31 @@ if (isset($_POST['submit'])) {
                                 </div>
                                 <input type="hidden" class="form-control" id="business_id"  name="business_id" value="<?php set_var($business_id) ?>">
                                 <div class="form-group"> 
-                                    <label class="control-label col-md-3" for="business_name">รหัสสถานประกอบการ</label>
-                                    <div class="col-md-3 ">
+                                    <label class="control-label col-md-3" for="business_name">ชื่อสถานประกอบการ</label>
+                                    <div class="col-md-5">
                                         <input type="text" class="form-control" id="business_name" placeholder="ชื่อสถานประกอบการ" name="business_name" value="<?php set_var($business_name) ?>">
                                     </div>
+                                    <h5 class="text-info">*กรุณาเลือกสุถานประกอบการก่อนไปเลือกครูฝึก</h5>
                                 </div>
-                                <div class="form-group"> 
-                                    <label class="control-label col-md-3" for="school_id">รหัสสถานศึกษา</label>
-                                    <div class="col-md-3 ">
-                                        <input type="text" class="form-control" readonly="" id="school_id" placeholder="ชื่อสถานศึกษา" name="school_id" value="<?php set_var($school_id) ?>">
+                                <!--                                <div class="form-group"> 
+                                                                    <label class="control-label col-md-3" for="school_id">รหัสสถานศึกษา</label>
+                                                                    <div class="col-md-3 ">
+                                                                        <input type="text" class="form-control" readonly="" id="school_id" placeholder="ชื่อสถานศึกษา" name="school_id" value="<?php set_var($school_id) ?>">
+                                                                    </div>
+                                                                </div>-->
+                                <div class="form-group">
+                                    <label for="trainer_id_list" class="col-md-3 control-label">ครูฝึก</label>
+                                    <div class="col-md-5">
+                                        <select class="form-control select2-mulitple select2-results" id="trainer_id_list" name="trainer_id_list[]" multiple="multiple">
+                                            <!--<option id="trainer_id_list"> -- กรุณาเลือกครูฝึก -- </option>-->
+                                        </select>
                                     </div>
-                                </div>
+                                    <h5 class="text-info">*ถ้าไม่พบครูฝึกกรุณาไปเพิ่มครูฝึกก่อนครับ</h5>
+                                </div>                                
                                 <input type="hidden" class="form-control" id="minor_id" name="minor_id" value="<?php set_var($minor_id) ?>">
                                 <div class="form-group"> 
                                     <label class="control-label col-md-3" for="minor_name">ชื่อสาขางาน</label>
-                                    <div class="col-md-3 ">
+                                    <div class="col-md-4">
                                         <input type="text" class="form-control" id="minor_name" placeholder="ชื่อสาขางาน" name="minor_name" value="<?php set_var($minor_name) ?>">
                                     </div>
                                 </div>
@@ -107,16 +118,7 @@ if (isset($_POST['submit'])) {
                                         <input type="text" class="form-control" id="trainer_name" placeholder="ชื่อครูฝึก" name="trainer_name" value="<?php set_var($trainer_name) ?>">
                                     </div>
                                 </div>-->
-                                <div class="form-group">
-                                    <label for="trainer_id_list" class="col-md-3 control-label">ครูฝึก</label>
-                                    <div class="col-md-6">
-                                        <select class="form-control select2-mulitple" id="trainer_id_list" name="trainer_id_list[]" multiple="multiple">
-                                            <!--<option id="trainer_id_list"> -- กรุณาเลือกครูฝึก -- </option>-->
-                                        </select>
-                                        
-                                    </div>
-                                    <p class="text-warning">*ถ้าไม่มีครูฝึกให้เพิ่มก่อนครับ</p>
-                                </div>
+
                                 <div class="form-group"> 
                                     <label class="control-label col-md-3" for="contract_date">วันที่ทำสัญญา</label>
                                     <div class="col-md-4 "><input type="date" id="contract_date" name="contract_date" value="<?php set_var($contract_date) ?>"/></div>
@@ -135,9 +137,9 @@ if (isset($_POST['submit'])) {
                                     <div class="col-md-offset-3"><button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button></div>
                                 </div>
 
-<!--                                <div class="form-group"> 
-                                    <div class="col-md-offset-3"><button type="submit" class="btn btn-primary"name="submit">บันทึกข้อมูล</button></div>
-                                </div>-->
+                                <!--                                <div class="form-group"> 
+                                                                    <div class="col-md-offset-3"><button type="submit" class="btn btn-primary"name="submit">บันทึกข้อมูล</button></div>
+                                                                </div>-->
                             </form>
                         </div>
                         <!-- /.box-body -->
@@ -156,6 +158,7 @@ if (isset($_POST['submit'])) {
 <?php require_once 'template/footer.php'; ?>
 <script>
     $(function () {
+        $("#trainer_id_list").prop("disabled",true);
 
         $("#std_name").autocomplete({
             source: "<?php echo SITE_URL ?>ajax/search_student.php",
@@ -197,6 +200,7 @@ if (isset($_POST['submit'])) {
     $(".select2-mulitple").select2();
     //ดึงข้อมูล province จากไฟล์ get_data.php
     $("#business_id").change(function () {
+        $("#trainer_id_list").prop("disabled",false);
 //        alert('test');
         $.ajax({
             url: "<?php echo SITE_URL ?>ajax/get_trainer.php",
@@ -204,6 +208,7 @@ if (isset($_POST['submit'])) {
             data: {q: $("#business_id").val()}, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด
             success: function (data) {
                 //วนลูปแสดงข้อมูล ที่ได้จาก ตัวแปร data
+                $("#trainer_id_list").empty();
                 $.each(data, function (index, value) {
                     //แทรก Elements ใน id province  ด้วยคำสั่ง append
                     $("#trainer_id_list").append("<option value='" + value.id + "'> " + value.name + "</option>");
