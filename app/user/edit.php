@@ -16,7 +16,7 @@ if (isset($_POST['submit'])) {
         do_update();  // ไม่มี error บันทึกข้อมูล
     }
 } else {
-    if (isset($_GET['action']) && $_GET['action'] == 'edit') {
+//    if (isset($_GET['action']) && $_GET['action'] == 'edit') {
         $user_id = $_SESSION['user']['user_id'];
         $user_info = get_info($user_id);
 //        var_dump($user_info);
@@ -25,9 +25,10 @@ if (isset($_POST['submit'])) {
             $$key = $value;
         }
         $password = '';
-    }else{
-        redirect('app/admin/list-user');
-    }
+//    }else{
+        if(!$user_info)
+            redirect('app/home/index');
+//    }
 }
 
 ?>
@@ -85,12 +86,12 @@ if (isset($_POST['submit'])) {
                             <input type="password" class="form-control" id="confirm_password" name="confirm_password" value='<?php set_var($confirm_password);; ?>'>
                         </div>
                     </div>
-                    <div class="form-group">
+<!--                    <div class="form-group">
                         <label class="control-label col-md-3" for="school_id">รหัสสถานศึกษา</label>
                         <div class="col-md-5">
                             <input type="text" class="form-control" id="school_id" name="school_id" placeholder="School ID" value='<?php echo isset($school_id) ? $school_id : ''; ?>'>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="form-group">
                         <label class="control-label col-md-3" for="email">อีเมล์</label>
                         <div class="col-md-5">
@@ -191,22 +192,22 @@ function do_update() {
 //    $id = $_SESSION['user']['id'];
     if(empty($password)):
     $sql = "UPDATE user SET "
-                . "username = ".pq($username).","
+//                . "username = ".pq($username).","
                 . "fname = ".pq($fname).","
                 . "lname = ".pq($lname).","
-                . "school_id = ".pq($school_id).","
-                . "user_type_id = ".pq($user_type_id).","
+//                . "school_id = ".pq($school_id).","
+//                . "user_type_id = ".pq($user_type_id).","
                 . "phone = ".pq($phone).","
                 . "email = ".pq($email)
             ." WHERE "
                 . "user_id = ".pq($user_id).";";
     else:
     $sql = "UPDATE user SET "
-                . "username = ".pq($username).","
+//                . "username = ".pq($username).","
                 . "fname = ".pq($fname).","
                 . "lname = ".pq($lname).","
-                . "school_id = ".pq($school_id).","
-                . "user_type_id = ".pq($user_type_id).","
+//                . "school_id = ".pq($school_id).","
+//                . "user_type_id = ".pq($user_type_id).","
                 . "password = MD5(".  pq($password)."),"
                 . "phone = ".pq($phone).","
                 . "email = ".pq($email)
@@ -217,12 +218,12 @@ function do_update() {
 //    die();
     mysqli_query($db, $sql);
     if (mysqli_affected_rows($db) > 0) {
-        set_info("แก้ไขเรียบร้อยครับ");
-        redirect('app/admin/list-user');
+        set_info("แก้ไขข้อมูลเรียบร้อยครับ");
+        redirect('app/user/logout');
     } else {
         if (mysqli_error($db)) {
             set_err("แก้ไขข้อมูลไม่สำเร็จกรุณาตรวจสอบข้อมูล" . mysqli_error($db) . $sql);
-            redirect('app/admin/list-user');
+//            redirect('app/admin/list-user');
         } else {
         if (mysqli_error($db)) {
             set_err("แก้ไขข้อมูลไม่สำเร็จกรุณาตรวจสอบข้อมูล" . mysqli_error($db) . $sql);            
@@ -230,10 +231,10 @@ function do_update() {
             set_info('ไม่มีข้อมูลเปลี่ยนแปลง');
         }     
         }
-        redirect('app/admin/list-user');
+//        redirect('app/admin/list-user');
     }
     /* close statement and connection */
-    //redirect();
+    redirect();
 }
 
 function get_info($user_id) {

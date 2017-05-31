@@ -50,6 +50,9 @@ if (isset($_POST['submit'])) {
                     <div class="box box-info">
                         <div class="box-header with-border">
                             <h3 class="box-title">เพิ่มข้อมูลครูฝึก</h3>
+                            <span class="pull-right">
+                                <a href="<?php echo site_url('app/business/insert') ?>" class="btn  btn-primary ">+ เพิ่มข้อมูลสถานประกอบการ</a>
+                            </span>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->

@@ -261,6 +261,11 @@ $menu = Array(
                 'url' => 'app/user/change-password',
                 'cond' => is_auth(),
             ),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/user/edit',
+                'cond' => is_auth(),
+            ),
             'login' => array(
                 'title' => 'เข้าระบบ',
                 'url' => 'app/user/login',

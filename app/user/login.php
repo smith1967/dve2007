@@ -108,8 +108,13 @@ function do_login($data) {
             $_SESSION['user'] = $row;
 //            $_SESSION['user']['token'] = urlencode($strHash);
 //            var_dump($strHash);
-            $_SESSION['user']['token'] = $strHash;
-            do_insert_log($data['username'],'Y',$strHash);
+            //Generate a random string.
+            $token = openssl_random_pseudo_bytes(16);
+
+            //Convert the binary data into hexadecimal representation.
+            $token = bin2hex($token);
+            $_SESSION['user']['token'] = $token;
+            do_insert_log($data['username'],'Y',$token);
             set_info('ยินดีต้อนรับคุณ'.$row['fname']);
 //            die();
         } else {
