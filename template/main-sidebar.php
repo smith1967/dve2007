@@ -56,7 +56,7 @@ $menu = Array(
             ),
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
-                'url' => 'app/school/edit',
+                'url' => 'app/school/edit-data',
                 'cond' => is_school_staff() ,
             ),
         ),
