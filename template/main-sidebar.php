@@ -22,7 +22,7 @@ $menu = Array(
     ),
     'report' => array(
         'title' => 'สรุปรายงาน',
-        'url' => "http://192.168.101.111/dve/?p=ajax/login/token/id/".$_SESSION['user']['token'],
+        'url' => "http://dve2017.chontech.ac.th/dve/?p=ajax/login/token/id/".$_SESSION['user']['token'],
         'class' => 'fa fa-book',
         'cond' => true,
 //        'subitems' => array(
