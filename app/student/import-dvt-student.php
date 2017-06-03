@@ -143,7 +143,7 @@ function do_import_std() {
         //ปรับ end_edu_id เป็น 0 สำหรับผู้ไม่มีรายชื่อ ในการโอนครั้งต่อไป
         //UPDATE `dvt2017`.`student` SET `end_edu_id` = '0' 
         //WHERE `student`.`std_id` = '5931110025' AND `student`.`school_id` = '1320026101';
-        $sql="UPDATE `student` SET `end_edu_id` = '0' WHERE  `date_update` != '".$date_update."'";
+        $sql="UPDATE `student` SET `end_edu_id` = '0' WHERE  `date_update` != '".$date_update."' AND school_id='".$_SESSION['user']['school_id']."'";
         $result= mysqli_query($db, $sql);
         $info='โอนข้อมูลนักเรียนทวิภาคี เข้าตาราง student เรียบร้อยแล้ว';
       //  echo 'โอนข้อมูลเข้าตาราง student จำนวน ' . mysqli_affected_rows($db) . ' รายการ' ;
