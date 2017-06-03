@@ -14,7 +14,7 @@ header('Content-Type: application/json; charset=utf-8');
 //die();
     $query = "SELECT @c:=@c+1 as num, m.mou_id,s.`school_name`,b.`business_name`,m.`mou_date` "
             ."FROM `mou` m "
-            ."join business b ON b. `business_id`=m.`mou_id` "
+            ."join business b ON b. `business_id`=m.`business_id` "
             ."join school s ON s.`school_id`=m.`school_id` "
             ."join (select @c:=0) r "
             ."ORDER by m.`school_id` ";

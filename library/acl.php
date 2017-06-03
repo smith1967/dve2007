@@ -17,7 +17,7 @@ class acl {
         $url_list = array(
             '',
             'app/home/index',
-            'app/user/edit-user',
+            'app/user/edit',
             'app/user/login',
             'app/user/signup',
             'app/user/logout'
@@ -36,6 +36,9 @@ class acl {
     }
     function is_dvt_admin($url){
         $url_list = array(
+            'app/mou/list',
+            'app/mou/edit',
+            'app/mou/insert',
             'app/home/dvt_admin',
             'app/user/edit',
             'app/do_school_vg/list-do_school_vg'
@@ -47,7 +50,10 @@ class acl {
         $url_list = array(
             'app/user/edit',
             'app/home/dvt_staff',
-            'app/do_school_vg/list-do_school_vg'
+            'app/do_school_vg/list-do_school_vg',
+            'app/mou/list',
+            'app/mou/edit',
+            'app/mou/insert',
             );
         $this->allowed = in_array($url, $url_list);
     }
@@ -63,8 +69,9 @@ class acl {
             'app/student/check-data',
             'app/student/import-std',
             'app/student/import-dvt-student',
-//            'app/student/list',
-//            'app/student/form',
+            'app/mou/list',
+            'app/mou/edit',
+            'app/mou/insert',
             'app/student/file-manager',
             'app/student/check-data',
             'app/do_business_vg/list-do_business_vg',

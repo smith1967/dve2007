@@ -1,4 +1,6 @@
 <?php
+//var_dump($_SESSION);
+//die();
 $menu = Array(
     'home' => array(
         'title' => 'หน้าหลัก',
@@ -18,6 +20,24 @@ $menu = Array(
 ////            ),
 //        ),
     ),
+    'report' => array(
+        'title' => 'สรุปรายงาน',
+        'url' => "http://dve2017.chontech.ac.th/dve/?p=ajax/login/token/id/".$_SESSION['user']['token'],
+        'class' => 'fa fa-book',
+        'cond' => true,
+//        'subitems' => array(
+//            'index' => array(
+////                'title' => 'หน้าหลัก',
+////                'url' => 'app/home/index',
+////                'cond' => FALSE,
+//            ),
+////            'test' => array(
+////                'title' => 'ทดสอบ',
+////                'url' => 'app/home/test',
+////                'cond' => true,
+////            ),
+//        ),
+    ),    
     'school' => array(
         'title' => 'สถานศึกษา',
         'url' => '#',
@@ -36,7 +56,7 @@ $menu = Array(
             ),
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
-                'url' => 'app/school/edit',
+                'url' => 'app/school/edit-data',
                 'cond' => is_school_staff() ,
             ),
         ),
@@ -239,6 +259,11 @@ $menu = Array(
             'change-password' => array(
                 'title' => 'เปลี่ยนรหัสผ่าน',
                 'url' => 'app/user/change-password',
+                'cond' => is_auth(),
+            ),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/user/edit',
                 'cond' => is_auth(),
             ),
             'login' => array(
