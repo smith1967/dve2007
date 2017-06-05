@@ -150,32 +150,33 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 
 <?php
 
-function get_mou($page = 0, $limit = 10) {
-    global $db;
-    //$start = $page * $limit;
-//    $query = "SELECT mou.*,province.province_name FROM mou,province WHERE mou.province_id = province.province_code LIMIT " . $start . "," . $limit . "";
-    $query = "SELECT  m.mou_id,s.`school_name`,b.`business_name`,m.`mou_date` "
-            ."FROM `mou` m "
-            ."join business b ON b. `business_id`=m.`mou_id` "
-            ."join school s ON s.`school_id`=m.`school_id` "
-            ."ORDER by m.`school_id` "
-            ;
-    //echo $query;
-    $result = mysqli_query($db, $query);
-    $moulist = array();
-    while ($row = mysqli_fetch_assoc($result)) {
-        $moulist[] = $row;
-    }
-    return $moulist;
-}
+// function get_mou($page = 0, $limit = 10) {
+//     global $db;
+//     //$start = $page * $limit;
+// //    $query = "SELECT mou.*,province.province_name FROM mou,province WHERE mou.province_id = province.province_code LIMIT " . $start . "," . $limit . "";
+//     $query = "SELECT  m.mou_id,s.`school_name`,b.`business_name`,m.`mou_date` "
+//             ."FROM `mou` m "
+//             ."join business b ON b. `business_id`=m.`mou_id` "
+//             ."join school s ON s.`school_id`=m.`school_id` "
+//             ."WHERE s.school_id=''"
+//             ."ORDER by m.`school_id` "
+//             ;
+//     //echo $query;
+//     $result = mysqli_query($db, $query);
+//     $moulist = array();
+//     while ($row = mysqli_fetch_assoc($result)) {
+//         $moulist[] = $row;
+//     }
+//     return $moulist;
+// }
 
-function get_total() {
-    global $db;
-//    $val = $group."%";
-    $query = "SELECT * FROM mou ";
-    $result = mysqli_query($db, $query);
-    return mysqli_num_rows($result);
-}
+// function get_total() {
+//     global $db;
+// //    $val = $group."%";
+//     $query = "SELECT * FROM mou ";
+//     $result = mysqli_query($db, $query);
+//     return mysqli_num_rows($result);
+// }
 
 function do_delete($mou_id) {
     global $db;

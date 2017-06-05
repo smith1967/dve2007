@@ -6,6 +6,7 @@ $active = 'do-mou';
 //$property = array();
 //$benefit = array();
 $subactive = 'insert';
+$school_id = $_SESSION['user']['school_id'];
 if (isset($_POST['submit'])) {
     $data = $_POST;
 //    var_dump($data);
@@ -58,15 +59,18 @@ if (isset($_POST['submit'])) {
                                 <!--                    <div class="form-group">
                                                         <label for="business_id" class="col-md-2 control-label">รหัส</label>
                                                         <div class="col-md-2">
-                                                            <input type="text" class="form-control" required="" id="business_id" name="business_id"value="<?php set_var($business_id); ?>">
+                                                            <input type="text" class="form-control" required="" id="business_id" name="business_id"value="<?php set_var(); ?>">
                                                         </div>
                                                     </div>-->
-                                <div class="form-group"> 
+
+                                <!--<div class="form-group"> 
                                 <label class="control-label col-md-3" for="school_id">สถานศึกษา</label>
                                 <div class="col-md-3 ">
-                                    <input type="text" class="form-control" id="school_id" placeholder="ชื่อสถานศึกษา" name="school_id" value="<?php set_var($school_id) ?>">
+                                    <input type="text" class="form-control" id="school_id" placeholder="ชื่อสถานศึกษา" 
+                                    name="school_id" value="<?php set_var($_SESSION['user']['school_id']) ?>">
                                 </div>
-                            </div>
+                            </div>-->
+                            <input type="hidden" class="form-control" readonly="" id="school_id" placeholder="ชื่อสถานศึกษา" name="school_id" value="<?php set_var($school_id) ?>">
                                <div class="form-group"> 
                                 <label class="control-label col-md-3" for="business_id">สถานประกอบการ</label>
                                 <div class="col-md-3 ">
