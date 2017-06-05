@@ -2,7 +2,7 @@
 if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
 $title = "แก้ไขข้อมูลสถานประกอบการ";
-$active = 'business';
+$active = 'mou';
 $subactive = 'edit';
 $property = array();
 $benefit = array();
@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     $valid = do_validate($data);  // check ความถูกต้องของข้อมูล
 
     if ($valid) {
-        do_editbusiness();
+        do_editmou();
     }
 } else if ($_GET['business_id']) {
     $property = array();
@@ -31,7 +31,7 @@ if (isset($_POST['submit'])) {
 //    var_dump($business);
 //    exit();
 } else {
-    redirect('app/business/list');
+    redirect('app/mou/list');
 }
 ?>
 <?php require_once 'template/header.php'; ?>

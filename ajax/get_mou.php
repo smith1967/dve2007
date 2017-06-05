@@ -12,11 +12,13 @@ header('Content-Type: application/json; charset=utf-8');
 //    $search_str = '%' . trim($_REQUEST['term']) . '%';
 //echo $search_str.'<br>';
 //die();
+$school_id = $_SESSION['user']['school_id'];
     $query = "SELECT @c:=@c+1 as num, m.mou_id,s.`school_name`,b.`business_name`,m.`mou_date` "
             ."FROM `mou` m "
             ."join business b ON b. `business_id`=m.`business_id` "
             ."join school s ON s.`school_id`=m.`school_id` "
             ."join (select @c:=0) r "
+            ."WHERE s.school_id='".$school_id."'"
             ."ORDER by m.`school_id` ";
 //echo $query;
     $result = mysqli_query($db, $query);

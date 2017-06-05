@@ -61,7 +61,7 @@ $user = 'dvt';
 $password = 'dvt2017!';
 $database = 'dve2017';
 $charset = 'utf8';
-//GRANT ALL PRIVILEGES ON dvt2017.* TO dvt@localhost IDENTIFIED BY '123456';
+//GRANT ALL PRIVILEGES ON dve2017.* TO dvt@localhost IDENTIFIED BY 'dvt2017!';
 /*--- Database connect ---*/
 
 $db = mysqli_connect($host, $user, $password, $database);
