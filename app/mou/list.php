@@ -45,7 +45,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+
+                
                     <div class="table-responsive">
+
+                   
                         <table id="mou_list" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
