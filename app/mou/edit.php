@@ -68,35 +68,30 @@ if (isset($_POST['submit'])) {
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <div class="box-body">
+                        <div class="box-body">                        
                             <form method="post" class="form-horizontal" action="">
-
-                               
-                                <input type="hidden" class="form-control" id="mou_id" readonly="" name="mou_id"value="<?php set_var($mou_id); ?>">
-                                <input type="hidden" class="form-control" id="school_id" readonly="" name="school_id"value="<?php set_var($school_id); ?>">
-                                <div class="form-group">
-                                    <label for="business_id" class="col-md-2 control-label">ชื่อสถานประกอบการ</label>
-                                    <div class="col-md-4">
-                                        <input type="text" class="form-control" required="" id="business_id"name="business_id"value="<?php set_var($business_id); ?>">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="mou_date" class="col-md-2 control-label">วันที่ลงนามความร่วมมือ</label>
-                                    <div class="col-md-3">
-                                        <input type="date" class="form-control" id="mou_date" placeholder="yyyy/mm/dd" name="mou_date"value="<?php set_var($mou_date); ?>">
+                                <input type="hidden" class="form-control" readonly="" id="mou_id" placeholder="" name="mou_id" value="<?php set_var($mou_id) ?>">
+                                <input type="hidden" class="form-control" readonly="" id="school_id" placeholder="" name="school_id" value="<?php set_var($school_id) ?>">
+                                <input type="hidden" class="form-control" readonly="" id="business_id" placeholder="" name="business_id" value="<?php set_var($business_id) ?>">
+                                <div class="form-group"> 
+                                    <label class="control-label col-md-3" for="business_name">สถานประกอบการ</label>
+                                    <div class="col-md-5 ">
+                                        <input type="text" class="form-control" id="business_name" placeholder="ชื่อสถานประกอบการ" name="business_name" value="<?php set_var($business_name) ?>">
                                     </div>
                                 </div> 
                                 <div class="form-group">
-                                    <label for="director_name" class="col-md-2 control-label">ชื่อผู้อำนวยการสถานศึกษา</label>
-                                    <div class="col-md-2">
-                                        <input type="text" class="form-control" id="director_name" name="director_name"value="<?php set_var($director_name); ?>">
+                                    <label class="control-label col-md-3" for="mou_date">วันที่ลงนามความร่วมมือ</label>
+                                    <div class="col-md-3">
+                                        <input type="date" class="form-control" id="mou_date" placeholder="yyyy/mm/dd" name="mou_date"value="<?php set_var($mou_date); ?>">
+                                    </div>
+                                </div>  
+                                <div class="form-group">
+                                    <label  class="control-label col-md-3 " for="director_name">ชื่อผู้อำนวยการสถานศึกษา</label>
+                                    <div class="col-md-4">
+                                        <input type="text" class="form-control" required="" id="director_name"name="director_name"value="<?php set_var($director_name); ?>">
                                     </div>
                                 </div>
-
-
-
-
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <label class="col-md-3 control-label" for="ceo_name">ชื่อผู้บริหารสถานประกอบการ</label>
                                     <div class="col-md-4">
                                         <input type="text" class="form-control" required="" id="ceo_name"name="ceo_name"value="<?php set_var($ceo_name); ?>">
@@ -122,47 +117,42 @@ if (isset($_POST['submit'])) {
                                 </div> 
                                 <?php
                                 $arr_plan = array('มี' => 'มี', 'ไม่มี' => 'ไม่มี');
-                                $def=$studying_plan;
                                 ?>
                                 <div class="form-group">
                                     <label for="studying_plan" class="col-md-3 control-label">แผนการเรียน</label>
                                     <div class="col-md-2">
                                         <select class="form-control" id="studying_plan" name="studying_plan">
-                                            <?php echo gen_option( $arr_plan,$def) ?>
+                                            <?php echo gen_option($arr_plan, $studying_plan) ?>
                                         </select>
                                     </div>
                                 </div> 
-                                <?php $def=$training_plan ?>
                                 <div class="form-group">
                                     <label for="training_plan" class="col-md-3 control-label">แผนการฝึกอาชีพ</label>
                                     <div class="col-md-2">
                                         <select class="form-control" id="training_plan" name="training_plan">
-                                            <?php echo gen_option( $arr_plan,$def) ?>
+                                            <?php echo gen_option($arr_plan, $training_plan) ?>
                                         </select>
                                     </div>
                                 </div> 
-                                <?php $def=$supervision_plan ?>
                                 <div class="form-group">
                                     <label for="supervision_plan" class="col-md-3 control-label">แผนการนิเทศ</label>
                                     <div class="col-md-2">
                                         <select class="form-control" id="supervision_plan" name="supervision_plan">
-                                            <?php echo gen_option( $arr_plan,$def) ?>
+                                            <?php echo gen_option($arr_plan, $supervision_plan) ?>
                                         </select>
                                     </div>
                                 </div> 
                                 <?php
                                 $arr_comp = array('ตรง' => 'ตรง', 'ไม่ตรง' => 'ไม่ตรง');
-                                $def=$major_compatibility;
                                 ?>
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <label for="major_compatibility" class="col-md-3 control-label">ฝึกอาชีพตรงกับกับสาขาที่เรียน</label>
                                     <div class="col-md-2">
                                         <select class="form-control" id="major_compatibility" name="major_compatibility">
-                                            <?php echo gen_option( $arr_comp,$def) ?>
+                                            <?php echo gen_option($arr_comp, $major_compatibility) ?>
                                         </select>
                                     </div>
                                 </div>            
-
                                 <div class="form-group">
                                     <div class="col-md-offset-2 col-md-10">
                                         <button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button>
@@ -186,12 +176,12 @@ if (isset($_POST['submit'])) {
 
 <script>
     $(function () {
-        $("#business_id").autocomplete({
+        $("#business_name").autocomplete({
             source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
             minLength: 2,
             select: function (event, ui) {
-                // $("#business_id").val(ui.item.label); // display the selected text
-               $("#business_id").val(ui.item.value); // save selected id to hidden input
+                $("#business_name").val(ui.item.label); // display the selected text
+                $("#business_id").val(ui.item.value); // save selected id to hidden input
                 return false;
             }
         });
@@ -257,10 +247,10 @@ function do_editmou() {
             . "studying_plan=" . pq($data['studying_plan']) . ","
             . "training_plan=" . pq($data['training_plan']) . ","
             . "supervision_plan=" . pq($data['supervision_plan']) . ","
-            . "major_compatibility=" . pq($data['major_compatibility'])  
+            . "major_compatibility=" . pq($data['major_compatibility'])
             . " WHERE "
             . "mou_id = " . pq($data['mou_id']) . "";
-  // echo $query; exit();
+    // echo $query; exit();
     $result = mysqli_query($db, $query);
     if (mysqli_affected_rows($db) > 0) {
         set_info('แก้ไขข้อมูลสำเร็จ');
@@ -272,7 +262,7 @@ function do_editmou() {
 
 function get_mou($mou_id = NULL) {
     global $db;
-    $sql = "SELECT * FROM mou where mou_id = '$mou_id';";
+    $sql = "SELECT m.*,b.business_name FROM mou m JOIN business b ON m.business_id = b.business_id WHERE mou_id = '$mou_id';";
     $rs = mysqli_query($db, $sql);
     $row = mysqli_fetch_assoc($rs);
     return $row;
