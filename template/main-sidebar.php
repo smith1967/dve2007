@@ -256,11 +256,11 @@ $menu = Array(
                 'url' => 'app/user/signup',
                 'cond' => !is_auth(),
             ),
-            'change-password' => array(
-                'title' => 'เปลี่ยนรหัสผ่าน',
-                'url' => 'app/user/change-password',
-                'cond' => is_auth(),
-            ),
+            // 'change-password' => array(
+            //     'title' => 'เปลี่ยนรหัสผ่าน',
+            //     'url' => 'app/user/change-password',
+            //     'cond' => is_auth(),
+            // ),
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
                 'url' => 'app/user/edit',
