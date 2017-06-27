@@ -553,6 +553,16 @@ function do_editbusiness() {
 //    $pro = implode(",", $arr_pro);
     //echo $pro;
     //exit();
+    if(is_array($data['property'])){
+        $properties = implode(",", $data['property']);
+    }  else {
+        $properties = $data['property'];        
+    }
+    if(is_array($data['benefit'])){
+        $benefits = implode(",", $data['benefit']);
+    }  else {
+        $benefits = $data['benefit'];        
+    }       
     $query = "update business  set
 	business_name=" . pq($data['business_name']) . ","
             . "job_description=" . pq($data['job_description']) . ","
@@ -574,8 +584,8 @@ function do_editbusiness() {
             . "capital=" . pq($data['capital']) . ","
             . "country=" . pq($data['country']) . ","
             . "tax_break=" . pq($data['tax_break']) . ","
-            . "benefit_id=" . pq(implode(",", $data['benefit'])) . ","
-            . "property_id=" . pq(implode(",", $data['property']))
+            . "benefit_id=" . pq($benefits) . ","
+            . "property_id=" . pq($properties)
             . " WHERE "
             . "business_id = " . pq($data['business_id']) . "";
 //    echo $query; exit();
