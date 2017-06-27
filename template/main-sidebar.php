@@ -22,7 +22,7 @@ $menu = Array(
     ),
     'report' => array(
         'title' => 'สรุปรายงาน',
-        'url' => "/dve/?p=ajax/login/token/id/".$_SESSION['user']['token'],
+        'url' => "../dve/?p=ajax/login/token/login/id/".$_SESSION['user']['token'],
         'class' => 'fa fa-book',
         'cond' => true,
 //        'subitems' => array(
