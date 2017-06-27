@@ -79,7 +79,7 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="school_id">รหัสสถานศึกษา:</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="school_id" value="<?php set_var($school_id) ?>">
+                                <input type="text" class="form-control" readonly="readonly" name="school_id" value="<?php set_var($school_id) ?>">
                             </div>
                         </div>
                         <div class="form-group">

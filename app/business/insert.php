@@ -287,7 +287,6 @@ if (isset($_POST['submit'])) {
         $(".select2-single").select2();
         //ดึงข้อมูล province จากไฟล์ get_data.php
         $.ajax({
-            alert('test');
             url: "<?php echo SITE_URL ?>ajax/get_data.php",
             dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
             data: {show_province: 'show_province'}, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด

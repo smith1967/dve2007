@@ -334,7 +334,7 @@ function list_school_data() {
         if(mysqli_errno($db)){
             set_err("เกิดข้อผิดพลาด".mysqli_error($db));
         }
-        set_err("ไม่พบข้อมูล");
+        set_err("ไม่พบข้อมูลหรือข้อมูลไม่ครบ");
 //        redirect();
     }
     return $row;
