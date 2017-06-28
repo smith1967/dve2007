@@ -27,7 +27,7 @@ if (isset($_POST['submit'])) {
     foreach ($business as $key => $value) {
         $$key = $value;
     }
-
+    $parent_business_name = get_parent_business_name($parent_business_id);
 //    var_dump($business);
 //    exit();
 } else {
@@ -102,9 +102,8 @@ if (isset($_POST['submit'])) {
                                         <input type="text" class="form-control" required="" id="amount_emp" name="amount_emp"value="<?php set_var($amount_emp); ?>">
                                     </div>
                                 </div>
-
                                 <div class="form-group">
-                                    <label for="job_description" class="col-md-2 control-label">รายละเอียด</label>
+                                    <label for="job_description" class="col-md-2 control-label">ลักษณะงาน</label>
                                     <div class="col-md-4">
                                         <textarea class="form-control" id="job_description" rows="3" name="job_description"><?php set_var($job_description); ?></textarea>
                                     </div>
@@ -167,13 +166,13 @@ if (isset($_POST['submit'])) {
                                     </div>
                                 </div> 
                                 <div class="form-group">
-                                    <label for="email" class="col-md-2 control-label">E-mail</label>
+                                    <label for="email" class="col-md-2 control-label">อีเมล์</label>
                                     <div class="col-md-3">
                                         <input type="email" class="form-control" id="email" placeholder="Kidakarn@gmail.com"name="email"value="<?php set_var($email); ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="contact" class="col-md-2 control-label">ชื่อผู้ประสานงาน</label>
+                                    <label for="contact" class="col-md-2 control-label">ชื่อผู้ติดต่อของสถานประกอบการ</label>
                                     <div class="col-md-3">
                                         <input type="text" class="form-control" required="" id="contact"name="contact"value="<?php set_var($contact); ?>">
                                     </div>
@@ -185,18 +184,17 @@ if (isset($_POST['submit'])) {
                                         <input type="text" class="form-control" required="" id="contact_phone" name="contact_phone" placeholder="xxx-xxx-xxxx"value="<?php set_var($contact_phone); ?>">
                                     </div>
                                 </div> 
-
                                 <?php
-                                $do_mou_opt = array('N' => 'ไม่เคยทำ', 'Y' => 'เคยร่วมจัดทำ');
+//                                $do_mou_opt = array('N' => 'ไม่เคยทำ', 'Y' => 'เคยร่วมจัดทำ');
                                 ?>
-                                <div class="form-group">
+<!--                                <div class="form-group">
                                     <label for="do_mou" class="col-md-2 control-label">ทำความร่วมมือจัดอาชีวศึกษา</label>
                                     <div class="col-md-2">
                                         <select class="form-control" id="do_mou" name="do_mou">
                                             <?php echo gen_option($do_mou_opt, $do_mou) ?>
                                         </select>
                                     </div>
-                                </div>                       
+                                </div>                       -->
 
                                 <div class="form-group">
                                     <label for="registration_date" class="col-md-2 control-label">วันที่จดทะเบียน</label>
@@ -210,6 +208,14 @@ if (isset($_POST['submit'])) {
                                         <input type="text" class="form-control" id="capital"name="capital"value="<?php set_var($capital); ?>">
                                     </div>
                                 </div>       
+                                <input type="hidden" class="form-control" id="parent_business_id"  name="parent_business_id" value="<?php set_var($parent_business_id) ?>">
+                                <div class="form-group"> 
+                                    <label class="control-label col-md-2" for="parent_business_name">ชื่อบริษัทแม่</label>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" id="parent_business_name" placeholder="ชื่อสถานประกอบการ" name="parent_business_name" value="<?php set_var($parent_business_name) ?>">
+                                    </div>
+                                    <h5 class="text-info">*ไม่จำเป็นต้องกรอก</h5>
+                                </div>
                                 <div class="form-group">
                                     <label for="country" class="col-md-2 control-label">ประเทศต้นสังกัด</label>
                                     <div class="col-md-2">
@@ -283,115 +289,27 @@ if (isset($_POST['submit'])) {
 </div>
 <!--.wrapper-->
 <?php require_once 'template/footer.php'; ?>
-
 <script>
-//    $(function () {
-//        //เรียกใช้งาน Select2
-//        $(".select2-single").select2();
-//        //ดึงข้อมูล province จากไฟล์ get_data.php
-//        $.ajax({
-//            url: "<?php echo SITE_URL ?>ajax/get_data.php",
-//            dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
-//            data: {show_province: 'show_province'}, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด
-//            success: function (data) {
-//
-//                //วนลูปแสดงข้อมูล ที่ได้จาก ตัวแปร data
-//                $.each(data, function (index, value) {
-//                    //แทรก Elements ใน id province  ด้วยคำสั่ง append
-//                    $("#province_id").append("<option value='" + value.id + "'> " + value.name + "</option>");
-//                });
-//            }
-//        });
-//
-//
-//        //แสดงข้อมูล อำเภอ  โดยใช้คำสั่ง change จะทำงานกรณีมีการเปลี่ยนแปลงที่ #province
-//        $("#province_id").change(function () {
-//
-//            //กำหนดให้ ตัวแปร province มีค่าเท่ากับ ค่าของ #province ที่กำลังถูกเลือกในขณะนั้น
-//            var province_id = $(this).val();
-//
-//            $.ajax({
-//                url: "<?php echo SITE_URL ?>ajax/get_data.php",
-//                dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
-//                data: {province_id: province_id}, //ส่งค่าตัวแปร province_id เพื่อดึงข้อมูล อำเภอ ที่มี province_id เท่ากับค่าที่ส่งไป
-//                success: function (data) {
-//
-//                    //กำหนดให้ข้อมูลใน #amphur เป็นค่าว่าง
-//                    $("#aumphur_id").text("");
-//
-//                    //วนลูปแสดงข้อมูล ที่ได้จาก ตัวแปร data  
-//                    $.each(data, function (index, value) {
-//
-//                        //แทรก Elements ข้อมูลที่ได้  ใน id amphur  ด้วยคำสั่ง append
-//                        $("#aumphur_id").append("<option value='" + value.id + "'> " + value.name + "</option>");
-//                    });
-//                    $("#aumphur_id").change();
-//                }
-//            });
-//
-//        });
-//
-//        //แสดงข้อมูลตำบล โดยใช้คำสั่ง change จะทำงานกรณีมีการเปลี่ยนแปลงที่  #amphur
-//        $("#aumphur_id").change(function () {
-//            //กำหนดให้ ตัวแปร amphur_id มีค่าเท่ากับ ค่าของ  #amphur ที่กำลังถูกเลือกในขณะนั้น
-//            var amphur_id = $(this).val();
-//            $.ajax({
-//                url: "<?php echo SITE_URL ?>ajax/get_data.php",
-//                dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
-//                data: {amphur_id: amphur_id}, //ส่งค่าตัวแปร amphur_id เพื่อดึงข้อมูล ตำบล ที่มี amphur_id เท่ากับค่าที่ส่งไป
-//                success: function (data) {
-////                                console.log(JSON.stringify(data))
-//                    //กำหนดให้ข้อมูลใน #district เป็นค่าว่าง
-//                    $("#district_id").text("");
-//
-//                    //วนลูปแสดงข้อมูล ที่ได้จาก ตัวแปร data  
-//                    $.each(data, function (index, value) {
-//                        //แทรก Elements ข้อมูลที่ได้  ใน id district  ด้วยคำสั่ง append
-//                        $("#district_id").append("<option value='" + value.id + "'> " + value.name + "</option>");
-//
-//                    });
-//                    $("#district_id").change();
-//                }
-//            });
-//
-//        });
-//
-//        //คำสั่ง change จะทำงานกรณีมีการเปลี่ยนแปลงที่  #district 
-//        $("#district_id").change(function () {
-//            var district_id = $(this).val();
-//            $.ajax({
-//                url: "<?php echo SITE_URL ?>ajax/get_data.php",
-//                dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
-//                data: {district_id: district_id}, //ส่งค่าตัวแปร amphur_id เพื่อดึงข้อมูล ตำบล ที่มี amphur_id เท่ากับค่าที่ส่งไป
-//                success: function (data) {
-////                                console.log(JSON.stringify(data))
-//                    //กำหนดให้ข้อมูลใน #district เป็นค่าว่าง
-////                                $("#postcode").val(JSON.stringify(data));
-//
-//                    //วนลูปแสดงข้อมูล ที่ได้จาก ตัวแปร data  
-//                    $.each(data, function (index, value) {
-//                        //แทรก Elements ข้อมูลที่ได้  ใน id district  ด้วยคำสั่ง append
-////                                   console.log(index);
-//                        $("#postcode").val(value.id);
-////                                $("#district_id").append("<option value='" + value.id + "'> " + value.name + "</option>");
-//                    });
-//                }
-//            });
-//
-//            //นำข้อมูลรายการ จังหวัด ที่เลือก มาใส่ไว้ในตัวแปร province
-//            var province = $("#province_id option:selected").text();
-//
-//            //นำข้อมูลรายการ อำเภอ ที่เลือก มาใส่ไว้ในตัวแปร amphur
-//            var amphur = $("#aumphur_id option:selected").text();
-//
-//            //นำข้อมูลรายการ ตำบล ที่เลือก มาใส่ไว้ในตัวแปร district
-//            var district = $("#district_id option:selected").text();
-//
-//            //ใช้คำสั่ง alert แสดงข้อมูลที่ได้
-////                alert("คุณได้เลือก :  จังหวัด : " + province + " อำเภอ : "+ amphur + "  ตำบล : " + district );
-//        });
-//    });
-
+    $(function () {
+        $("#business_name").autocomplete({
+            source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
+            minLength: 2,
+            select: function (event, ui) {
+                $("#business_name").val(ui.item.label); // display the selected text
+//                $("#business_id").val(ui.item.value); // save selected id to hidden input
+                return false;
+            }
+        });
+        $("#parent_business_name").autocomplete({
+            source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
+            minLength: 2,
+            select: function (event, ui) {
+                $("#parent_business_name").val(ui.item.label); // display the selected text
+                $("#parent_business_id").val(ui.item.value); // save selected id to hidden input
+                return false;
+            }
+        });        
+    });
 </script>
 <script>
     $(function () {
@@ -579,8 +497,9 @@ function do_editbusiness() {
             . "email=" . pq($data['email']) . ","
             . "contact=" . pq($data['contact']) . ","
             . "contact_phone=" . pq($data['contact_phone']) . ","
-            . "do_mou=" . pq($data['do_mou']) . ","
+//            . "do_mou=" . pq($data['do_mou']) . ","
             . "registration_date=" . pq($data['registration_date']) . ","
+            . "parent_business_id=" . pq($data['parent_business_id']) . ","
             . "capital=" . pq($data['capital']) . ","
             . "country=" . pq($data['country']) . ","
             . "tax_break=" . pq($data['tax_break']) . ","
@@ -604,4 +523,12 @@ function get_business($business_id = NULL) {
     $rs = mysqli_query($db, $sql);
     $row = mysqli_fetch_assoc($rs);
     return $row;
+}
+
+function get_parent_business_name($id) {
+    global $db;
+    $sql = "SELECT b.business_name FROM business b where business_id = '$id';";
+    $rs = mysqli_query($db, $sql);
+    $row = mysqli_fetch_assoc($rs);
+    return $row['business_name'];    
 }

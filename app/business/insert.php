@@ -89,7 +89,7 @@ if (isset($_POST['submit'])) {
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="job_description" class="col-md-2 control-label">รายละเอียด</label>
+                                    <label for="job_description" class="col-md-2 control-label">ลักษณะงาน</label>
                                     <div class="col-md-4">
                                         <textarea class="form-control" id="job_description" rows="3" name="job_description"><?php set_var($job_description); ?></textarea>
                                     </div>
@@ -152,13 +152,13 @@ if (isset($_POST['submit'])) {
                                     </div>
                                 </div> 
                                 <div class="form-group">
-                                    <label for="email" class="col-md-2 control-label">E-mail</label>
+                                    <label for="email" class="col-md-2 control-label">อีเมล์</label>
                                     <div class="col-md-3">
                                         <input type="email" class="form-control" id="email" placeholder="Kidakarn@gmail.com"name="email"value="<?php set_var($email); ?>">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="contact" class="col-md-2 control-label">ชื่อผู้ประสานงาน</label>
+                                    <label for="contact" class="col-md-2 control-label">ชื่อผู้ติดต่อของสถานประกอบการ</label>
                                     <div class="col-md-3">
                                         <input type="text" class="form-control" required="" id="contact"name="contact"value="<?php set_var($contact); ?>">
                                     </div>
@@ -172,16 +172,16 @@ if (isset($_POST['submit'])) {
                                 </div> 
 
                                 <?php
-                                $do_mou_opt = array('N' => 'ไม่เคยทำ', 'Y' => 'เคยร่วมจัดทำ');
+//                                $do_mou_opt = array('N' => 'ไม่เคยทำ', 'Y' => 'เคยร่วมจัดทำ');
                                 ?>
-                                <div class="form-group">
+<!--                                <div class="form-group">
                                     <label for="do_mou" class="col-md-2 control-label">ทำความร่วมมือจัดอาชีวศึกษา</label>
                                     <div class="col-md-2">
                                         <select class="form-control" id="do_mou" name="do_mou">
                                             <?php echo gen_option($do_mou_opt, $do_mou) ?>
                                         </select>
                                     </div>
-                                </div>                       
+                                </div>                       -->
 
                                 <div class="form-group">
                                     <label for="registration_date" class="col-md-2 control-label">วันที่จดทะเบียน</label>
@@ -195,6 +195,14 @@ if (isset($_POST['submit'])) {
                                         <input type="text" class="form-control" id="capital"name="capital"value="<?php set_var($capital); ?>">
                                     </div>
                                 </div>       
+                                <input type="hidden" class="form-control" id="parent_business_id"  name="parent_business_id" value="<?php set_var($parent_business_id) ?>">
+                                <div class="form-group"> 
+                                    <label class="control-label col-md-2" for="parent_business_name">ชื่อบริษัทแม่</label>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" id="parent_business_name" placeholder="ชื่อสถานประกอบการ" name="parent_business_name" value="<?php set_var($parent_business_name) ?>">
+                                    </div>
+                                    <h5 class="text-info">*ไม่จำเป็นต้องกรอก</h5>
+                                </div>
                                 <div class="form-group">
                                     <label for="country" class="col-md-2 control-label">ประเทศต้นสังกัด</label>
                                     <div class="col-md-2">
@@ -281,6 +289,15 @@ if (isset($_POST['submit'])) {
                 return false;
             }
         });
+        $("#parent_business_name").autocomplete({
+            source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
+            minLength: 2,
+            select: function (event, ui) {
+                $("#parent_business_name").val(ui.item.label); // display the selected text
+                $("#parent_business_id").val(ui.item.value); // save selected id to hidden input
+                return false;
+            }
+        });        
     });
 </script> 
 <script>
@@ -456,7 +473,8 @@ function do_insert() {
         $benefits = $data['benefit'];        
     }    
     $query = "INSERT INTO business ("
-            . "`business_id`,"
+            . " `business_id`,"
+            . " `parent_business_id`,"
             . " `business_name`,"
             . " `job_description`,"
             . " `amount_emp`,"
@@ -471,7 +489,7 @@ function do_insert() {
             . " `email`,"
             . " `contact`,"
             . " `contact_phone`,"
-            . " `do_mou`,"
+//            . " `do_mou`,"
             . " `registration_date`,"
             . " `capital`,"
             . " `country`,"
@@ -480,6 +498,7 @@ function do_insert() {
             . " `benefit_id`) "
             . " VALUES ("
             . "NULL,"
+            . pq($data['parent_business_id']) . ","
             . pq($data['business_name']) . ","
             . pq($data['job_description']) . ","
             . pq($data['amount_emp']) . ","
@@ -494,7 +513,7 @@ function do_insert() {
             . pq($data['email']) . ","
             . pq($data['contact']) . ","
             . pq($data['contact_phone']) . ","
-            . pq($data['do_mou']) . ","
+//            . pq($data['do_mou']) . ","
             . pq($data['registration_date']) . ","
             . pq($data['capital']) . ","
             . pq($data['country']) . ","
