@@ -45,7 +45,7 @@ header('Content-Type: application/json; charset=utf-8');
 $search = strip_tags(trim($_GET['q'])); 
 //$search = '%'.$search.'%';
 // Do Prepared Query 
-$query = "SELECT trainer_id AS id,trainer_name AS name FROM trainer";
+$query = "SELECT trainer_id AS id,trainer_name AS name FROM trainer WHERE business_id=".pq($search);
 //WHERE business_id = ".pq($search);
         //$smnt->prepare("SELECT productId,productName FROM products WHERE productName LIKE :search LIMIT 40");
 
@@ -82,4 +82,4 @@ echo json_encode($data, JSON_UNESCAPED_UNICODE);
         // }
         // $datax = array('data' => $data);
         // echo json_encode($datax, JSON_UNESCAPED_UNICODE);   
-    }
+//    }
