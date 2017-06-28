@@ -87,7 +87,7 @@ if (isset($_POST['submit'])) {
                                     <div class="col-md-5">
                                         <input type="text" class="form-control" id="business_name" placeholder="ชื่อสถานประกอบการ" name="business_name" value="<?php set_var($business_name) ?>">
                                     </div>
-                                    <h5 class="text-info">*กรุณาเลือกสุถานประกอบการก่อนไปเลือกครูฝึก</h5>
+                                    <h5 class="text-info">*กรุณาเลือกสถานประกอบการก่อนไปเลือกครูฝึก</h5>
                                 </div>
                                 <!--                                <div class="form-group"> 
                                                                     <label class="control-label col-md-3" for="school_id">รหัสสถานศึกษา</label>
@@ -261,7 +261,7 @@ function do_validate($data) {
 function do_insert($school_id) {
     global $db;
     $data = &$_POST;
-    foreach ($data['trainer_id_list'] as $trainer_id) {
+    foreach ((array)$data['trainer_id_list'] as $trainer_id) {
         if (empty($trainer_id))
             continue;
 //             do_insert($school_id,$trainer_id);
