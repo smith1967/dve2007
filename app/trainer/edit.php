@@ -154,9 +154,13 @@ if ($_GET['trainer_id']) {
                                 <?php
                                 $def = isset($trainer_method_assign) ? $trainer_method_assign : 'ผ่านการฝึกอบรม';
                                 //$sql = "SELECT trainer_property_id,trainer_property FROM trainer_property ORDER BY trainer_property_id ASC";
-                                $assign_data = array('T'=>'ผ่านการฝึกอบรม', 
-                                                'E'=>'มีประสบการณ์การสอนมากกว่า 6 เดือน','S' => 'ผ่านการทดสอบประเมินความรู้');
-                                echo gen_option($assign_data, $def);
+                                            $assign_data = array(
+                                                'T' => 'ผ่านการฝึกอบรม'
+                                                ,'E' => 'มีประสบการณ์การสอนมากกว่า 6 เดือน'
+                                                ,'S' => 'ผ่านการทดสอบประเมินความรู้'
+                                                ,'N' => 'อยู่ระหว่างการดำเนินการ'
+                                                );
+                                            echo gen_option($assign_data, $def);
                                 ?>
                             </select>
                             
