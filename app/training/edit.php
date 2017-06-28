@@ -242,7 +242,7 @@ function do_validate($data) {
 //        set_err('กรุณากรอกรหัสฝึกอาชีพ');
 //        $valid = false;
 //    }
-    if (check_pid($data['citizen_id'])) {
+    if (check_pid($data['citizen_id']) && !preg_match('/[0-9]{13}/', $data['citizen_id'])) {
         set_err('กรุณากรอกเลขบัตรประชาชน');
         $valid = false;
     }
