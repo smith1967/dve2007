@@ -22,7 +22,7 @@ $menu = Array(
     ),
     'report' => array(
         'title' => 'สรุปรายงาน',
-        'url' => "http://dve2017.chontech.ac.th/dve/?p=ajax/login/token/id/".$_SESSION['user']['token'],
+        'url' => "../dve/?p=ajax/login/token/login/id/".$_SESSION['user']['token'],
         'class' => 'fa fa-book',
         'cond' => true,
 //        'subitems' => array(
@@ -256,11 +256,11 @@ $menu = Array(
                 'url' => 'app/user/signup',
                 'cond' => !is_auth(),
             ),
-            'change-password' => array(
-                'title' => 'เปลี่ยนรหัสผ่าน',
-                'url' => 'app/user/change-password',
-                'cond' => is_auth(),
-            ),
+            // 'change-password' => array(
+            //     'title' => 'เปลี่ยนรหัสผ่าน',
+            //     'url' => 'app/user/change-password',
+            //     'cond' => is_auth(),
+            // ),
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
                 'url' => 'app/user/edit',

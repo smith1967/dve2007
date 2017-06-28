@@ -118,12 +118,12 @@ function do_login($data) {
             set_info('ยินดีต้อนรับคุณ'.$row['fname']);
 //            die();
         } else {
-            do_insert_log($data['username'],'N');
+            do_insert_log($data['username'],'N','');
             set_err("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!!");
             redirect('app/user/login');
         }
     }  else {
-        do_insert_log($data['username'],'N');
+        do_insert_log($data['username'],'N','');
         set_err("ชื่อผู้ใช้หรือรหัสผ่านไม่ถูกต้อง!!");
     }
     redirect('app/home/index');

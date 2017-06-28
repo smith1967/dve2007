@@ -54,30 +54,18 @@ if (isset($_POST['submit'])) {
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
-                        <form method="post" class="form-horizontal" action="">
-                            <div class="box-body">
-                                <!--                    <div class="form-group">
-                                                        <label for="business_id" class="col-md-2 control-label">รหัส</label>
-                                                        <div class="col-md-2">
-                                                            <input type="text" class="form-control" required="" id="business_id" name="business_id"value="<?php set_var(); ?>">
-                                                        </div>
-                                                    </div>-->
-
-                                <!--<div class="form-group"> 
-                                <label class="control-label col-md-3" for="school_id">สถานศึกษา</label>
-                                <div class="col-md-3 ">
-                                    <input type="text" class="form-control" id="school_id" placeholder="ชื่อสถานศึกษา" 
-                                    name="school_id" value="<?php set_var($_SESSION['user']['school_id']) ?>">
-                                </div>
-                            </div>-->
-                            <input type="hidden" class="form-control" readonly="" id="school_id" placeholder="ชื่อสถานศึกษา" name="school_id" value="<?php set_var($school_id) ?>">
-                               <div class="form-group"> 
-                                <label class="control-label col-md-3" for="business_id">สถานประกอบการ</label>
-                                <div class="col-md-3 ">
-                                    <input type="text" class="form-control" id="business_id" placeholder="ชื่อสถานประกอบการ" name="business_id" value="<?php set_var($business_id) ?>">
-                                </div>
-                            </div> 
-                               <div class="form-group">
+                        <div class="box-body">                        
+                            <form method="post" class="form-horizontal" action="">
+<!--                                <input type="hidden" class="form-control" readonly="" id="mou_id" placeholder="" name="mou_id" value="<?php set_var($mou_id) ?>">-->
+                                <input type="hidden" class="form-control" readonly="" id="school_id" placeholder="" name="school_id" value="<?php set_var($school_id) ?>">
+                                <input type="hidden" class="form-control" readonly="" id="business_id" placeholder="" name="business_id" value="<?php set_var($business_id) ?>">
+                                <div class="form-group"> 
+                                    <label class="control-label col-md-3" for="business_name">สถานประกอบการ</label>
+                                    <div class="col-md-5 ">
+                                        <input type="text" class="form-control" id="business_name" placeholder="ชื่อสถานประกอบการ" name="business_name" value="<?php set_var($business_name) ?>">
+                                    </div>
+                                </div> 
+                                <div class="form-group">
                                     <label class="control-label col-md-3" for="mou_date">วันที่ลงนามความร่วมมือ</label>
                                     <div class="col-md-3">
                                         <input type="date" class="form-control" id="mou_date" placeholder="yyyy/mm/dd" name="mou_date"value="<?php set_var($mou_date); ?>">
@@ -89,7 +77,7 @@ if (isset($_POST['submit'])) {
                                         <input type="text" class="form-control" required="" id="director_name"name="director_name"value="<?php set_var($director_name); ?>">
                                     </div>
                                 </div>
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <label class="col-md-3 control-label" for="ceo_name">ชื่อผู้บริหารสถานประกอบการ</label>
                                     <div class="col-md-4">
                                         <input type="text" class="form-control" required="" id="ceo_name"name="ceo_name"value="<?php set_var($ceo_name); ?>">
@@ -120,7 +108,7 @@ if (isset($_POST['submit'])) {
                                     <label for="studying_plan" class="col-md-3 control-label">แผนการเรียน</label>
                                     <div class="col-md-2">
                                         <select class="form-control" id="studying_plan" name="studying_plan">
-                                            <?php echo gen_option( $arr_plan,$def) ?>
+                                            <?php echo gen_option($arr_plan, $studying_plan) ?>
                                         </select>
                                     </div>
                                 </div> 
@@ -128,7 +116,7 @@ if (isset($_POST['submit'])) {
                                     <label for="training_plan" class="col-md-3 control-label">แผนการฝึกอาชีพ</label>
                                     <div class="col-md-2">
                                         <select class="form-control" id="training_plan" name="training_plan">
-                                            <?php echo gen_option( $arr_plan,$def) ?>
+                                            <?php echo gen_option($arr_plan, $training_plan) ?>
                                         </select>
                                     </div>
                                 </div> 
@@ -136,18 +124,18 @@ if (isset($_POST['submit'])) {
                                     <label for="supervision_plan" class="col-md-3 control-label">แผนการนิเทศ</label>
                                     <div class="col-md-2">
                                         <select class="form-control" id="supervision_plan" name="supervision_plan">
-                                            <?php echo gen_option( $arr_plan,$def) ?>
+                                            <?php echo gen_option($arr_plan, $supervision_plan) ?>
                                         </select>
                                     </div>
                                 </div> 
                                 <?php
                                 $arr_comp = array('ตรง' => 'ตรง', 'ไม่ตรง' => 'ไม่ตรง');
                                 ?>
-                                 <div class="form-group">
+                                <div class="form-group">
                                     <label for="major_compatibility" class="col-md-3 control-label">ฝึกอาชีพตรงกับกับสาขาที่เรียน</label>
                                     <div class="col-md-2">
                                         <select class="form-control" id="major_compatibility" name="major_compatibility">
-                                            <?php echo gen_option( $arr_comp,$def) ?>
+                                            <?php echo gen_option($arr_comp, $major_compatibility) ?>
                                         </select>
                                     </div>
                                 </div>            
@@ -156,8 +144,8 @@ if (isset($_POST['submit'])) {
                                         <button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
 
                     </div>
                 </div>
@@ -174,12 +162,12 @@ if (isset($_POST['submit'])) {
 <?php require_once 'template/footer.php'; ?>
 <script>
     $(function () {
-        $("#business_id").autocomplete({
+        $("#business_name").autocomplete({
             source: "<?php echo SITE_URL ?>ajax/search_business_1.php",
             minLength: 2,
             select: function (event, ui) {
-                // $("#business_id").val(ui.item.label); // display the selected text
-               $("#business_id").val(ui.item.value); // save selected id to hidden input
+                $("#business_name").val(ui.item.label); // display the selected text
+                $("#business_id").val(ui.item.value); // save selected id to hidden input
                 return false;
             }
         });

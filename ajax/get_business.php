@@ -1,6 +1,7 @@
 <?php
 
 include_once './../include/config.php';
+if(!is_auth()) redirect ();
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates

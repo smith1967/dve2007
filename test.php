@@ -1,5 +1,5 @@
 <?php
-
+var_dump($_SERVER);
 //Generate a random string.
 $token = openssl_random_pseudo_bytes(16);
 

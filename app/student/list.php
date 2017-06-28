@@ -7,27 +7,27 @@ $subactive = 'list';
 //is_admin('home/index');
 $school_id = $_SESSION['user']['school_id'];
 
-$page = isset($_GET['page']) ? $_GET['page'] : 0;
-$action = isset($_GET['action']) ? $_GET['action'] : "list";
-$order = isset($_GET['order']) ? $_GET['order'] : '';
-$limit = isset($_GET['limit']) ? $_GET['limit'] : 40;
-
-$params = array(
-    'action' => $action,
-    'limit' => $limit,
-);
-$params = http_build_query($params);
-$studentlist = get_student($page, $limit, $school_id);
-//echo $studentlist; exit();
-//    $total = get_total();
-$url = site_url('student/list-student&') . $params;
-//    var_dump($businesslist);
-//    exit();
-$total = get_total($school_id);
-//if(!isset($total))redirect("/admin/index");
-if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-    do_delete($_GET['std_id']);
-}
+//$page = isset($_GET['page']) ? $_GET['page'] : 0;
+//$action = isset($_GET['action']) ? $_GET['action'] : "list";
+//$order = isset($_GET['order']) ? $_GET['order'] : '';
+//$limit = isset($_GET['limit']) ? $_GET['limit'] : 40;
+//
+//$params = array(
+//    'action' => $action,
+//    'limit' => $limit,
+//);
+//$params = http_build_query($params);
+//$studentlist = get_student($page, $limit, $school_id);
+////echo $studentlist; exit();
+////    $total = get_total();
+//$url = site_url('student/list-student&') . $params;
+////    var_dump($businesslist);
+////    exit();
+//$total = get_total($school_id);
+////if(!isset($total))redirect("/admin/index");
+//if (isset($_GET['action']) && $_GET['action'] == 'delete') {
+//    do_delete($_GET['std_id']);
+//}
 ?>
 <?php require_once 'template/header.php'; ?>
 <div class="wrapper">
@@ -60,7 +60,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 <!-- /.box-header -->
                 <div class="box-body">
                     <div class="table-responsive">
-                        <table class="table table-striped table-condensed table-hover" id="data">
+                        <table id="student_list" class="table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>ลำดับ</th>
@@ -78,34 +78,24 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 
                             </thead>
                             <tbody>
-                                <?php
-                                $cn = 0;
-//                var_dump($studentlist);
-                                foreach ($studentlist as $studen) :
-                                    $cn++;
-                                    ?>
 
-                                    <tr>
-                                        <td><?php echo $cn; ?></td>
-                                        <td><?php echo $studen['std_id']; ?></td>
-                <!--                        <td><?php echo $studen['school_id']; ?></td>-->
-                                        <td><?php echo $studen['citizen_id']; ?></td>
-                                        <td><?php echo $studen['std_name']; ?></td>
-                                        <td><?php echo chDay3($studen['dateofbirth']); ?></td>
-                                        <td><?php echo convSex($studen['sex']); ?></td>
-                                        <td><?php echo getMinorName($studen['minor_id']); ?></td>
-                                        <td><?php echo getMajorName($studen['major_id']); ?></td>
-                <!--                        <td><?php echo $studen['end_edu_id']; ?></td>
-                                        <td><?php echo $studen['typcode']; ?></td>-->
-                <!--                        <td>
-                                            <a href="<?php //echo site_url('student/edit-student') . '&action=edit&std_id=' . $studen['std_id'];  ?>" >แก้ไข</a>
-                                        </td>
-                                        <td>
-                                            <a href="<?php //echo site_url('student/list-student') . '&action=delete&std_id=' . $studen['std_id'];  ?>" class="delete">ลบ</a>
-                                        </td>-->
-                                    </tr>  
-                                <?php endforeach; ?>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>ลำดับ</th>
+                                    <th>รหัสนักเรียน</th>
+                <!--                    <th>รหัสสถานศึกษา</th>-->
+                                    <th>รหัสประจำตัวประชาชน</th>
+                                    <th>ชื่อนักเรียน</th>
+                                    <th>วันเดือนปีเกิด</th>
+                                    <th>เพศ</th>
+                                    <th>สาขางาน</th>
+                                    <th>สาขาวิชา</th>
+                <!--                    <th>สถานะภาพ</th>
+                                    <th>รหัสประเภทวิชา</th>-->
+                                </tr>
+
+                            </tfoot>                            
                         </table>
                     </div>                
                 </div>
@@ -124,7 +114,36 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 <?php require_once 'template/footer.php'; ?>
 <script>
     $(document).ready(function () {
-        $('#data').DataTable({
+        $('.delete').click(function () {
+            return confirm('ยืนยันการลบข้อมูล')
+        });
+        $('#student_list').DataTable({
+            "paging": true,
+            "lengthChange": true,
+            "searching": true,
+            "ordering": true,
+            "info": true,
+            "responsive": true,
+            "autoWidth": false,
+            "pageLength": 10,
+            "ajax": {
+                "url": "ajax/get_student.php",
+                "type": "POST"
+            },
+            "columns": [
+                {"data": "num"},
+                {"data": "std_id"},
+                {"data": "citizen_id"},
+                {"data": "std_name"},
+                {"data": "dob"},
+                {"data": "sex"},
+                {"data": "minor_name"},
+                {"data": "major_name"},
+//        { "data": "gender" },
+//        { "data": "country" },
+//        { "data": "phone" },
+//                {"data": "button"},
+            ],
             "language": {
                 "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
                 "zeroRecords": "ไม่มีข้อมูล",
@@ -140,12 +159,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 }
             }
         });
-    });
-</script>
-
-<script>
-    $('.delete').click(function () {
-        return confirm('ยืนยันลบข้อมูล')
     });
 </script>
 <?php

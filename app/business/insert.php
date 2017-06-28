@@ -6,6 +6,8 @@ $active = 'business';
 $property = array();
 $benefit = array();
 $subactive = 'insert';
+$amount_emp = 0;
+$capital = 0;
 if (isset($_POST['submit'])) {
     $data = $_POST;
 //    var_dump($data);
@@ -126,7 +128,7 @@ if (isset($_POST['submit'])) {
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="address_no" class="col-md-2 control-label">เลขที่</label>
+                                    <label for="address_no" class="col-md-2 control-label">บ้านเลขที่</label>
                                     <div class="col-md-2">
                                         <input type="text" class="form-control" required="" id="address_no" name="address_no"value="<?php set_var($address_no); ?>">
                                     </div>
@@ -287,7 +289,6 @@ if (isset($_POST['submit'])) {
         $(".select2-single").select2();
         //ดึงข้อมูล province จากไฟล์ get_data.php
         $.ajax({
-            alert('test');
             url: "<?php echo SITE_URL ?>ajax/get_data.php",
             dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
             data: {show_province: 'show_province'}, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด
@@ -444,6 +445,16 @@ function do_insert() {
 //    $pro = implode(",", $arr_pro);
     //echo $pro;
     //exit();
+    if(is_array($data['property'])){
+        $properties = implode(",", $data['property']);
+    }  else {
+        $properties = $data['property'];        
+    }
+    if(is_array($data['benefit'])){
+        $benefits = implode(",", $data['benefit']);
+    }  else {
+        $benefits = $data['benefit'];        
+    }    
     $query = "INSERT INTO business ("
             . "`business_id`,"
             . " `business_name`,"
@@ -488,8 +499,8 @@ function do_insert() {
             . pq($data['capital']) . ","
             . pq($data['country']) . ","
             . pq($data['tax_break']) . ","
-            . pq(implode(",", $data['property'])) . ","
-            . pq(implode(",", $data['benefit']))
+            . pq($properties) . ","
+            . pq($benefits)
             . ");";
 //    var_dump($query);
 //    echo '<br>'.$query;

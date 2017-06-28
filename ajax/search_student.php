@@ -1,6 +1,7 @@
 <?php
 
 include_once './../include/config.php';
+if(!is_auth()) redirect ();
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -14,7 +15,10 @@ if (isset($_GET)) {
 //echo $search_str.'<br>';
 //die();
     $query = "SELECT citizen_id as value,std_name as label FROM student "
-            . "WHERE school_id = " . pq($school_id) . " AND std_name LIKE " . pq($search_str) . " OR citizen_id LIKE " . pq($search_str);
+            . "WHERE school_id = " . pq($school_id) 
+            . " AND std_name LIKE " . pq($search_str) 
+            . " AND end_edu_id = 1 " 
+            . " OR std_id LIKE " . pq($search_str);
 //echo $query;
     $result = mysqli_query($db, $query);
     if ($result) {

@@ -203,7 +203,7 @@ if (isset($_POST['submit'])) {
         $("#trainer_id_list").prop("disabled",false);
 //        alert('test');
         $.ajax({
-            url: "<?php echo SITE_URL ?>ajax/get_trainer.php",
+            url: "<?php echo SITE_URL ?>ajax/get_trainers.php",
             dataType: "json", //กำหนดให้มีรูปแบบเป็น Json
             data: {q: $("#business_id").val()}, //ส่งค่าตัวแปร show_province เพื่อดึงข้อมูล จังหวัด
             success: function (data) {
@@ -227,8 +227,8 @@ function do_validate($data) {
 //        set_err('กรุณากรอกรหัสครูฝึก');
 //        $valid = false;
 //    }
-    if (check_pid($data['citizen_id'])) {
-        set_err('กรุณากรอกเลขบัตรประชาชน');
+    if (check_pid($data['citizen_id']) && !preg_match('/[0-9]{13}/', $data['citizen_id'])) {
+        set_err('เลขบัตรประชาชนไม่ถูกต้อง');
         $valid = false;
     }
     if (empty($data['business_id'])) {
