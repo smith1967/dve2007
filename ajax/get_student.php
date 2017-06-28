@@ -27,7 +27,7 @@ if($user_type_id==4){
             . "ON "
             . "s.major_id = ma.major_id "
             . "JOIN (select @c:=0) r "
-            . "WHERE school_id = ".pq($school_id)
+            . "WHERE school_id = ".pq($school_id). " AND s.end_edu_id = 1"
             . "";
 //    echo $query;
 //    die();
