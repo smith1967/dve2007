@@ -227,10 +227,10 @@ function do_validate($data) {
 //        set_err('กรุณากรอกรหัสครูฝึก');
 //        $valid = false;
 //    }
-    if (check_pid($data['citizen_id'])) {
-        set_err('กรุณากรอกเลขบัตรประชาชน');
-        $valid = false;
-    }
+//    if (check_pid($data['citizen_id'])) {
+//        set_err('กรุณากรอกเลขบัตรประชาชน');
+//        $valid = false;
+//    }
     if (empty($data['business_id'])) {
         set_err('กรุณากรอกรหัสสถานประกอบการ');
         $valid = false;
