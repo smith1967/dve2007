@@ -148,12 +148,18 @@ function do_transfer_std($stdfile) {
             $data = explode(",", $line);
         }
         $_SESSION['year']=$data[0];
-        //    print_r($line); exit();
+            // print_r($line); exit();
         //print_r($data);exit(); //หัวตาราง ====================
-//std_edu_id =$data[53]=>1=ปกติ  2=ทวิภาคี
-
+        //std_edu_id = $data[53]=>1=ปกติ  2=ทวิภาคี
+        //end_edu_id = $data[61]==1 --กำลังศึกษาอยู่
         $num_row++;
-        if ($num_row>2 && $data[0]!=null ){            
+        if ($num_row>2 && $data[0]!=null && $data[61]==1 ){  
+            // echo substr($data[4],-4)."<br>" ;
+            // print_r($data);exit();     //ข้อมูลแถวแรก ============    
+            if (substr($data[4],-4)=="E+12") {
+                set_err("รูปแบบข้อมูลรหัสประจำตัวประชาชน ผิดพลาด : ".$data[4]."<br> ตรวจสอบ และส่งไฟล์ใหม่");
+                redirect('app/student/check-data');
+            }
 			$count++;
 			$name=getSerName($data[5]).$data[6]."  ".$data[7];
 			$dofb=chDay1($data[9]);
@@ -165,8 +171,8 @@ function do_transfer_std($stdfile) {
 			$strsql .= "'$data[44]','$data[2]','$data[4]',";
 			$strsql .= "'$name','$dofb','$sex',";
 			$strsql .= "'$minor_id','$major_id',";
-                        $strsql .= "'$data[55]','$data[61]','$data[53]',";
-                        $strsql .= "'$data[0]','$data[1]','$round_year','$date_update'";
+            $strsql .= "'$data[55]','$data[61]','$data[53]',";
+            $strsql .= "'$data[0]','$data[1]','$round_year','$date_update'";
 			$strsql .=");";
 			//set_err($strsql);exit();
        // echo 'zzz='.$count;
