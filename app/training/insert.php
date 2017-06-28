@@ -227,8 +227,8 @@ function do_validate($data) {
 //        set_err('กรุณากรอกรหัสครูฝึก');
 //        $valid = false;
 //    }
-    if (check_pid($data['citizen_id'])) {
-        set_err('กรุณากรอกเลขบัตรประชาชน');
+    if (check_pid($data['citizen_id']) && !preg_match('/[0-9]{13}/', $data['citizen_id'])) {
+        set_err('เลขบัตรประชาชนไม่ถูกต้อง');
         $valid = false;
     }
     if (empty($data['business_id'])) {
