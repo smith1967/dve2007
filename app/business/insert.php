@@ -70,7 +70,7 @@ if (isset($_POST['submit'])) {
                                     </div>
                                 </div>
                                 <?php
-                                $business_opt = array('ไม่ระบุ' => 'ไม่ระบุ', 'เล็ก' => 'เล็ก', 'กลาง' => 'กลาง', 'ใหญ่' => 'ใหญ่');
+                                $business_opt = array('ไม่ระบุ' => 'ไม่ระบุ','SME'=>'SME', 'เล็ก' => 'เล็ก', 'กลาง' => 'กลาง', 'ใหญ่' => 'ใหญ่');
                                 ?>
                                 <div class="form-group">
                                     <label for="business_size" class="col-md-2 control-label">ขนาดสถานประกอบการ</label>
