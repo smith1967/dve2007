@@ -71,6 +71,7 @@ if($user_type_id==4){
             . "ON "
             . "s.major_id = ma.major_id "
             . "JOIN (select @c:=0) r "
+            . "WHERE s.end_edu_id = 1"
             . "";
 //    echo $query;
 //    die();
