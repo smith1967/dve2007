@@ -85,7 +85,7 @@ if (isset($_POST['submit'])) {
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="school_name">ชื่อสถานศึกษา:</label>
                             <div class="col-sm-6">
-                                <input type="text" class="form-control" name="school_name" value="<?php set_var($school_name) ?>">
+                                <input type="text" class="form-control" readonly="" name="school_name" value="<?php set_var($school_name) ?>">
                             </div>
                         </div>
                         <?php $sql = "SELECT * FROM school_type" ?>
@@ -153,12 +153,25 @@ if (isset($_POST['submit'])) {
                                 <input type="text" class="form-control" name="fax" value="<?php set_var($fax) ?>">
                             </div>
                         </div>
-                        <div class="form-group">
+                                <div class="form-group"> 
+                                    <label class="control-label col-sm-2" for="zone">ภาค:</label>
+                                    <div class="col-sm-3">
+                                        <select class='form-control' id="zone" name="zone">
+                                            <?php
+                                            $def = isset($zone) ? $zone : '1';
+                                            $sql = "SELECT zone_id As zone,zoneName FROM zone ORDER BY zone_id ASC";
+                                            echo gen_option($sql, $def)
+                                            ?>
+                                        </select>              
+                                    </div>
+                                </div>
+
+<!--                        <div class="form-group">
                             <label class="control-label col-sm-2" for="zone">ภาค:</label>
                             <div class="col-sm-6">
                                 <input type="text" class="form-control" name="zone" value="<?php set_var($zone) ?>">
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">
                             <label for="location" class="col-md-2 control-label">พิกัดที่ตั้ง</label>
                             <div class="col-md-6">
@@ -174,6 +187,8 @@ if (isset($_POST['submit'])) {
                                 </select>
                             </div>
                         </div>   
+
+
                         <div class="form-group"> 
                             <label class="control-label col-md-2 control-label " for="institute_id">รหัสสถาบัน</label>
                             <div class="col-md-6 "><input type="text" class="form-control" id="institute_id" placeholder="ชื่อสถาบัน" name="institute" value="<?php set_var($institute_id) ?>">
