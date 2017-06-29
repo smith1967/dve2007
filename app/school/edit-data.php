@@ -174,8 +174,6 @@ if (isset($_POST['submit'])) {
                                 </select>
                             </div>
                         </div>   
-
-
                         <div class="form-group"> 
                             <label class="control-label col-md-2 control-label " for="institute_id">รหัสสถาบัน</label>
                             <div class="col-md-6 "><input type="text" class="form-control" id="institute_id" placeholder="ชื่อสถาบัน" name="institute" value="<?php set_var($institute_id) ?>">
