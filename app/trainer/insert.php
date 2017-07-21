@@ -249,10 +249,10 @@ function do_validate($data) {
         set_err('กรุณากรอกเบอร์โทรศัพท์');
         $valid = false;
     }
-    if (!preg_match('/[0-9]{1,}/', $data['address'])) {
-        set_err('กรุณากรอกที่อยู่');
-        $valid = false;
-    }
+//    if (!preg_match('/[0-9]{1,}/', $data['address'])) {
+//        set_err('กรุณากรอกที่อยู่');
+//        $valid = false;
+//    }
     if (empty($data['business_name'])) {
         set_err('กรุณากรอกชื่อสถานประกอบการ');
         $valid = false;

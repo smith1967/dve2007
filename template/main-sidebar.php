@@ -89,29 +89,6 @@ $menu = Array(
             ),
         ),
     ),
-    'training' => array(
-        'title' => 'การฝึกอาชีพ',
-        'url' => '#',
-        'class' => 'fa fa-building-o',
-        'cond' => is_auth(),
-        'subitems' => array(
-            'list' => array(
-                'title' => 'รายการ',
-                'cond' => is_auth(),
-                'url' => 'app/training/list',
-            ),
-            'insert' => array(
-                'title' => 'เพิ่มข้อมูล',
-                'url' => 'app/training/insert',
-                'cond' => is_auth(),
-            ),
-            'edit' => array(
-                'title' => 'แก้ไขข้อมูล',
-                'url' => 'app/training/edit',
-                'cond' => is_auth(),
-            ),
-        ),
-    ),
     'business' => array(
         'title' => 'สถานประกอบการ',
         'url' => '#',
@@ -154,6 +131,29 @@ $menu = Array(
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
                 'url' => 'app/trainer/edit',
+                'cond' => is_auth(),
+            ),
+        ),
+    ),
+    'training' => array(
+        'title' => 'การฝึกอาชีพ',
+        'url' => '#',
+        'class' => 'fa fa-building-o',
+        'cond' => is_auth(),
+        'subitems' => array(
+            'list' => array(
+                'title' => 'รายการ',
+                'cond' => is_auth(),
+                'url' => 'app/training/list',
+            ),
+            'insert' => array(
+                'title' => 'เพิ่มข้อมูล',
+                'url' => 'app/training/insert',
+                'cond' => is_auth(),
+            ),
+            'edit' => array(
+                'title' => 'แก้ไขข้อมูล',
+                'url' => 'app/training/edit',
                 'cond' => is_auth(),
             ),
         ),

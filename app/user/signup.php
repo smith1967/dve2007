@@ -55,7 +55,7 @@ if (isset($_POST['submit'])) {
                     <!-- Horizontal Form -->
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">ลงทะเบียนสมาชิก</h3>
+                            <h3 class="box-title">ลงทะเบียนผู้ใช้งาน</h3>
                         </div>
                         <!-- /.box-header -->
                         <!-- form start -->
@@ -63,7 +63,7 @@ if (isset($_POST['submit'])) {
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="username">ชื่อผู้ใช้</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" id="username" name="username" placeholder="Username" value='<?php echo isset($username) ? $username : ''; ?>'>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="ชื่อผู้ใช้ภาษาอังกฤษ" value='<?php echo isset($username) ? $username : ''; ?>'>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -78,12 +78,14 @@ if (isset($_POST['submit'])) {
                                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" value='<?php echo isset($confirm_password) ? $confirm_password : ''; ?>'>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-md-3" for="school_id">รหัสสถานศึกษา</label>
-                                <div class="col-md-5">
-                                    <input type="text" class="form-control" id="school_id" name="school_id" placeholder="School ID" value='<?php echo isset($school_id) ? $school_id : ''; ?>'>
+                                <input type="hidden" class="form-control" id="school_id"  name="school_id" value="<?php set_var($school_id) ?>">
+                                <div class="form-group"> 
+                                    <label class="control-label col-md-3" for="school_name">ชื่อสถานศึกษา</label>
+                                    <div class="col-md-5">
+                                        <input type="text" class="form-control" id="school_name" placeholder="ชื่อสถานศึกษา" name="school_name" value="<?php set_var($school_name) ?>">
+                                    </div>
                                 </div>
-                            </div>
+
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="email">อีเมล์</label>
                                 <div class="col-md-5">
@@ -93,13 +95,13 @@ if (isset($_POST['submit'])) {
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="fname">ชื่อ</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" id="fname" name="fname" placeholder="firstname" value='<?php echo isset($fname) ? $fname : ''; ?>'>
+                                    <input type="text" class="form-control" id="fname" name="fname" placeholder="ชื่อภาษาไทย" value='<?php echo isset($fname) ? $fname : ''; ?>'>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="control-label col-md-3" for="lname">นามสกุล</label>
                                 <div class="col-md-5">
-                                    <input type="text" class="form-control" id="lname" name="lname" placeholder="lastname" value='<?php echo isset($lname) ? $lname : ''; ?>'>
+                                    <input type="text" class="form-control" id="lname" name="lname" placeholder="นามสกุลภาษาไทย" value='<?php echo isset($lname) ? $lname : ''; ?>'>
                                 </div>
                             </div>
                             <input type="hidden" id="user_type_id" name="user_type_id" value="4" /> 
@@ -156,6 +158,15 @@ if (isset($_POST['submit'])) {
          source: "<?php echo SITE_URL ?>ajax/search_school.php",
          minLength: 1
       });
+      $("#school_name").autocomplete({
+            source: "<?php echo SITE_URL ?>ajax/search_school.php",
+            minLength: 2,
+            select: function (event, ui) {
+                $("#school_name").val(ui.item.label); // display the selected text
+                $("#school_id").val(ui.item.value); // save selected id to hidden input
+                return false;
+            },
+        });
    });
 </script> 
 
@@ -234,6 +245,10 @@ function do_validate($data) {
         set_err('รหัสผ่านต้องเป็นตัวเลขหรือตัวอักษรภาษาอังกฤษ ความยาวไม่ต่ำกว่า 6 ตัวอักษร');
         $valid = FALSE;
     }
+    if (!preg_match('/^[0-9]{10}$/', $data['school_id'])) {
+        set_err('รหัสสถานศึกษาไม่ถูกต้อง');
+        $valid = FALSE;
+    }    
     if ($data['password'] != $data['confirm_password']) {
         set_err('รหัสยืนยันไม่ตรงกับรหัสผ่าน');
         $valid = FALSE;
