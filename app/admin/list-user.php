@@ -5,17 +5,8 @@ $title = "ผู้ดูแลระบบ";
 $active = 'admin';
 $subactive = 'list-user';
 
-if (isset($_GET['action']) && $_GET['action'] == 'list') {
-//    $page = isset($_GET['page']) ? $_GET['page'] : 0;
-//    $action = isset($_GET['action']) ? $_GET['action'] : "list";
-//    $params = array(
-//        'action' => $action,
-//    );
-//    $params = http_build_query($params);
-    $userslist = get_user_signup($page);
-//    $total = get_total();
-//    $url = site_url('app/admin/list-user&') . $params;
-    //var_dump($userlist);
+if (isset($_GET['action']) && $_GET['action'] == 'list-new') {
+    $userslist = get_user_signup();
 } else if (isset($_GET['action']) && $_GET['action'] == 'enabled') {
     do_enabled($_GET['user_id']);
     //var_dump($userlist);
@@ -26,15 +17,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'list') {
     do_delete($_GET['user_id']);
     //var_dump($userlist);
 } else {
-//    $page = isset($_GET['page']) ? $_GET['page'] : 0;
-//    $action = isset($_GET['action']) ? $_GET['action'] : "list";
-//    $params = array(
-//        'action' => $action,
-//    );
-//    $params = http_build_query($params);
     $userslist = get_user($page);
-//    $total = get_total();
-//    $url = site_url('app/admin/list-user&') . $params;
 }
 
 //if (!isset($total))
@@ -67,6 +50,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'list') {
                 <?php show_message() ?> 
                 <div class="box-header">
                     <h3 class="box-title">รายชื่อผู้ใช้งาน</h3>
+                    <span class="pull-right">
+                        <a href="<?php echo site_url('app/admin/list-user&action=list-new') ?>" class="btn  btn-primary ">+ จัดการข้อมูลผู้ใช้ใหม่</a>
+                        <!--<a href="<?php echo site_url('app/business/insert') ?>" class="btn  btn-primary ">+ เพิ่มข้อมูลสถานประกอบการ</a>-->
+                    </span>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -77,7 +64,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'list') {
                                 <th>รหัส</th>
                                 <th>ชื่อผู้ใช้</th>
                                 <th>ชื่อ-นามสกุล</th>
-                                <!--<th>Last Na</th>-->
+                                <th>ชื่อสถานศึกษา</th>
                                 <th>ประเภทผู้ใช้งาน</th>
                                 <th>กระทำการ</th>
                             </tr>
@@ -90,7 +77,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'list') {
                                     <td><?php echo $user['user_id'] ?></td>
                                     <td><?php echo $user['username'] ?></td>
                                     <td><?php echo $user['fname'] . " " . $user['lname'] ?></td>
-                                    <!--<td><?php echo $user['lname'] ?></td>-->
+                                    <td><?php echo $user['school_name'] ?></td>
                                     <td><?php echo $user['user_type_id'] ?></td>
                                     <td>
                                         <?php if ($user['status'] == 'Y') : ?>
@@ -118,7 +105,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'list') {
                                 <th>รหัส</th>
                                 <th>ชื่อผู้ใช้</th>
                                 <th>ชื่อ-นามสกุล</th>
-                                <!--<th>Last Na</th>-->
+                                <th>ชื่อสถานศึกษา</th>
                                 <th>ประเภทผู้ใช้งาน</th>
                                 <th>กระทำการ</th>
                             </tr>
@@ -166,11 +153,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'list') {
 </script>
 <?php
 
-function get_user_signup($page = 0, $limit = 20) {
+function get_user_signup() {
     global $db;
     $start = $page * $limit;
     $val = $group . "%";
-    $query = "SELECT * FROM user WHERE status LIKE 'N' ORDER BY user_id LIMIT " . $start . "," . $limit;
+    $query = "SELECT u.*,s.school_name FROM user u JOIN school s ON u.school_id = s.school_id WHERE u.status LIKE 'N' ORDER BY user_id  ";
     $result = mysqli_query($db, $query);
     $userlist = array();
     while ($row = mysqli_fetch_array($result)) {
@@ -182,7 +169,7 @@ function get_user_signup($page = 0, $limit = 20) {
 function get_user($page = 0, $limit = 10) {
     global $db;
     // $start = $page * $limit;
-    $query = "SELECT * FROM user";
+    $query = "SELECT u.*,s.school_name FROM user u LEFT JOIN school s ON u.school_id = s.school_id ORDER BY user_id ";
     // --  LIMIT " . $start . "," . $limit;
     $result = mysqli_query($db, $query);
     $userlist = array();
@@ -218,7 +205,7 @@ function do_enabled($user_id) {
     } else {
         set_err($query);
     }
-    redirect('app/admin/list-user');
+    redirect('app/admin/list-user&action=list-new');
 }
 
 function do_disabled($user_id) {

@@ -2,7 +2,7 @@
 if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
 $title = "แก้ไขข้อมูล";
-$active = 'app/admin';
+$active = 'admin';
 $subactive = 'edit-user';
 ?>
 <?php
