@@ -155,7 +155,7 @@ function do_transfer_std($stdfile) {
         $num_row++;
         if ($num_row>2 && $data[0]!=null && $data[61]==1 ){  
             // echo substr($data[4],-4)."<br>" ;
-            // print_r($data);exit();     //ข้อมูลแถวแรก ============    
+         //echo "<pre>" ;header('Content-Type: text/html; charset=utf-8') ;print_r($data);exit();     //ข้อมูลแถวแรก ============    
             if (substr($data[4],-4)=="E+12") {
                 set_err("รูปแบบข้อมูลรหัสประจำตัวประชาชน ผิดพลาด : ".$data[4]."<br> ตรวจสอบ และส่งไฟล์ใหม่");
                 redirect('app/student/check-data');
@@ -164,13 +164,13 @@ function do_transfer_std($stdfile) {
 			$name=getSerName($data[5]).$data[6]."  ".$data[7];
 			$dofb=chDay1($data[9]);
 			$sex=convSexId($data[8]);
-            $minor_id=getminorId($data[58]);
-            $major_id=getmajorId($data[57]);
+            //$minor_id=getminorId($data[58]);
+            $major_id=substr($data[39],0,4) ;
             $round_year=$_SESSION['user']['round-year'];
 			$strsql = "insert into student_tmp values(";
 			$strsql .= "'$data[44]','$data[2]','$data[4]',";
 			$strsql .= "'$name','$dofb','$sex',";
-			$strsql .= "'$minor_id','$major_id',";
+			$strsql .= "'$data[39]','$major_id',";
             $strsql .= "'$data[55]','$data[61]','$data[53]',";
             $strsql .= "'$data[0]','$data[1]','$round_year','$date_update'";
 			$strsql .=");";

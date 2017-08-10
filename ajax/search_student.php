@@ -19,7 +19,7 @@ if (isset($_GET)) {
             . " AND std_name LIKE " . pq($search_str) 
             . " AND end_edu_id = 1 " 
             . " OR std_id LIKE " . pq($search_str);
-//echo $query;
+// echo $query;
     $result = mysqli_query($db, $query);
     if ($result) {
         $data = array();
