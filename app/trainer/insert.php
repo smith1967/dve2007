@@ -92,7 +92,7 @@ if (isset($_POST['submit'])) {
                                         <textarea class="form-control" id="address" rows="3" name="address" ><?php set_var($address); ?></textarea>
                                     </div>
                                 </div>
-                                <input type="hidden" class="form-control" id="business_id" name="business_id" placeholder="ชื่อสถานประกอบการ" value="<?php set_var($business_id); ?>">
+                                <input type="hidden" class="form-control" id="business_id" name="business_id" value="<?php set_var($business_id); ?>">
                                 <div class="form-group">
                                     <label for="business_name" class="col-md-3 control-label">สถานประกอบการ</label>
                                     <div class="col-md-4">
