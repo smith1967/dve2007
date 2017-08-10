@@ -245,6 +245,10 @@ function do_validate($data) {
         set_err('กรุณากรอกชื่อครูฝึก');
         $valid = false;
     }
+    if (empty($data['business_id'])) {
+        set_err('กรุณาเลือกสถานประกอบการ');
+        $valid = false;
+    }    
     if (!preg_match('/[0-9]{1,}/', $data['phone'])) {
         set_err('กรุณากรอกเบอร์โทรศัพท์');
         $valid = false;
