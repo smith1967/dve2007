@@ -153,18 +153,18 @@ if (isset($_POST['submit'])) {
                                 <input type="text" class="form-control" name="fax" value="<?php set_var($fax) ?>">
                             </div>
                         </div>
-                                <div class="form-group"> 
-                                    <label class="control-label col-sm-2" for="zone">ภาค:</label>
-                                    <div class="col-sm-3">
-                                        <select class='form-control' id="zone" name="zone">
-                                            <?php
-                                            $def = isset($zone) ? $zone : '1';
-                                            $sql = "SELECT zone_id As zone,zoneName FROM zone ORDER BY zone_id ASC";
-                                            echo gen_option($sql, $def)
-                                            ?>
-                                        </select>              
-                                    </div>
-                                </div>
+                        <div class="form-group"> 
+                            <label class="control-label col-sm-2" for="zone">ภาค </label>
+                            <div class="col-sm-3">
+                                <select class='form-control' id="zone" name="zone">
+                                    <?php
+                                    $def = isset($zone) ? $zone : '1';
+                                    $sql = "SELECT zone_id As zone,zoneName FROM zone ORDER BY zone_id ASC";
+                                    echo gen_option($sql, $def)
+                                    ?>
+                                </select>              
+                            </div>
+                        </div>
 
 <!--                        <div class="form-group">
                             <label class="control-label col-sm-2" for="zone">ภาค:</label>
@@ -188,13 +188,24 @@ if (isset($_POST['submit'])) {
                             </div>
                         </div>   
 
-
                         <div class="form-group"> 
+                            <label class="control-label col-sm-2" for="institute_id">สถาบัน </label>
+                            <div class="col-sm-4">
+                                <select class='form-control' id="institute_id" name="institute">
+                                    <?php
+                                    $def = isset($institute_id) ? $institute_id : '1';
+                                    $sql = "SELECT * FROM `institute` ORDER BY institute_id ASC";
+                                    echo gen_option($sql, $def)
+                                    ?>
+                                </select>              
+                            </div>
+                        </div>
+<!--                        <div class="form-group"> 
                             <label class="control-label col-md-2 control-label " for="institute_id">รหัสสถาบัน</label>
                             <div class="col-md-6 "><input type="text" class="form-control" id="institute_id" placeholder="ชื่อสถาบัน" name="institute" value="<?php set_var($institute_id) ?>">
 
                             </div>
-                        </div>
+                        </div>-->
                         <div class="form-group">        
                             <div class="col-sm-offset-2 col-sm-6">
                                 <input type="submit" name="submit" value="บันทึกแก้ไขข้อมูล" class="btn btn-default" >
@@ -355,19 +366,6 @@ if (isset($_POST['submit'])) {
 
 <?php
 
-//function do_delete($school_id) {
-//    global $db;
-//    if (empty($school_id)) {
-//        set_err('ค่าพารามิเตอร์รหัสสถานศึกษาไม่ถูกต้อง11');
-//        redirect('school/list-school');
-//    }
-//    $query = "DELETE FROM school WHERE school_id =" . pq($school_id);
-//    mysqli_query($db, $query);
-//    if (mysqli_affected_rows($db)) {
-//        set_info('ลบข้อมูลสำเร็จ');
-//    }
-//    redirect('school/list-school');
-//}
 
 function do_update() {
     global $db;
