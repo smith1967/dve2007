@@ -235,10 +235,10 @@ if ($_GET['trainer_id']) {
 function do_validate($data) {
     $valid = true;
     $data = &$_POST;
-//    if (!preg_match('/[a-zA-Z0-9_]{1,}/', $data['trainer_id'])) {
-//        set_err('กรุณากรอกรหัสสครูฝึก');
-//        $valid = false;
-//    }
+    if (empty($data['business_id'])) {
+        set_err('กรุณาเลือกสถานประกอบการ');
+        $valid = false;
+    }    
 //    if (!preg_match('/[a-zA-Z0-9_]{1,13}/', $data['trainer_citizen'])) {
 //        set_err('กรุณากรอกเลขบัตรประชาชน กรอกได้ 13 ตัว');
 //        $valid = false;
