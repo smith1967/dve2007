@@ -168,7 +168,8 @@ function get_student($page = 0, $limit = 10,$school_id) {
     $start = $page * $limit;
     $query = "SELECT * FROM student WHERE `school_id`=".pq($school_id)." AND end_edu_id = 1;";
 //            . " LIMIT " . $start . "," . $limit . "";
-//    var_dump($query);
+echo $query;
+    // var_dump($query);
     //$query = "SELECT * FROM student  LIMIT " . $start . "," . $limit . "";
     $result = mysqli_query($db, $query);
     $studentlist = array();
