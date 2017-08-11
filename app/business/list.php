@@ -52,6 +52,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                     <th>รหัส</th>
                                     <th>ชื่อสถานประกอบการ</th>
                                     <th>จังหวัด</th>
+                                    <th>จำนวนครูฝึก</th>
                                     <th>ดำเนินการ</th>
                                 </tr>
                             </thead>
@@ -79,6 +80,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                                     <th>รหัส</th>
                                     <th>ชื่อสถานประกอบการ</th>
                                     <th>จังหวัด</th>
+                                    <th>จำนวนครูฝึก</th>
                                     <th>ดำเนินการ</th>
                                 </tr>
                             </tfoot>
@@ -100,9 +102,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 <?php require_once 'template/footer.php'; ?>
 <script>
     $(document).ready(function () {
-        $('.delete').click(function () {
-            return confirm('ยืนยันการลบข้อมูล')
-        });
         $('#business_list').DataTable({
             "paging": true,
             "lengthChange": true,
@@ -120,6 +119,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 {"data": "business_id"},
                 {"data": "business_name"},
                 {"data": "province_name"},
+                {"data": "trainers"},               
 //        { "data": "gender" },
 //        { "data": "country" },
 //        { "data": "phone" },
@@ -142,7 +142,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         });
     });
 </script>
-
+<script>
+    $('.delete').click(function () {
+        return confirm('ยืนยันลบข้อมูล')
+    });
+</script>
 <?php
 
 function get_business($page = 0, $limit = 10) {
