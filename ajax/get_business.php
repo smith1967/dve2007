@@ -13,7 +13,7 @@ header('Content-Type: application/json; charset=utf-8');
 //    $search_str = '%' . trim($_REQUEST['term']) . '%';
 //echo $search_str.'<br>';
 //die();
-    $query = "SELECT b.business_id,b.business_name,p.province_name FROM business as b LEFT JOIN province as p ON b.province_id = p.province_code";
+    $query = "SELECT b.business_id,b.business_name,p.province_name,COUNT(t.trainer_id) AS trainers FROM business as b LEFT JOIN province as p ON b.province_id = p.province_code LEFT JOIN trainer AS t ON b.business_id = t.business_id GROUP BY b.business_id ORDER BY `b`.`business_id` ASC";
 //echo $query;
     $result = mysqli_query($db, $query);
     if ($result) {
