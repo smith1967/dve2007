@@ -101,6 +101,11 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 <!--.wrapper-->
 <?php require_once 'template/footer.php'; ?>
 <script>
+    $('.delete').click(function () {
+        return confirm('ยืนยันลบข้อมูล')
+    });
+</script>
+<script>
     $(document).ready(function () {
         $('#business_list').DataTable({
             "paging": true,
@@ -142,11 +147,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
         });
     });
 </script>
-<script>
-    $('.delete').click(function () {
-        return confirm('ยืนยันลบข้อมูล')
-    });
-</script>
+
 <?php
 
 function get_business($page = 0, $limit = 10) {

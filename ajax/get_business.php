@@ -27,7 +27,7 @@ header('Content-Type: application/json; charset=utf-8');
 //        exit();
         $i=0;
         foreach ($data as $key) {
-            $data[$i]['button'] = '<a href="'.site_url('app/business/list') . '&action=delete&business_id=' . $data[$i]['business_id'].'" class="btn btn-danger btn-sm delete"><i class="fa fa-remove"></i></a> |
+            $data[$i]['button'] = '<a href="'.site_url('app/business/list') . '&action=delete&business_id=' . $data[$i]['business_id'].'" class="btn btn-danger btn-sm delete" onclick="return confirm(\'ยืนยันการลบข้อมูล?\');">  <i class="fa fa-remove"></i></a> |
                                         <a href="'.site_url('app/business/edit') . '&action=edit&business_id=' . $data[$i]['business_id'].'" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>';
             $i++;
         }
