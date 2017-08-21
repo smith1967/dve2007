@@ -98,7 +98,7 @@ if (isset($_POST['submit'])) {
                                 <div class="form-group">
                                     <label for="trainer_id_list" class="col-md-3 control-label">ครูฝึก</label>
                                     <div class="col-md-5">
-                                        <select class="form-control select2-mulitple select2-results" id="trainer_id_list" name="trainer_id_list[]" multiple="multiple">
+                                        <select class="select2-mulitple select2-results form-control" id="trainer_id_list" name="trainer_id_list[]" multiple="multiple">
                                             <!--<option id="trainer_id_list"> -- กรุณาเลือกครูฝึก -- </option>-->
                                         </select>
                                     </div>
