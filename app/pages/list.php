@@ -149,7 +149,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 function get_pages() {
     global $db;
 //    $start = $page * $limit;
-    $query = "SELECT p.*,u.fname FROM pages As p,user As u WHERE p.user_id = u.user_id ORDER BY STR_TO_DATE(p.published_date, '%M %d, %Y') DESC;";
+    $query = "SELECT p.*,u.fname FROM pages As p,user As u WHERE p.user_id = u.user_id ORDER BY p.pages_id DESC;";
     $result = mysqli_query($db, $query);
     $pages_list = array();
     while ($row = mysqli_fetch_assoc($result)) {
