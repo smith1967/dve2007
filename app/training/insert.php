@@ -228,7 +228,7 @@ function do_validate($data) {
 //        $valid = false;
 //    }
     if (check_pid($data['citizen_id']) && !preg_match('/[0-9]{13}/', $data['citizen_id'])) {
-        set_err('เลขบัตรประชาชนไม่ถูกต้อง');
+        set_err('รหัสนักศึกษาไม่ถูกต้อง');
         $valid = false;
     }
     if (empty($data['business_id'])) {
