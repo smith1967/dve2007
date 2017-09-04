@@ -118,20 +118,55 @@ if (isset($_POST['submit'])) {
                                         <input type="text" class="form-control" id="trainer_name" placeholder="ชื่อครูฝึก" name="trainer_name" value="<?php set_var($trainer_name) ?>">
                                     </div>
                                 </div>-->
+                                <!-- Date -->
+                               <div class="form-group">
+                                 <label class="control-label col-md-3" for="contract_date">วันที่ทำสัญญา</label>
 
-                                <div class="form-group"> 
+                                 <div class="input-group date col-md-2">
+                                   <div class="input-group-addon">
+                                     <i class="fa fa-calendar"></i>
+                                   </div>
+                                   <input type="text" class="form-control pull-right" id="contract_date" name="contract_date" value="<?php set_var($contract_date) ?>" />
+                                 </div>
+                                 <!-- /.input group -->
+                               </div>
+                               <!-- /.form group -->
+<!--                                <div class="form-group"> 
                                     <label class="control-label col-md-3" for="contract_date">วันที่ทำสัญญา</label>
                                     <div class="col-md-4 "><input type="date" id="contract_date" name="contract_date" value="<?php set_var($contract_date) ?>"/></div>
-                                </div>
-                                <div class="form-group"> 
+                                </div>-->
+                                <!-- Date -->
+                               <div class="form-group">
+                                 <label class="control-label col-md-3" for="start_date">วันเริ่มต้นการฝึก</label>
+
+                                 <div class="input-group date col-md-2">
+                                   <div class="input-group-addon">
+                                     <i class="fa fa-calendar"></i>
+                                   </div>
+                                   <input type="text" class="form-control pull-right" id="start_date" name="start_date" value="<?php set_var($start_date) ?>" />
+                                 </div>
+                                 <!-- /.input group -->
+                               </div>                                
+<!--                                <div class="form-group"> 
                                     <label class="control-label col-md-3" for="start_date">วันที่เริ่มต้นการฝึก</label>
                                     <div class="col-md-4 "><input type="date" id="start_date" name="start_date" value="<?php set_var($start_date) ?>"/></div>
-                                </div>
+                                </div>-->
+                                <!-- Date -->
+                               <div class="form-group">
+                                 <label class="control-label col-md-3" for="end_date">วันที่สิ้นสุดการฝึก</label>
 
-                                <div class="form-group"> 
+                                 <div class="input-group date col-md-2">
+                                   <div class="input-group-addon">
+                                     <i class="fa fa-calendar"></i>
+                                   </div>
+                                   <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="<?php set_var($end_date) ?>" />
+                                 </div>
+                                 <!-- /.input group -->
+                               </div>
+<!--                                <div class="form-group"> 
                                     <label class="control-label col-md-3" for="end_date">วันที่สิ้นสุดการฝึก</label>
                                     <div class="col-md-4 "><input type="date" id="end_date" name="end_date" value="<?php set_var($end_date) ?>"/></div>
-                                </div>
+                                </div>-->
 
                                 <div class="box-footer">
                                     <div class="col-md-offset-3"><button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button></div>
@@ -158,6 +193,22 @@ if (isset($_POST['submit'])) {
 <?php require_once 'template/footer.php'; ?>
 <script>
     $(function () {
+        //Date picker
+        $('#start_date').datepicker({
+            format: "yyyy/mm/dd",
+            language: "th",
+            autoclose: true
+        });
+        $('#contract_date').datepicker({
+            format: "yyyy/mm/dd",
+            language: "th",
+            autoclose: true
+        });
+        $('#end_date').datepicker({
+            format: "yyyy/mm/dd",
+            language: "th",
+            autoclose: true
+        });        
         $("#trainer_id_list").prop("disabled",true);
 
         $("#std_name").autocomplete({
@@ -211,7 +262,7 @@ if (isset($_POST['submit'])) {
                 $("#trainer_id_list").empty();
                 $.each(data, function (index, value) {
                     //แทรก Elements ใน id province  ด้วยคำสั่ง append
-                    $("#trainer_id_list").append("<option value='" + value.id + "'> " + value.name + "</option>");
+                    $("#trainer_id_list").append("<option value='" + value.id + "' > " + value.name + "</option>");
                 });
             }
         });
