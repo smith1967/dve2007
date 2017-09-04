@@ -26,6 +26,7 @@
 <script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- datepicker -->
 <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="plugins/datepicker/locales/bootstrap-datepicker.th.js"></script>
 <!-- Bootstrap WYSIHTML5 -->
 <script src="plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
 <!-- Slimscroll -->

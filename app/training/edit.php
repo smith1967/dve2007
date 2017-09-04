@@ -95,13 +95,7 @@ if ($_GET['training_id']) {
                                     <input type="text" class="form-control" id="minor_name" placeholder="ชื่อสาขางาน" name="minor_name" value="<?php set_var($minor_name) ?>">
                                 </div>
                             </div>
-                            <!--<input type="hidden" class="form-control" id="trainer_id" name="trainer_id" value="<?php set_var($trainer_id) ?>">-->
-<!--                            <div class="form-group"> 
-                                <label class="control-label col-md-3" for="trainer_name">ชื่อฝึกอาชีพ</label>
-                                <div class="col-md-3 ">
-                                    <input type="text" class="form-control" id="trainer_name" placeholder="ชื่อฝึกอาชีพ" name="trainer_name" value="<?php set_var($trainer_name) ?>">
-                                </div>
-                            </div>-->
+
                             <div class="form-group">
                                 <label for="trainer_id" class="col-md-3 control-label">ครูฝึก</label>
                                 <div class="col-md-6">
@@ -110,20 +104,41 @@ if ($_GET['training_id']) {
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group"> 
-                                <label class="control-label col-md-3" for="contract_date">วันที่ทำสัญญา</label>
-                                <div class="col-md-4 "><input type="date" id="contract_date" name="contract_date" value="<?php set_var($contract_date) ?>"/></div>
-                            </div>
-                            <div class="form-group"> 
-                                <label class="control-label col-md-3" for="start_date">วันที่เริ่มต้นการฝึก</label>
-                                <div class="col-md-4 "><input type="date" id="start_date" name="start_date" value="<?php set_var($start_date) ?>"/></div>
-                            </div>
+                               <div class="form-group">
+                                 <label class="control-label col-md-3" for="contract_date">วันที่ทำสัญญา</label>
 
-                            <div class="form-group"> 
-                                <label class="control-label col-md-3" for="end_date">วันที่สิ้นสุดการฝึก</label>
-                                <div class="col-md-4 "><input type="date" id="end_date" name="end_date" value="<?php set_var($end_date) ?>"/></div>
-                            </div>
+                                 <div class="input-group date col-md-2">
+                                   <div class="input-group-addon">
+                                     <i class="fa fa-calendar"></i>
+                                   </div>
+                                   <input type="text" class="form-control pull-right" id="contract_date" name="contract_date" value="<?php set_var($contract_date) ?>" />
+                                 </div>
+                                 <!-- /.input group -->
+                               </div>
+                               <!-- /.form group -->
+                               <div class="form-group">
+                                 <label class="control-label col-md-3" for="start_date">วันเริ่มต้นการฝึก</label>
 
+                                 <div class="input-group date col-md-2">
+                                   <div class="input-group-addon">
+                                     <i class="fa fa-calendar"></i>
+                                   </div>
+                                   <input type="text" class="form-control pull-right" id="start_date" name="start_date" value="<?php set_var($start_date) ?>" />
+                                 </div>
+                                 <!-- /.input group -->
+                               </div>                                
+
+                               <div class="form-group">
+                                 <label class="control-label col-md-3" for="end_date">วันที่สิ้นสุดการฝึก</label>
+
+                                 <div class="input-group date col-md-2">
+                                   <div class="input-group-addon">
+                                     <i class="fa fa-calendar"></i>
+                                   </div>
+                                   <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="<?php set_var($end_date) ?>" />
+                                 </div>
+                                 <!-- /.input group -->
+                               </div>
 
                                 <div class="box-footer">
                                     <div class="col-md-offset-3"><button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button></div>
@@ -145,7 +160,22 @@ if ($_GET['training_id']) {
 <?php require_once 'template/footer.php'; ?>
 <script>
 $(function () {
- 
+         //Date picker
+        $('#start_date').datepicker({
+             format: "yyyy/mm/dd",
+           language: "th",
+            autoclose: true
+        });
+        $('#contract_date').datepicker({
+            format: "yyyy/mm/dd",
+            language: "th",
+            autoclose: true
+        });
+        $('#end_date').datepicker({
+            format: "yyyy/mm/dd",
+            language: "th",
+            autoclose: true
+        });   
     $("#std_name").autocomplete({
         source: "<?php echo SITE_URL ?>ajax/search_student.php",
             minLength: 2,
