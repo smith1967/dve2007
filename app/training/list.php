@@ -173,7 +173,7 @@ function get_training($school_id, $page = 0, $limit = 10) {
             . "LEFT JOIN minor AS t4 ON t4.minor_id=t3.minor_id "
             . "LEFT JOIN school AS t6 ON t3.school_id = t6.school_id "
             . "LEFT JOIN trainer AS t5 ON t5.trainer_id=t3.trainer_id "
-            . " WHERE t3.school_id = " . pq($school_id) . " LIMIT " . $start . "," . $limit . "";
+            . " WHERE t3.school_id = " . pq($school_id);
     $result = mysqli_query($db, $query);
 //    var_dump($query);
 //    die();

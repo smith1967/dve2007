@@ -434,7 +434,7 @@ function do_validate($data) {
         set_err('กรุณากรอกอำเภอ');
         $valid = false;
     }
-    if (empty($data['province_id'])) {
+    if (empty($data['province_id']) || !is_numeric($data['province_id'])) {
         set_err('กรุณากรอกจังหวัด');
         $valid = false;
     }
