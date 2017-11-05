@@ -326,17 +326,18 @@ function do_validate($data) {
 function do_insert($school_id) {
     global $db;
     $data = &$_POST;
-    $students = explode("\r\n", $data['students_id']);
+    $students = explode("\r\n", trim($data['students_id']));
     $list = implode(",", $students);
-    $school_id = $_SESSION['school_id'];
+    $school_id = $_SESSION['user']['school_id'];
 //    var_dump($list);
-    $query = "SELECT std_id,citizen_id FROM student WHERE school_id = ".pq($school_id)." AND std_id IN ($list)";
+    $query = "SELECT std_id,citizen_id FROM student WHERE school_id = " . pq($school_id) . " AND std_id IN ($list)";
     //" . pq($school_id) . "
     var_dump($query);
-    $result = mysqli_query($db, $query); 
+    $result = mysqli_query($db, $query);
 //    if(mysqli_num_rows($result)>0)
 //        return ;
     $data_list = array();
+    $pid_list = array();
     while ($row = mysqli_fetch_assoc($result)) {
         $data_list[] = $row['std_id'];
         $pid_list[] = $row['citizen_id'];
@@ -346,37 +347,40 @@ function do_insert($school_id) {
 //    var_dump($pid_list);
 //    die();
 //    $query = "SELECT std_id FROM student WHERE std_id IN ";
-    if(count($pid_list)>0){
+    if (count($pid_list) > 0) {
         foreach ($pid_list as $pid) {
 //            echo "---",$value,"<br />";
 //        }
-//        var_dump($data_list);
+        var_dump($data['trainer_id_list']);
 //        die();
-        foreach ((array)$data['trainer_id_list'] as $trainer_id) {
-            if (empty($trainer_id))
-                continue;
-    //             do_insert($school_id,$trainer_id);
-    //            var_dump($trainer_id);
-            $query = "INSERT INTO training ("
-                    . "`training_id`,`citizen_id`,"
-                    . "`business_id`,`school_id`,"
-                    . "`minor_id`,`trainer_id`,"
-                    . "`contract_date`,`start_date`,"
-                    . "`end_date`)  "
-                    . "VALUES "
-                    . "(NULL," . pq($pid) . ","
-                    . pq($data['business_id']) . "," . pq($school_id) . ","
-                    . pq($data['minor_id']) . "," . pq($trainer_id) . ","
-                    . pq($data['contract_date']) . "," . pq($data['start_date']) . ","
-                    . pq($data['end_date']) . ")";
-            mysqli_query($db, $query);
-            if (mysqli_affected_rows($db) > 0) {
-                set_info('บันทึกข้อมูลเรียบร้อย');
-            } else {
-                set_err('บันทึกข้อมูลไม่สำเร็จ ' . mysqli_error($db));
+            foreach ((array) $data['trainer_id_list'] as $trainer_id) {
+                if (empty($trainer_id))
+                    continue;
+                //             do_insert($school_id,$trainer_id);
+                //            var_dump($trainer_id);
+                $query = "INSERT INTO training ("
+                        . "`training_id`,`citizen_id`,"
+                        . "`business_id`,`school_id`,"
+                        . "`minor_id`,`trainer_id`,"
+                        . "`contract_date`,`start_date`,"
+                        . "`end_date`)  "
+                        . "VALUES "
+                        . "(NULL," . pq($pid) . ","
+                        . pq($data['business_id']) . "," . pq($school_id) . ","
+                        . pq($data['minor_id']) . "," . pq($trainer_id) . ","
+                        . pq($data['contract_date']) . "," . pq($data['start_date']) . ","
+                        . pq($data['end_date']) . ")";
+//                var_dump($pid);
+                mysqli_query($db, $query);
+
+                if (mysqli_affected_rows($db) > 0) {
+                    set_info('บันทึกข้อมูลเรียบร้อย');
+                } else {
+                    set_err('บันทึกข้อมูลไม่สำเร็จ ' . mysqli_error($db));
+                }
             }
         }
-        }
     }
+//    die();
     redirect('app/training/insert_group');
 }

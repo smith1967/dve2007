@@ -20,7 +20,7 @@ if (!isset($_GET['training_id']))
     redirect('app/training/list');
 if ($_GET['training_id']) {
     $training_data = get_training($_GET['training_id']);
-    foreach ($training_data as $key => $value) {
+    foreach ((array)$training_data as $key => $value) {
         $$key = $value;
     }
 //    var_dump($training_data);
