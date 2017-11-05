@@ -3,31 +3,10 @@ if (!defined('BASE_PATH'))
     exit('No direct script access allowed');
 $title = "ข้อมูลนักศึกษา";
 $active = 'student';
-$subactive = 'list';
+$subactive = 'list-admin';
 //is_admin('home/index');
 $school_id = $_SESSION['user']['school_id'];
 
-//$page = isset($_GET['page']) ? $_GET['page'] : 0;
-//$action = isset($_GET['action']) ? $_GET['action'] : "list";
-//$order = isset($_GET['order']) ? $_GET['order'] : '';
-//$limit = isset($_GET['limit']) ? $_GET['limit'] : 40;
-//
-//$params = array(
-//    'action' => $action,
-//    'limit' => $limit,
-//);
-//$params = http_build_query($params);
-//$studentlist = get_student($page, $limit, $school_id);
-////echo $studentlist; exit();
-////    $total = get_total();
-//$url = site_url('student/list-student&') . $params;
-////    var_dump($businesslist);
-////    exit();
-//$total = get_total($school_id);
-////if(!isset($total))redirect("/admin/index");
-//if (isset($_GET['action']) && $_GET['action'] == 'delete') {
-//    do_delete($_GET['std_id']);
-//}
 ?>
 <?php require_once 'template/header.php'; ?>
 <div class="wrapper">
