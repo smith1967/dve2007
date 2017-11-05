@@ -4,7 +4,7 @@ if (!defined('BASE_PATH'))
 $title = "เพิ่มข้อมูลการฝึกงานแบบกลุ่ม";
 $active = 'training';
 $school_id = $_SESSION['user']['school_id'];
-$subactive = 'insert_group';
+$subactive = 'insert-group';
 if (isset($_POST['submit'])) {
     $data = $_POST;
 //    var_dump($data);
