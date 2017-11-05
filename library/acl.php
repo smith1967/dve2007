@@ -77,6 +77,7 @@ class acl {
             'app/do_business_vg/list-do_business_vg',
             'app/trainer/list',
             'app/trainer/insert',
+            'app/trainer/insert_group',
             'app/trainer/edit',
             'app/training/list',
             'app/training/insert',
