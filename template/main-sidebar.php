@@ -80,8 +80,13 @@ $menu = Array(
             'list' => array(
                 'title' => 'รายชื่อ',
                 'url' => 'app/student/list',
-                'cond' => is_school_staff() || is_admin(),
+                'cond' => is_school_staff() ,
             ),
+            'list-admin' => array(
+                'title' => 'รายชื่อ',
+                'url' => 'app/student/admin_list',
+                'cond' => is_admin(),
+            ),            
             'list-nosent' => array(
                 'title' => 'สถานศึกษาที่ไม่ส่งข้อมูล',
                 'url' => 'app/student/list-nosent',
@@ -149,8 +154,14 @@ $menu = Array(
             'insert' => array(
                 'title' => 'เพิ่มข้อมูล',
                 'url' => 'app/training/insert',
-                'cond' => is_auth(),
+                'cond' => is_school_staff(),
             ),
+            'insert-group' => array(
+                'title' => 'เพิ่มข้อมูล',
+                'url' => 'app/training/insert_group',
+                'cond' => is_admin(),
+            ),
+            
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
                 'url' => 'app/training/edit',
@@ -246,21 +257,11 @@ $menu = Array(
         'class' => 'fa fa-user',
         'cond' => true,
         'subitems' => array(
-//                  'index' => array(
-//                      'title' => 'หน้าหลัก',
-//                      'cond' => true,
-//                      'url' => 'app/user/index',
-//                  ),
             'signup' => array(
                 'title' => 'สมัครสมาชิก',
                 'url' => 'app/user/signup',
                 'cond' => !is_auth(),
             ),
-            // 'change-password' => array(
-            //     'title' => 'เปลี่ยนรหัสผ่าน',
-            //     'url' => 'app/user/change-password',
-            //     'cond' => is_auth(),
-            // ),
             'edit' => array(
                 'title' => 'แก้ไขข้อมูล',
                 'url' => 'app/user/edit',
