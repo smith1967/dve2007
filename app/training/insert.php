@@ -1,6 +1,6 @@
 <?php
-/* if (!defined('BASE_PATH'))
-  exit('No direct script access allowed'); */
+if (!defined('BASE_PATH'))
+  exit('No direct script access allowed'); 
 $title = "เพิ่มข้อมูลการฝึกงาน";
 $active = 'training';
 $school_id = $_SESSION['user']['school_id'];

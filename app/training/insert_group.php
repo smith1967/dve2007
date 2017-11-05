@@ -1,6 +1,6 @@
 <?php
-/* if (!defined('BASE_PATH'))
-  exit('No direct script access allowed'); */
+if (!defined('BASE_PATH'))
+  exit('No direct script access allowed');
 $title = "เพิ่มข้อมูลการฝึกงานแบบกลุ่ม";
 $active = 'training';
 $school_id = $_SESSION['user']['school_id'];
@@ -75,12 +75,13 @@ if (isset($_POST['submit'])) {
                                                 </div>-->
                                 <input type="hidden" class="form-control" readonly="" id="school_id" placeholder="ชื่อสถานศึกษา" name="school_id" value="<?php set_var($school_id) ?>">
                                 <input type="hidden" class="form-control" id="citizen_id" name="citizen_id" value="<?php set_var($citizen_id) ?>">
-                                <div class="form-group"> 
-                                    <label class="control-label col-md-3" for="std_name">ชื่อนักศึกษา</label>
+                               <div class="form-group"> 
+                                    <label class="control-label col-md-3" for="students_id">รายการรหัสนักศึกษา</label>
                                     <div class="col-md-3 ">
-                                        <input type="text" class="form-control" id="std_name" placeholder="ชื่อนักศึกษา" name="std_name" value="<?php set_var($std_name) ?>">
+                                        <textarea class="form-control" rows="3" placeholder="รหัสนักศึกษา" name="students_id"></textarea>
                                     </div>
                                 </div>
+
                                 <input type="hidden" class="form-control" id="business_id"  name="business_id" value="<?php set_var($business_id) ?>">
                                 <div class="form-group"> 
                                     <label class="control-label col-md-3" for="business_name">ชื่อสถานประกอบการ</label>
@@ -121,6 +122,7 @@ if (isset($_POST['submit'])) {
                                 <!-- Date -->
                                <div class="form-group">
                                  <label class="control-label col-md-3" for="contract_date">วันที่ทำสัญญา</label>
+                                 <!--<label>วันที่ทำสัญญา : </label>-->
 
                                  <div class="input-group date col-md-2">
                                    <div class="input-group-addon">
@@ -131,10 +133,6 @@ if (isset($_POST['submit'])) {
                                  <!-- /.input group -->
                                </div>
                                <!-- /.form group -->
-<!--                                <div class="form-group"> 
-                                    <label class="control-label col-md-3" for="contract_date">วันที่ทำสัญญา</label>
-                                    <div class="col-md-4 "><input type="date" id="contract_date" name="contract_date" value="<?php set_var($contract_date) ?>"/></div>
-                                </div>-->
                                 <!-- Date -->
                                <div class="form-group">
                                  <label class="control-label col-md-3" for="start_date">วันเริ่มต้นการฝึก</label>
@@ -270,6 +268,22 @@ if (isset($_POST['submit'])) {
 
 </script> 
 <?php
+function get_student_list($data){
+    global $db;
+    $students = explode("\r\n", $data);
+    $list = implode(",", $students);
+//    $val = $group."%";
+    $query = "SELECT * FROM student WHERE student_id IN ($list)";
+    $result = mysqli_query($db, $query); 
+//    if(mysqli_num_rows($result)>0)
+//        return ;
+    $std_list = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $std_list[] = $row;
+    }
+    return $std_list;
+}
+
 
 function do_validate($data) {
     $valid = true;
@@ -278,10 +292,10 @@ function do_validate($data) {
 //        set_err('กรุณากรอกรหัสครูฝึก');
 //        $valid = false;
 //    }
-    if (check_pid($data['citizen_id']) && !preg_match('/[0-9]{13}/', $data['citizen_id'])) {
-        set_err('รหัสนักศึกษาไม่ถูกต้อง');
-        $valid = false;
-    }
+//    if (check_pid($data['citizen_id']) && !preg_match('/[0-9]{13}/', $data['citizen_id'])) {
+//        set_err('รหัสนักศึกษาไม่ถูกต้อง');
+//        $valid = false;
+//    }
     if (empty($data['business_id'])) {
         set_err('กรุณากรอกรหัสสถานประกอบการ');
         $valid = false;
@@ -312,29 +326,57 @@ function do_validate($data) {
 function do_insert($school_id) {
     global $db;
     $data = &$_POST;
-    foreach ((array)$data['trainer_id_list'] as $trainer_id) {
-        if (empty($trainer_id))
-            continue;
-//             do_insert($school_id,$trainer_id);
-//            var_dump($trainer_id);
-        $query = "INSERT INTO training ("
-                . "`training_id`,`citizen_id`,"
-                . "`business_id`,`school_id`,"
-                . "`minor_id`,`trainer_id`,"
-                . "`contract_date`,`start_date`,"
-                . "`end_date`)  "
-                . "VALUES "
-                . "(NULL," . pq($data['citizen_id']) . ","
-                . pq($data['business_id']) . "," . pq($school_id) . ","
-                . pq($data['minor_id']) . "," . pq($trainer_id) . ","
-                . pq($data['contract_date']) . "," . pq($data['start_date']) . ","
-                . pq($data['end_date']) . ")";
-        mysqli_query($db, $query);
-        if (mysqli_affected_rows($db) > 0) {
-            set_info('บันทึกข้อมูลเรียบร้อย');
-        } else {
-            set_err('บันทึกข้อมูลไม่สำเร็จ ' . mysqli_error($db));
+    $students = explode("\r\n", $data['students_id']);
+    $list = implode(",", $students);
+    $school_id = $_SESSION['school_id'];
+//    var_dump($list);
+    $query = "SELECT std_id,citizen_id FROM student WHERE school_id = ".pq($school_id)." AND std_id IN ($list)";
+    //" . pq($school_id) . "
+    var_dump($query);
+    $result = mysqli_query($db, $query); 
+//    if(mysqli_num_rows($result)>0)
+//        return ;
+    $data_list = array();
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data_list[] = $row['std_id'];
+        $pid_list[] = $row['citizen_id'];
+    }
+//    var_dump(count($data_list));
+//    $std_list = implode(",", $data_list);
+//    var_dump($pid_list);
+//    die();
+//    $query = "SELECT std_id FROM student WHERE std_id IN ";
+    if(count($pid_list)>0){
+        foreach ($pid_list as $pid) {
+//            echo "---",$value,"<br />";
+//        }
+//        var_dump($data_list);
+//        die();
+        foreach ((array)$data['trainer_id_list'] as $trainer_id) {
+            if (empty($trainer_id))
+                continue;
+    //             do_insert($school_id,$trainer_id);
+    //            var_dump($trainer_id);
+            $query = "INSERT INTO training ("
+                    . "`training_id`,`citizen_id`,"
+                    . "`business_id`,`school_id`,"
+                    . "`minor_id`,`trainer_id`,"
+                    . "`contract_date`,`start_date`,"
+                    . "`end_date`)  "
+                    . "VALUES "
+                    . "(NULL," . pq($pid) . ","
+                    . pq($data['business_id']) . "," . pq($school_id) . ","
+                    . pq($data['minor_id']) . "," . pq($trainer_id) . ","
+                    . pq($data['contract_date']) . "," . pq($data['start_date']) . ","
+                    . pq($data['end_date']) . ")";
+            mysqli_query($db, $query);
+            if (mysqli_affected_rows($db) > 0) {
+                set_info('บันทึกข้อมูลเรียบร้อย');
+            } else {
+                set_err('บันทึกข้อมูลไม่สำเร็จ ' . mysqli_error($db));
+            }
+        }
         }
     }
-    redirect('app/training/insert');
+    redirect('app/training/insert_group');
 }
