@@ -157,9 +157,9 @@ $menu = Array(
                 'cond' => is_school_staff(),
             ),
             'insert-group' => array(
-                'title' => 'เพิ่มข้อมูล',
+                'title' => 'เพิ่มข้อมูลแบบกลุ่ม',
                 'url' => 'app/training/insert_group',
-                'cond' => is_admin(),
+                'cond' => is_school_staff(),
             ),
             
             'edit' => array(
