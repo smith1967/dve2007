@@ -40,7 +40,15 @@ $school_id = $_SESSION['user']['school_id'];
 
                 <div class="box-body">
                     <div class="row">
+                        <input type="hidden" class="form-control" id="school_id"  name="school_id" value="<?php set_var($school_id) ?>">
                         <div class="form-group"> 
+                            <label class="control-label col-md-3" for="school_name">ชื่อสถานศึกษา</label>
+                            <div class="col-md-5">
+                                <input type="text" class="form-control" id="school_name" placeholder="ชื่อสถานศึกษา" name="school_name" value="<?php set_var($school_name) ?>">
+                                <button type="button" class="btn btn-block btn-primary" id="check_school_id">แสดงรายชื่อนักศึกษา</button>
+                            </div>
+                        </div>
+<!--                        <div class="form-group"> 
                             <label class="control-label col-md-3" for="school_id">เลือกสถานศึกษา</label>
                             <div class="col-md-5">
                                 <select class='form-control' id="school_id" name="school_id">
@@ -52,7 +60,7 @@ $school_id = $_SESSION['user']['school_id'];
                                 </select>      
                                 <button type="button" class="btn btn-block btn-primary" id="check_school_id">แสดงรายชื่อนักศึกษา</button>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="table-responsive row">
                         <table id="student_list" class="table table-bordered table-striped">
@@ -163,6 +171,24 @@ $school_id = $_SESSION['user']['school_id'];
         });            
     });
 </script>
+<script>
+   $(function() {
+
+      $( "#school_id" ).autocomplete({
+         source: "<?php echo SITE_URL ?>ajax/search_school.php",
+         minLength: 1
+      });
+      $("#school_name").autocomplete({
+            source: "<?php echo SITE_URL ?>ajax/search_school.php",
+            minLength: 2,
+            select: function (event, ui) {
+                $("#school_name").val(ui.item.label); // display the selected text
+                $("#school_id").val(ui.item.value); // save selected id to hidden input
+                return false;
+            },
+        });
+   });
+</script> 
 <?php
 
 function get_student($page = 0, $limit = 10,$school_id) {
