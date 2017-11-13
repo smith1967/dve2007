@@ -86,12 +86,7 @@ if (isset($_POST['submit'])) {
                                     </div>
                                     <p class="text-danger" id="business_id_error">*ยังไม่ได้เลือกสถานประกอบการครับ</p>
                                 </div>
-                                <!--                                <div class="form-group"> 
-                                                                    <label class="control-label col-md-3" for="school_id">รหัสสถานศึกษา</label>
-                                                                    <div class="col-md-3 ">
-                                                                        <input type="text" class="form-control" readonly="" id="school_id" placeholder="ชื่อสถานศึกษา" name="school_id" value="<?php set_var($school_id) ?>">
-                                                                    </div>
-                                                                </div>-->
+
                                 <div class="form-group">
                                     <label for="trainer_id_list" class="col-md-3 control-label">ครูฝึก</label>
                                     <div class="col-md-5">
@@ -145,8 +140,8 @@ if (isset($_POST['submit'])) {
                                      <i class="fa fa-calendar"></i>
                                    </div>
                                    <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="<?php set_var($end_date) ?>" />
-                                    <p class="text-danger" id="date_error">*เลือกวันเดือนปีให้ครบด้วยครับ</p>
                                  </div>
+                                 <div class="col-md-offset-3"><p class="text-danger" id="date_error">*เลือกวันเดือนปีให้ครบด้วยครับ</p> </div>
                                  <!-- /.input group -->
                                </div>
 

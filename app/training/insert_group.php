@@ -68,18 +68,15 @@ if (isset($_POST['submit'])) {
                         <!-- /.box-header -->
                         <!-- form start -->
                         <div class="box-body">
-                            <form method="post" class="form-horizontal" action=""> 
-                                <!--                <div class="form-group"> 
-                                                    <label class="control-label col-md-3" for="training_id">รหัสการฝึกอาชีพ</label>
-                                                    <div class="col-md-4 "><input type="text" class="form-control" id="training_id" name="training_id"></div>
-                                                </div>-->
+                            <form method="post" class="form-horizontal" id="training-group-form" action=""> 
                                 <input type="hidden" class="form-control" readonly="" id="school_id" placeholder="ชื่อสถานศึกษา" name="school_id" value="<?php set_var($school_id) ?>">
                                 <input type="hidden" class="form-control" id="citizen_id" name="citizen_id" value="<?php set_var($citizen_id) ?>">
                                <div class="form-group"> 
                                     <label class="control-label col-md-3" for="students_id">รายการรหัสนักศึกษา</label>
                                     <div class="col-md-3 ">
-                                        <textarea class="form-control" rows="3" placeholder="รหัสนักศึกษา" name="students_id"></textarea>
+                                        <textarea class="form-control" rows="3" placeholder="รหัสนักศึกษา" name="students_id" required="required"></textarea>
                                     </div>
+                                    <p class="text-danger" id="students_error">*ยังไม่มีรหัสนักศึกษาครับ</p>
                                 </div>
 
                                 <input type="hidden" class="form-control" id="business_id"  name="business_id" value="<?php set_var($business_id) ?>">
@@ -88,14 +85,9 @@ if (isset($_POST['submit'])) {
                                     <div class="col-md-5">
                                         <input type="text" class="form-control" id="business_name" placeholder="ชื่อสถานประกอบการ" name="business_name" value="<?php set_var($business_name) ?>">
                                     </div>
-                                    <h5 class="text-info">*กรุณาเลือกสถานประกอบการก่อนไปเลือกครูฝึก</h5>
+                                    <p class="text-danger" id="business_id_error">*ยังไม่ได้เลือกสถานประกอบการครับ</p>
                                 </div>
-                                <!--                                <div class="form-group"> 
-                                                                    <label class="control-label col-md-3" for="school_id">รหัสสถานศึกษา</label>
-                                                                    <div class="col-md-3 ">
-                                                                        <input type="text" class="form-control" readonly="" id="school_id" placeholder="ชื่อสถานศึกษา" name="school_id" value="<?php set_var($school_id) ?>">
-                                                                    </div>
-                                                                </div>-->
+
                                 <div class="form-group">
                                     <label for="trainer_id_list" class="col-md-3 control-label">ครูฝึก</label>
                                     <div class="col-md-5">
@@ -103,7 +95,8 @@ if (isset($_POST['submit'])) {
                                             <!--<option id="trainer_id_list"> -- กรุณาเลือกครูฝึก -- </option>-->
                                         </select>
                                     </div>
-                                    <h5 class="text-info">*ถ้าไม่พบครูฝึกกรุณาไปเพิ่มครูฝึกก่อนครับ</h5>
+                                    <p class="text-danger" id="trainer_id_error">*ยังไม่ได้เลือกครูฝึกหรือยังไม่มีครูฝึกครับ</p>
+                                    <!--<h5 class="text-info">*ถ้าไม่พบครูฝึกกรุณาไปเพิ่มครูฝึกก่อนครับ</h5>-->
                                 </div>                                
                                 <input type="hidden" class="form-control" id="minor_id" name="minor_id" value="<?php set_var($minor_id) ?>">
                                 <div class="form-group"> 
@@ -111,18 +104,11 @@ if (isset($_POST['submit'])) {
                                     <div class="col-md-4">
                                         <input type="text" class="form-control" id="minor_name" placeholder="ชื่อสาขางาน" name="minor_name" value="<?php set_var($minor_name) ?>">
                                     </div>
+                                    <p class="text-danger" id="minor_id_error">*ยังไม่ได้เลือกสาขางานครับ</p>
                                 </div>
-    <!--                            <input type="hidden" class="form-control" id="trainer_id" name="trainer_id" value="<?php set_var($trainer_id) ?>">
-                                <div class="form-group"> 
-                                    <label class="control-label col-md-3" for="trainer_name">ชื่อครูฝึก</label>
-                                    <div class="col-md-3 ">
-                                        <input type="text" class="form-control" id="trainer_name" placeholder="ชื่อครูฝึก" name="trainer_name" value="<?php set_var($trainer_name) ?>">
-                                    </div>
-                                </div>-->
-                                <!-- Date -->
+
                                <div class="form-group">
                                  <label class="control-label col-md-3" for="contract_date">วันที่ทำสัญญา</label>
-                                 <!--<label>วันที่ทำสัญญา : </label>-->
 
                                  <div class="input-group date col-md-2">
                                    <div class="input-group-addon">
@@ -133,6 +119,7 @@ if (isset($_POST['submit'])) {
                                  <!-- /.input group -->
                                </div>
                                <!-- /.form group -->
+
                                 <!-- Date -->
                                <div class="form-group">
                                  <label class="control-label col-md-3" for="start_date">วันเริ่มต้นการฝึก</label>
@@ -145,11 +132,7 @@ if (isset($_POST['submit'])) {
                                  </div>
                                  <!-- /.input group -->
                                </div>                                
-<!--                                <div class="form-group"> 
-                                    <label class="control-label col-md-3" for="start_date">วันที่เริ่มต้นการฝึก</label>
-                                    <div class="col-md-4 "><input type="date" id="start_date" name="start_date" value="<?php set_var($start_date) ?>"/></div>
-                                </div>-->
-                                <!-- Date -->
+
                                <div class="form-group">
                                  <label class="control-label col-md-3" for="end_date">วันที่สิ้นสุดการฝึก</label>
 
@@ -159,20 +142,13 @@ if (isset($_POST['submit'])) {
                                    </div>
                                    <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="<?php set_var($end_date) ?>" />
                                  </div>
+                                 <div class="col-md-offset-3"><p class="text-danger" id="date_error">*เลือกวันเดือนปีให้ครบด้วยครับ</p> </div>
                                  <!-- /.input group -->
                                </div>
-<!--                                <div class="form-group"> 
-                                    <label class="control-label col-md-3" for="end_date">วันที่สิ้นสุดการฝึก</label>
-                                    <div class="col-md-4 "><input type="date" id="end_date" name="end_date" value="<?php set_var($end_date) ?>"/></div>
-                                </div>-->
 
                                 <div class="box-footer">
                                     <div class="col-md-offset-3"><button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button></div>
                                 </div>
-
-                                <!--                                <div class="form-group"> 
-                                                                    <div class="col-md-offset-3"><button type="submit" class="btn btn-primary"name="submit">บันทึกข้อมูล</button></div>
-                                                                </div>-->
                             </form>
                         </div>
                         <!-- /.box-body -->
@@ -245,6 +221,64 @@ if (isset($_POST['submit'])) {
                 return false;
             }
         });
+        // Validate data
+//        $("#citizen_id_error").hide();
+        $("#business_id_error").hide();
+        $("#trainer_id_error").hide();
+        $("#minor_id_error").hide();
+        $("#date_error").hide();
+        $("#students_error").hide();
+        
+        $("#training-group-form").submit(function(event){
+//            alert("click submit")
+//            var valid_students_id = false
+//            if($.trim($('#students_id').val()) != ""){
+//                valid_students_id = true;
+//                $("#students_error").hide();
+//            }else{
+//                $("#students_error").show();
+//            }
+            var valid_business_id
+            if($('#business_id').val()!=""){
+                valid_business_id = true;
+                $("#business_id_error").hide();
+            }else{
+                $("#business_id_error").show();
+            }            
+            var valid_trainer_id = false;
+            $('#trainer_id_list option').each(function() {
+                if ($(this).prop("selected") == true) {
+//                   alert($(this).val() + " is selected");
+                   valid_trainer_id = true
+                } 
+            });
+            if(valid_trainer_id == false){               
+                $("#trainer_id_error").show();
+            }else{
+                $("#trainer_id_error").hide();
+            }
+            var valid_minor_id = false;
+            if($('#minor_id').val()!=""){
+                valid_minor_id = true;
+                $("#minor_id_error").hide();
+            }else{
+                $("#minor_id_error").show();
+            }   
+            var valid_date = false;
+            if($('#start_date').val()!="" && $('#end_date').val()!="" && $('#contract_date').val()!=""){
+                valid_date = true;
+                $("#date_error").hide();
+            }else{
+                $("#date_error").show();
+            }
+           if ( valid_business_id && valid_trainer_id && valid_minor_id && valid_date){
+//               alert("submit ok")
+               return ;
+            }           
+            event.preventDefault();
+        });
+        
+        
     });
     $(".select2-mulitple").select2();
     //ดึงข้อมูล province จากไฟล์ get_data.php
