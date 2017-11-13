@@ -68,11 +68,7 @@ if (isset($_POST['submit'])) {
                         <!-- /.box-header -->
                         <!-- form start -->
                         <div class="box-body">
-                            <form method="post" class="form-horizontal" action=""> 
-                                <!--                <div class="form-group"> 
-                                                    <label class="control-label col-md-3" for="training_id">รหัสการฝึกอาชีพ</label>
-                                                    <div class="col-md-4 "><input type="text" class="form-control" id="training_id" name="training_id"></div>
-                                                </div>-->
+                            <form method="post" class="form-horizontal" id="training-form" action=""> 
                                 <input type="hidden" class="form-control" readonly="" id="school_id" placeholder="ชื่อสถานศึกษา" name="school_id" value="<?php set_var($school_id) ?>">
                                 <input type="hidden" class="form-control" id="citizen_id" name="citizen_id" value="<?php set_var($citizen_id) ?>">
                                 <div class="form-group"> 
@@ -80,6 +76,7 @@ if (isset($_POST['submit'])) {
                                     <div class="col-md-3 ">
                                         <input type="text" class="form-control" id="std_name" placeholder="ชื่อนักศึกษา" name="std_name" value="<?php set_var($std_name) ?>">
                                     </div>
+                                    <p class="text-danger" id="citizen_id_error">*ยังไม่ได้เลือกนักศึกษาครับ</p>
                                 </div>
                                 <input type="hidden" class="form-control" id="business_id"  name="business_id" value="<?php set_var($business_id) ?>">
                                 <div class="form-group"> 
@@ -87,7 +84,7 @@ if (isset($_POST['submit'])) {
                                     <div class="col-md-5">
                                         <input type="text" class="form-control" id="business_name" placeholder="ชื่อสถานประกอบการ" name="business_name" value="<?php set_var($business_name) ?>">
                                     </div>
-                                    <h5 class="text-info">*กรุณาเลือกสถานประกอบการก่อนไปเลือกครูฝึก</h5>
+                                    <p class="text-danger" id="business_id_error">*ยังไม่ได้เลือกสถานประกอบการครับ</p>
                                 </div>
                                 <!--                                <div class="form-group"> 
                                                                     <label class="control-label col-md-3" for="school_id">รหัสสถานศึกษา</label>
@@ -102,7 +99,8 @@ if (isset($_POST['submit'])) {
                                             <!--<option id="trainer_id_list"> -- กรุณาเลือกครูฝึก -- </option>-->
                                         </select>
                                     </div>
-                                    <h5 class="text-info">*ถ้าไม่พบครูฝึกกรุณาไปเพิ่มครูฝึกก่อนครับ</h5>
+                                    <p class="text-danger" id="trainer_id_error">*ยังไม่ได้เลือกครูฝึกหรือยังไม่มีครูฝึกครับ</p>
+                                    <!--<h5 class="text-info">*ถ้าไม่พบครูฝึกกรุณาไปเพิ่มครูฝึกก่อนครับ</h5>-->
                                 </div>                                
                                 <input type="hidden" class="form-control" id="minor_id" name="minor_id" value="<?php set_var($minor_id) ?>">
                                 <div class="form-group"> 
@@ -110,6 +108,7 @@ if (isset($_POST['submit'])) {
                                     <div class="col-md-4">
                                         <input type="text" class="form-control" id="minor_name" placeholder="ชื่อสาขางาน" name="minor_name" value="<?php set_var($minor_name) ?>">
                                     </div>
+                                    <p class="text-danger" id="minor_id_error">*ยังไม่ได้เลือกสาขางานครับ</p>
                                 </div>
     <!--                            <input type="hidden" class="form-control" id="trainer_id" name="trainer_id" value="<?php set_var($trainer_id) ?>">
                                 <div class="form-group"> 
@@ -169,7 +168,7 @@ if (isset($_POST['submit'])) {
                                 </div>-->
 
                                 <div class="box-footer">
-                                    <div class="col-md-offset-3"><button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button></div>
+                                    <div class="col-md-offset-3"><button type="button" class="btn btn-primary" id="submit" name="submit">บันทึกข้อมูล</button></div>
                                 </div>
 
                                 <!--                                <div class="form-group"> 
@@ -193,7 +192,7 @@ if (isset($_POST['submit'])) {
 <?php require_once 'template/footer.php'; ?>
 <script>
     $(function () {
-        //Date picker
+        //Date picker        
         $('#start_date').datepicker({
             format: "yyyy/mm/dd",
             language: "th",
@@ -247,6 +246,52 @@ if (isset($_POST['submit'])) {
                 return false;
             }
         });
+        // Validate data
+        $("#citizen_id_error").hide();
+        $("#business_id_error").hide();
+        $("#trainer_id_error").hide();
+
+        $('#submit').click(function(){
+            var valid_citizen_id = false
+            if($('#citizen_id').val()!=""){
+                valid_citizen_id = true;
+                $("#citizen_id_error").hide();
+            }else{
+                $("#citizen_id_error").show();
+            }
+            var valid_business_id
+            if($('#business_id').val()!=""){
+                valid_business_id = true;
+                $("#business_id_error").hide();
+            }else{
+                $("#business_id_error").show();
+            }            
+            var valid_trainer_id = false;
+            $('#trainer_id_list option').each(function() {
+                if ($(this).prop("selected") == true) {
+//                   alert($(this).val() + " is selected");
+                   valid_trainer_id = true
+                } 
+            });
+            if(valid_trainer_id == false){               
+                $("#trainer_id_error").show();
+            }
+            var valid_minor_id = false;
+            if($('#minor_id').val()!=""){
+                valid_minor_id = true;
+                $("#minor_id_error").hide();
+            }else{
+                $("#minor_id_error").show();
+            }         
+           if (valid_citizen_id && valid_business_id && valid_trainer_id){
+               alert("submit")
+                $('form').submit();
+            }else{
+                alert("Fail")
+                return false;
+            }
+        })
+
     });
     $(".select2-mulitple").select2();
     //ดึงข้อมูล province จากไฟล์ get_data.php
