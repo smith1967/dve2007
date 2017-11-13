@@ -110,14 +110,7 @@ if (isset($_POST['submit'])) {
                                     </div>
                                     <p class="text-danger" id="minor_id_error">*ยังไม่ได้เลือกสาขางานครับ</p>
                                 </div>
-    <!--                            <input type="hidden" class="form-control" id="trainer_id" name="trainer_id" value="<?php set_var($trainer_id) ?>">
-                                <div class="form-group"> 
-                                    <label class="control-label col-md-3" for="trainer_name">ชื่อครูฝึก</label>
-                                    <div class="col-md-3 ">
-                                        <input type="text" class="form-control" id="trainer_name" placeholder="ชื่อครูฝึก" name="trainer_name" value="<?php set_var($trainer_name) ?>">
-                                    </div>
-                                </div>-->
-                                <!-- Date -->
+
                                <div class="form-group">
                                  <label class="control-label col-md-3" for="contract_date">วันที่ทำสัญญา</label>
 
@@ -130,10 +123,7 @@ if (isset($_POST['submit'])) {
                                  <!-- /.input group -->
                                </div>
                                <!-- /.form group -->
-<!--                                <div class="form-group"> 
-                                    <label class="control-label col-md-3" for="contract_date">วันที่ทำสัญญา</label>
-                                    <div class="col-md-4 "><input type="date" id="contract_date" name="contract_date" value="<?php set_var($contract_date) ?>"/></div>
-                                </div>-->
+
                                 <!-- Date -->
                                <div class="form-group">
                                  <label class="control-label col-md-3" for="start_date">วันเริ่มต้นการฝึก</label>
@@ -146,11 +136,7 @@ if (isset($_POST['submit'])) {
                                  </div>
                                  <!-- /.input group -->
                                </div>                                
-<!--                                <div class="form-group"> 
-                                    <label class="control-label col-md-3" for="start_date">วันที่เริ่มต้นการฝึก</label>
-                                    <div class="col-md-4 "><input type="date" id="start_date" name="start_date" value="<?php set_var($start_date) ?>"/></div>
-                                </div>-->
-                                <!-- Date -->
+
                                <div class="form-group">
                                  <label class="control-label col-md-3" for="end_date">วันที่สิ้นสุดการฝึก</label>
 
@@ -159,21 +145,15 @@ if (isset($_POST['submit'])) {
                                      <i class="fa fa-calendar"></i>
                                    </div>
                                    <input type="text" class="form-control pull-right" id="end_date" name="end_date" value="<?php set_var($end_date) ?>" />
+                                    <p class="text-danger" id="date_error">*เลือกวันเดือนปีให้ครบด้วยครับ</p>
                                  </div>
                                  <!-- /.input group -->
                                </div>
-<!--                                <div class="form-group"> 
-                                    <label class="control-label col-md-3" for="end_date">วันที่สิ้นสุดการฝึก</label>
-                                    <div class="col-md-4 "><input type="date" id="end_date" name="end_date" value="<?php set_var($end_date) ?>"/></div>
-                                </div>-->
 
                                 <div class="box-footer">
-                                    <div class="col-md-offset-3"><button type="button" class="btn btn-primary" id="submit" name="submit">บันทึกข้อมูล</button></div>
+                                    <div class="col-md-offset-3"><button type="submit" class="btn btn-primary" name="submit">บันทึกข้อมูล</button></div>
                                 </div>
 
-                                <!--                                <div class="form-group"> 
-                                                                    <div class="col-md-offset-3"><button type="submit" class="btn btn-primary"name="submit">บันทึกข้อมูล</button></div>
-                                                                </div>-->
                             </form>
                         </div>
                         <!-- /.box-body -->
@@ -250,8 +230,10 @@ if (isset($_POST['submit'])) {
         $("#citizen_id_error").hide();
         $("#business_id_error").hide();
         $("#trainer_id_error").hide();
-
-        $('#submit').click(function(){
+        $("#minor_id_error").hide();
+        $("#date_error").hide();
+        
+        $("#training-form").submit(function(event){
             var valid_citizen_id = false
             if($('#citizen_id').val()!=""){
                 valid_citizen_id = true;
@@ -282,16 +264,20 @@ if (isset($_POST['submit'])) {
                 $("#minor_id_error").hide();
             }else{
                 $("#minor_id_error").show();
-            }         
-           if (valid_citizen_id && valid_business_id && valid_trainer_id){
-               alert("submit")
-                $('form').submit();
+            }   
+            var valid_date = false;
+            if($('#start_date').val()!="" && $('#end_date').val()!="" && $('#contract_date').val()!=""){
+                valid_date = true;
+                $("#date_error").hide();
             }else{
-                alert("Fail")
-                return false;
+                $("#date_error").show();
             }
-        })
-
+           if (valid_citizen_id && valid_business_id && valid_trainer_id && valid_minor_id && valid_date){
+//               alert("submit ok")
+               return ;
+            }           
+            event.preventDefault();
+        });
     });
     $(".select2-mulitple").select2();
     //ดึงข้อมูล province จากไฟล์ get_data.php
