@@ -45,6 +45,23 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
+                    <row class="row">
+                        <div class="form-group"> 
+                            <label class="control-label col-md-3" for="zone_id">เลือกภาค</label>
+                            <div class="col-md-5">
+                                <select class='form-control' id="zone_id" name="zone_id">
+                                    <option>กรุณาเลือกภาค</option>
+                                    <option value="%">เลือกทั้งหมด</option>
+                                    <?php
+                                    $def = isset($znoe_id) ? $zone_id : '';
+                                    $sql = "SELECT zone_id,zoneName FROM zone ORDER BY zone_id ASC";
+                                    echo gen_option($sql, $def)
+                                    ?>
+                                </select>      
+                                <button type="button" class="btn btn-block btn-primary" id="check_zone_id">แสดงรายชื่อสถานประกอบการ</button>
+                            </div>
+                        </div>     
+                </div>
                     <div class="table-responsive">
                         <table id="business_list" class="table table-bordered table-striped">
                             <thead>
@@ -107,42 +124,56 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 </script>
 <script>
     $(document).ready(function () {
-        $('#business_list').DataTable({
-            "paging": true,
-            "lengthChange": true,
-            "searching": true,
-            "ordering": true,
-            "info": true,
-            "responsive": true,
-            "autoWidth": false,
-            "pageLength": 10,
-            "ajax": {
-                "url": "ajax/get_business.php",
-                "type": "POST"
-            },
-            "columns": [
-                {"data": "business_id"},
-                {"data": "business_name"},
-                {"data": "province_name"},
-                {"data": "trainers"},               
-//        { "data": "gender" },
-//        { "data": "country" },
-//        { "data": "phone" },
-                {"data": "button"},
-            ],
-            "language": {
-                "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
-                "zeroRecords": "ไม่มีข้อมูล",
-                "info": "กำลังแสดงข้อมูล _START_ ถึง _END_ จาก _TOTAL_ รายการ",
-                "search": "ค้นหา:",
-                "infoEmpty": "ไม่มีข้อมูลแสดง",
-                "infoFiltered": "(ค้นหาจาก _MAX_ total records)",
-                "paginate": {
-                    "first": "หน้าแรก",
-                    "last": "หน้าสุดท้าย",
-                    "next": "หน้าต่อไป",
-                    "previous": "หน้าก่อน"
+        $('#check_zone_id').click(function (){
+            if($('#zone_id').val()!=""){
+                var url;
+                if($('#zone_id').val()=='%'){
+                    url="ajax/get_business.php"
+                }else{
+                    url="ajax/get_business_zone.php"
                 }
+                $('#business_list').DataTable({
+                    "destroy": true,
+                    "paging": true,
+                    "lengthChange": true,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "responsive": true,
+                    "autoWidth": false,
+                    "pageLength": 10,
+                    "ajax": {
+                        "url": url,
+                        "type": "POST",
+                        "data": function ( d ) {
+                            d.zone_id = $('#zone_id').val();
+                        }
+                    },
+                    "columns": [
+                        {"data": "business_id"},
+                        {"data": "business_name"},
+                        {"data": "province_name"},
+                        {"data": "trainers"},               
+        //        { "data": "gender" },
+        //        { "data": "country" },
+        //        { "data": "phone" },
+                        {"data": "button"},
+                    ],
+                    "language": {
+                        "lengthMenu": "แสดง _MENU_ แถวต่อหน้า",
+                        "zeroRecords": "ไม่มีข้อมูล",
+                        "info": "กำลังแสดงข้อมูล _START_ ถึง _END_ จาก _TOTAL_ รายการ",
+                        "search": "ค้นหา:",
+                        "infoEmpty": "ไม่มีข้อมูลแสดง",
+                        "infoFiltered": "(ค้นหาจาก _MAX_ total records)",
+                        "paginate": {
+                            "first": "หน้าแรก",
+                            "last": "หน้าสุดท้าย",
+                            "next": "หน้าต่อไป",
+                            "previous": "หน้าก่อน"
+                        }
+                    }
+                });
             }
         });
     });

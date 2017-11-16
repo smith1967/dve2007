@@ -74,7 +74,7 @@ if (isset($_POST['submit'])) {
                                <div class="form-group"> 
                                     <label class="control-label col-md-3" for="students_id">รายการรหัสนักศึกษา</label>
                                     <div class="col-md-3 ">
-                                        <textarea class="form-control" rows="3" placeholder="รหัสนักศึกษา" name="students_id" required="required"></textarea>
+                                        <textarea class="form-control" rows="3" placeholder="รหัสนักศึกษา" id="students_id" name="students_id" ></textarea>
                                     </div>
                                     <p class="text-danger" id="students_error">*ยังไม่มีรหัสนักศึกษาครับ</p>
                                 </div>
@@ -238,6 +238,18 @@ if (isset($_POST['submit'])) {
 //            }else{
 //                $("#students_error").show();
 //            }
+            var valid_students_id = false
+            $('#students_id').each(function() {                   
+              if ($.trim($(this).val())) {
+                 valid_students_id = true;                 
+              }
+            });
+            if(valid_students_id){
+                $("#students_error").hide();
+            }else{
+                $("#students_error").show();
+            }
+                
             var valid_business_id
             if($('#business_id').val()!=""){
                 valid_business_id = true;
@@ -271,7 +283,7 @@ if (isset($_POST['submit'])) {
             }else{
                 $("#date_error").show();
             }
-           if ( valid_business_id && valid_trainer_id && valid_minor_id && valid_date){
+           if (valid_students_id && valid_business_id && valid_trainer_id && valid_minor_id && valid_date){
 //               alert("submit ok")
                return ;
             }           
